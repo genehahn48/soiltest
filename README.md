@@ -2,12 +2,12 @@
 Final masters project for New Maps Plus program at the University of Kentucky.
 
 ## TOC
-- [Topic](#topic)
-- [Question](#question)
-- [Significance](#significance)
+1. [Topic](#topic)
+2. [Question](#question)
+3. [Significance](#significance)
 
-## Topic
+## 1. Topic
 
-## Question
+## 2. Question
 
-## Significance
+## 3. Significance
