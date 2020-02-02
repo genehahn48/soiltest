@@ -28,12 +28,11 @@ The significance of the map will help determine if the nutrients are being used 
     * County boundary simplified 15.0% and export as GeoJSON file
 
 ## Data
+1. University of Kentucky [AGR-1 Lime and Nutrient Recommendations](http://www2.ca.uky.edu/agcomm/pubs/agr/agr1/agr1.pdf)
 
-University of Kentucky [AGR-1 Lime and Nutrient Recommendations](http://www2.ca.uky.edu/agcomm/pubs/agr/agr1/agr1.pdf)
+2. [University of Kentucky Soil Testing Lab](http://www.rs.uky.edu/soil/) private
 
-[University of Kentucky Soil Testing Lab](http://www.rs.uky.edu/soil/) private
-
-Kentucky's State, Counties, and Regions download from [Kentucky Geological Survey](https://www.uky.edu/KGS/gis/bounds.htm)<br />
-Metadata:
+3. Kentucky's State, Counties, and Regions download from [Kentucky Geological Survey](https://www.uky.edu/KGS/gis/bounds.htm)<br />
+    Metadata:
     *  [State KY](https://www.uky.edu/KGS/gis/ky.htm)
     *  [Regions of Kentucky](https://www.uky.edu/KGS/gis/regions.htm)
