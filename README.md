@@ -15,7 +15,7 @@ Final masters project for New Maps Plus program at the University of Kentucky.
 
 
 
-## 2. Question
+## Question
 
 
 
