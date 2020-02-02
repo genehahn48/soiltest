@@ -5,6 +5,7 @@ Final masters project for New Maps Plus program at the University of Kentucky.
 - [Topic](#topic)
 - [Questions](#questions)
 - [Significance](#significance)
+- [Methods](#Methods)
 - [Data](#data)
 
 ## Topic
@@ -22,6 +23,10 @@ Final masters project for New Maps Plus program at the University of Kentucky.
 ## Significance
 The significance of the map will help determine if the nutrients are being used efficiently and show that Kentucky is doing it's part in curbing pollution runoff with excessive nutrient application. Also determine if AGR-1 recommendations may need to be updated due to higher yielding hybrid seed.
 
+## Methods
+1. Boundary files simplified with [mapshaper](https://mapshaper.org/)
+    * County boundary simplified 15.0% and export as GeoJSON file
+
 ## Data
 
 University of Kentucky [AGR-1 Lime and Nutrient Recommendations](http://www2.ca.uky.edu/agcomm/pubs/agr/agr1/agr1.pdf)
@@ -29,3 +34,6 @@ University of Kentucky [AGR-1 Lime and Nutrient Recommendations](http://www2.ca.
 [University of Kentucky Soil Testing Lab](http://www.rs.uky.edu/soil/) private
 
 Kentucky's State, Counties, and Regions download from [Kentucky Geological Survey](https://www.uky.edu/KGS/gis/bounds.htm)
+    - Metadata
+        -  [State KY](https://www.uky.edu/KGS/gis/ky.htm)
+        -  [Regions of Kentucky](https://www.uky.edu/KGS/gis/regions.htm)
