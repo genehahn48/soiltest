@@ -27,3 +27,7 @@ The significance of the map will help determine if the nutrients are being used 
 University of Kentucky [AGR-1 Lime and Nutrient Recommendations](http://www2.ca.uky.edu/agcomm/pubs/agr/agr1/agr1.pdf)
 
 University of Kentucky Soil Testing Lab private
+
+Kentucky's State, Counties, and Regions download from [Kentucky Geological Survey](https://www.uky.edu/KGS/gis/bounds.htm)
+
+ 
