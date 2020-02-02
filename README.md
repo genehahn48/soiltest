@@ -34,7 +34,6 @@ University of Kentucky [AGR-1 Lime and Nutrient Recommendations](http://www2.ca.
 [University of Kentucky Soil Testing Lab](http://www.rs.uky.edu/soil/) private
 
 Kentucky's State, Counties, and Regions download from [Kentucky Geological Survey](https://www.uky.edu/KGS/gis/bounds.htm)
-
-    - Metadata
-        -  [State KY](https://www.uky.edu/KGS/gis/ky.htm)
-        -  [Regions of Kentucky](https://www.uky.edu/KGS/gis/regions.htm)
+- Metadata
+-  [State KY](https://www.uky.edu/KGS/gis/ky.htm)
+-  [Regions of Kentucky](https://www.uky.edu/KGS/gis/regions.htm)
