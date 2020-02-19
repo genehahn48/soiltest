@@ -5,7 +5,7 @@ Masters project for New Maps Plus program at the University of Kentucky.
 - [Topic](#topic)
 - [Questions](#questions)
 - [Significance](#significance)
-- [Literature Review](#literature review)
+- [Literature Review](#literature)
 - [Methods](#methods)
 - [Data References](#data references)
 
