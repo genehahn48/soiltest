@@ -5,9 +5,9 @@ Masters project for New Maps Plus program at the University of Kentucky.
 - [Topic](#topic)
 - [Questions](#questions)
 - [Significance](#significance)
-- [Literature Review](#literaturereview)
+- [Literature Review](#literature review)
 - [Methods](#methods)
-- [Data References](#datareferences)
+- [Data References](#data references)
 
 ## Topic
 1. Design a map using Kentucky soil test data showing nutrient trend in phosphorus(P) and potassium(K) by county from 1990 to 2019.
