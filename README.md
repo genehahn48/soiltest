@@ -7,6 +7,7 @@ Masters project for New Maps Plus program at the University of Kentucky.
 - [Significance](#significance)
 - [Literature Review](#literature_review)
 - [Methods](#methods)
+- [Packages](#packages)
 - [Data References](#data_references)
 
 ## Topic
@@ -45,6 +46,12 @@ The significance of the map will help determine if the nutrients are being used 
     - some data overlaps more than one category example: wheat/soybeans
 1. Boundary files simplified with [mapshaper](https://mapshaper.org/)
     * County boundary simplified 15.0% and export as GeoJSON file
+
+## Packages
+Installed python packages with conda
+1. jupyter
+2. pandas
+3. pyodbc
 
 ## Data_References
 1. University of Kentucky [AGR-1 Lime and Nutrient Recommendations](http://www2.ca.uky.edu/agcomm/pubs/agr/agr1/agr1.pdf)
