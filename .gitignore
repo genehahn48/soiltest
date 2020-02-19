@@ -3,3 +3,8 @@
 
 # Large files
 data/GrandDataBase_justdata1.accdb
+
+# Notebook files
+.ipynb_checkpoints
+__pycache__
+.env
