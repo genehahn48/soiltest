@@ -120,6 +120,55 @@ df_sorghum_k.to_csv(file_out_k, index=False)  # output to csv
 print ('total number of records written to CSV:','{:,}'.format(len(df_sorghum_p)),'\n')
 print ('total number of records written to CSV:','{:,}'.format(len(df_sorghum_k)),'\n')
 
+
+
+<!-- small grain -->
+<!-- 'Barley' , 'Barley/Soybeans', 'Grain Crops (multiple)','Oats','Oats/Soybeans', 'Rye/Soybeans', 'Small Grains', 'Small Grains/Corn', 'Small Grains/Soybeans', 'Triticale', 'Triticale/Soybeans', 'Wheat', 'Wheat/Corn', 'Wheat/Soybeans'
+ -->
+smallgrains_sel = ['Barley' , 'Barley/Soybeans', 'Grain Crops (multiple)','Oats','Oats/Soybeans', 'Rye/Soybeans', 'Small Grains', 'Small Grains/Corn', 'Small Grains/Soybeans', 'Triticale', 'Triticale/Soybeans', 'Wheat', 'Wheat/Corn', 'Wheat/Soybeans']
+smallgrains_sel.sort()
+print(smallgrains_sel)
+
+df_smallgrains = df[df.CROP.isin(smallgrains_sel)]
+df_smallgrains_nu = df_smallgrains[['FIPS_NO','COUNTY','YEAR','P','K']].copy()
+print(df_smallgrains_nu.head())
+
+df_smallgrains_nu['CAT_P'] = ''
+df_smallgrains_nu['CAT_P'] = np.where(df_smallgrains_nu.P < 10, 'VL', df_smallgrains_nu.CAT_P)
+df_smallgrains_nu['CAT_P'] = np.where(((df_smallgrains_nu.P > 10) & (df_smallgrains_nu.P <= 30)), 'L', df_smallgrains_nu.CAT_P)
+df_smallgrains_nu['CAT_P'] = np.where(((df_smallgrains_nu.P > 30) & (df_smallgrains_nu.P <= 60)), 'M', df_smallgrains_nu.CAT_P)
+df_smallgrains_nu['CAT_P'] = np.where((df_smallgrains_nu.P > 60), 'H', df_smallgrains_nu.CAT_P)
+
+df_smallgrains_nu['CAT_K'] = ''
+df_smallgrains_nu['CAT_K'] = np.where(df_smallgrains_nu.K < 104, 'VL', df_smallgrains_nu.CAT_K)
+df_smallgrains_nu['CAT_K'] = np.where(((df_smallgrains_nu.K >= 104) & (df_smallgrains_nu.K <= 186)), 'L', df_smallgrains_nu.CAT_K)
+df_smallgrains_nu['CAT_K'] = np.where(((df_smallgrains_nu.K > 186) & (df_smallgrains_nu.K <= 300)), 'M', df_smallgrains_nu.CAT_K)
+df_smallgrains_nu['CAT_K'] = np.where((df_smallgrains_nu.K > 300), 'H', df_smallgrains_nu.CAT_K)
+
+warnings.filterwarnings("ignore")
+df_smallgrains_p = np.round( df_smallgrains_nu.pivot_table(index='COUNTY', columns=['YEAR', 'CAT_P'], values=['P'],aggfunc=(np.average,len),fill_value=0),2)
+df_smallgrains_k = np.round( df_smallgrains_nu.pivot_table(index='COUNTY', columns=['YEAR', 'CAT_K'], values=['K'],aggfunc=(np.average,len),fill_value=0),2)
+
+df_smallgrains_p.columns
+df_smallgrains_k.columns
+df_smallgrains_p.columns = list(map("_".join,df_smallgrains_p.columns))
+df_smallgrains_k.columns = list(map("_".join,df_smallgrains_k.columns))
+df_smallgrains_p.columns = df_smallgrains_p.columns.str.replace("P_average_", "")
+df_smallgrains_p.columns = df_smallgrains_p.columns.str.replace("P_len", "count")
+df_smallgrains_k.columns = df_smallgrains_k.columns.str.replace("K_average_","")
+df_smallgrains_k.columns = df_smallgrains_k.columns.str.replace("K_len","count")
+df_smallgrains_p = df_smallgrains_p.reset_index()
+df_smallgrains_k = df_smallgrains_k.reset_index()
+file_out_p = fileOut.joinpath('smallgrains_p_levels.csv')  # path and filename
+df_smallgrains_p.to_csv(file_out_p, index=False)  # output to csv
+file_out_k = fileOut.joinpath('smallgrains_k_levels.csv')  # path and filename
+df_smallgrains_k.to_csv(file_out_k, index=False)  # output to csv
+print ('total number of records written to CSV:','{:,}'.format(len(df_smallgrains_p)),'\n')
+print ('total number of records written to CSV:','{:,}'.format(len(df_smallgrains_k)),'\n')
+
+
+
+
 <!-- tobacco -->
 <!-- 'Burley Tobacco', 'Dark Tobacco' -->
 tobacco_sel = ['Burley Tobacco', 'Dark Tobacco']
