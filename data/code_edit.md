@@ -180,17 +180,17 @@ df_tobacco_nu = df_tobacco[['FIPS_NO','COUNTY','YEAR','P','K']].copy()
 print(df_tobacco_nu.head())
 
 df_tobacco_nu['CAT_P'] = ''
-df_tobacco_nu['CAT_P'] = np.where(df_tobacco_nu.P < 6, 'VL', df_tobacco_nu.CAT_P)
-df_tobacco_nu['CAT_P'] = np.where(((df_tobacco_nu.P >= 6) & (df_tobacco_nu.P <= 27)), 'L', df_tobacco_nu.CAT_P)
-df_tobacco_nu['CAT_P'] = np.where(((df_tobacco_nu.P > 27) & (df_tobacco_nu.P <= 60)), 'M', df_tobacco_nu.CAT_P)
-df_tobacco_nu['CAT_P'] = np.where((df_tobacco_nu.P > 60), 'H', df_tobacco_nu.CAT_P)
-
+df_tobacco_nu['CAT_P'] = np.where(df_tobacco_nu.P < 7, 'VL', df_tobacco_nu.CAT_P)
+df_tobacco_nu['CAT_P'] = np.where(((df_tobacco_nu.P >= 7) & (df_tobacco_nu.P <= 28)), 'L', df_tobacco_nu.CAT_P)
+df_tobacco_nu['CAT_P'] = np.where(((df_tobacco_nu.P > 28) & (df_tobacco_nu.P <= 57)), 'M', df_tobacco_nu.CAT_P)
+df_tobacco_nu['CAT_P'] = np.where(((df_tobacco_nu.P > 57) &  (df_tobacco_nu.P <= 79)), 'H', df_tobacco_nu.CAT_P)
+df_tobacco_nu['CAT_P'] = np.where(df_tobacco_nu.P > 80, 'VH', df_tobacco_nu.CAT_P)
 df_tobacco_nu['CAT_K'] = ''
-df_tobacco_nu['CAT_K'] = np.where(df_tobacco_nu.K < 100, 'VL', df_tobacco_nu.CAT_K)
-df_tobacco_nu['CAT_K'] = np.where(((df_tobacco_nu.K >= 100) & (df_tobacco_nu.K <= 190)), 'L', df_tobacco_nu.CAT_K)
-df_tobacco_nu['CAT_K'] = np.where(((df_tobacco_nu.K > 190) & (df_tobacco_nu.K <= 300)), 'M', df_tobacco_nu.CAT_K)
-df_tobacco_nu['CAT_K'] = np.where((df_tobacco_nu.K > 300), 'H', df_tobacco_nu.CAT_K)
-
+df_tobacco_nu['CAT_K'] = np.where(df_tobacco_nu.K < 96, 'VL', df_tobacco_nu.CAT_K)
+df_tobacco_nu['CAT_K'] = np.where(((df_tobacco_nu.K >= 96) & (df_tobacco_nu.K <= 205)), 'L', df_tobacco_nu.CAT_K)
+df_tobacco_nu['CAT_K'] = np.where(((df_tobacco_nu.K > 205) & (df_tobacco_nu.K <= 303)), 'M', df_tobacco_nu.CAT_K)
+df_tobacco_nu['CAT_K'] = np.where(((df_tobacco_nu.K > 303) & (df_tobacco_nu.K <= 449)), 'H', df_tobacco_nu.CAT_K)
+df_tobacco_nu['CAT_K'] = np.where(df_tobacco_nu.K > 450, 'VH', df_tobacco_nu.CAT_K)
 warnings.filterwarnings("ignore")
 df_tobacco_p = np.round( df_tobacco_nu.pivot_table(index='COUNTY', columns=['YEAR', 'CAT_P'], values=['P'],aggfunc=(np.average,len),fill_value=0),2)
 df_tobacco_k = np.round( df_tobacco_nu.pivot_table(index='COUNTY', columns=['YEAR', 'CAT_K'], values=['K'],aggfunc=(np.average,len),fill_value=0),2)
