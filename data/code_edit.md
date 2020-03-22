@@ -121,3 +121,44 @@ print ('total number of records written to CSV:','{:,}'.format(len(df_sorghum_p)
 print ('total number of records written to CSV:','{:,}'.format(len(df_sorghum_k)),'\n')
 
 <!-- tobacco -->
+<!-- 'Burley Tobacco', 'Dark Tobacco' -->
+tobacco_sel = ['Burley Tobacco', 'Dark Tobacco']
+tobacco_sel.sort()
+print(tobacco_sel)
+
+df_tobacco = df[df.CROP.isin(tobacco_sel)]
+df_tobacco_nu = df_tobacco[['FIPS_NO','COUNTY','YEAR','P','K']].copy()
+print(df_tobacco_nu.head())
+
+df_tobacco_nu['CAT_P'] = ''
+df_tobacco_nu['CAT_P'] = np.where(df_tobacco_nu.P < 6, 'VL', df_tobacco_nu.CAT_P)
+df_tobacco_nu['CAT_P'] = np.where(((df_tobacco_nu.P >= 6) & (df_tobacco_nu.P <= 27)), 'L', df_tobacco_nu.CAT_P)
+df_tobacco_nu['CAT_P'] = np.where(((df_tobacco_nu.P > 27) & (df_tobacco_nu.P <= 60)), 'M', df_tobacco_nu.CAT_P)
+df_tobacco_nu['CAT_P'] = np.where((df_tobacco_nu.P > 60), 'H', df_tobacco_nu.CAT_P)
+
+df_tobacco_nu['CAT_K'] = ''
+df_tobacco_nu['CAT_K'] = np.where(df_tobacco_nu.K < 100, 'VL', df_tobacco_nu.CAT_K)
+df_tobacco_nu['CAT_K'] = np.where(((df_tobacco_nu.K >= 100) & (df_tobacco_nu.K <= 190)), 'L', df_tobacco_nu.CAT_K)
+df_tobacco_nu['CAT_K'] = np.where(((df_tobacco_nu.K > 190) & (df_tobacco_nu.K <= 300)), 'M', df_tobacco_nu.CAT_K)
+df_tobacco_nu['CAT_K'] = np.where((df_tobacco_nu.K > 300), 'H', df_tobacco_nu.CAT_K)
+
+warnings.filterwarnings("ignore")
+df_tobacco_p = np.round( df_tobacco_nu.pivot_table(index='COUNTY', columns=['YEAR', 'CAT_P'], values=['P'],aggfunc=(np.average,len),fill_value=0),2)
+df_tobacco_k = np.round( df_tobacco_nu.pivot_table(index='COUNTY', columns=['YEAR', 'CAT_K'], values=['K'],aggfunc=(np.average,len),fill_value=0),2)
+
+df_tobacco_p.columns
+df_tobacco_k.columns
+df_tobacco_p.columns = list(map("_".join,df_tobacco_p.columns))
+df_tobacco_k.columns = list(map("_".join,df_tobacco_k.columns))
+df_tobacco_p.columns = df_tobacco_p.columns.str.replace("P_average_", "")
+df_tobacco_p.columns = df_tobacco_p.columns.str.replace("P_len", "count")
+df_tobacco_k.columns = df_tobacco_k.columns.str.replace("K_average_","")
+df_tobacco_k.columns = df_tobacco_k.columns.str.replace("K_len","count")
+df_tobacco_p = df_tobacco_p.reset_index()
+df_tobacco_k = df_tobacco_k.reset_index()
+file_out_p = fileOut.joinpath('tobacco_p_levels.csv')  # path and filename
+df_tobacco_p.to_csv(file_out_p, index=False)  # output to csv
+file_out_k = fileOut.joinpath('tobacco_k_levels.csv')  # path and filename
+df_tobacco_k.to_csv(file_out_k, index=False)  # output to csv
+print ('total number of records written to CSV:','{:,}'.format(len(df_tobacco_p)),'\n')
+print ('total number of records written to CSV:','{:,}'.format(len(df_tobacco_k)),'\n')
