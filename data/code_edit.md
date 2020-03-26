@@ -211,3 +211,136 @@ file_out_k = fileOut.joinpath('tobacco_k_levels.csv')  # path and filename
 df_tobacco_k.to_csv(file_out_k, index=False)  # output to csv
 print ('total number of records written to CSV:','{:,}'.format(len(df_tobacco_p)),'\n')
 print ('total number of records written to CSV:','{:,}'.format(len(df_tobacco_k)),'\n')
+
+
+<!-- Warm Season Grasses -->
+<!-- Selection Bermudagrass', 'Bermudagrass, common', 'Bermudagrass, improved', 'Bluestem', 'Indiangrass', 'Millet', 'Sorghum Sudangrass', 'Sorghum/Sudangras', 'Sudangrass', 'Switchgrass', 'Warm Season Annual Grass', 'Warm Season Grass', 'Warm Season Native Grass', 'Zoyiagrass', 'Zoysiagrass'
+ -->
+ warmseason_sel = ['Bermudagrass', 'Bermudagrass, common', 'Bermudagrass, improved', 'Bluestem', 'Indiangrass', 'Millet', 'Sorghum Sudangrass', 'Sorghum/Sudangras', 'Sudangrass', 'Switchgrass', 'Warm Season Annual Grass', 'Warm Season Grass', 'Warm Season Native Grass', 'Zoyiagrass', 'Zoysiagrass']
+ warmseason_sel.sort()
+ print(warmseason_sel)
+
+ df_warmseason = df[df.CROP.isin(warmseason_sel)]
+ df_warmseason_nu = df_warmseason[['FIPS_NO','COUNTY','YEAR','P','K']].copy()
+ print(df_warmseason_nu.head())
+
+ df_warmseason_nu['CAT_P'] = ''
+ df_warmseason_nu['CAT_P'] = np.where(df_warmseason_nu.P < 10, 'VL', df_warmseason_nu.CAT_P)
+ df_warmseason_nu['CAT_P'] = np.where(((df_warmseason_nu.P > 10) & (df_warmseason_nu.P <= 30)), 'L', df_warmseason_nu.CAT_P)
+ df_warmseason_nu['CAT_P'] = np.where(((df_warmseason_nu.P > 30) & (df_warmseason_nu.P <= 60)), 'M', df_warmseason_nu.CAT_P)
+ df_warmseason_nu['CAT_P'] = np.where((df_warmseason_nu.P > 60), 'H', df_warmseason_nu.CAT_P)
+
+ df_warmseason_nu['CAT_K'] = ''
+ df_warmseason_nu['CAT_K'] = np.where(df_warmseason_nu.K < 104, 'VL', df_warmseason_nu.CAT_K)
+ df_warmseason_nu['CAT_K'] = np.where(((df_warmseason_nu.K >= 104) & (df_warmseason_nu.K <= 186)), 'L', df_warmseason_nu.CAT_K)
+ df_warmseason_nu['CAT_K'] = np.where(((df_warmseason_nu.K > 186) & (df_warmseason_nu.K <= 300)), 'M', df_warmseason_nu.CAT_K)
+ df_warmseason_nu['CAT_K'] = np.where((df_warmseason_nu.K > 300), 'H', df_warmseason_nu.CAT_K)
+
+ warnings.filterwarnings("ignore")
+ df_warmseason_p = np.round( df_warmseason_nu.pivot_table(index='COUNTY', columns=['YEAR', 'CAT_P'], values=['P'],aggfunc=(np.median,len),fill_value=0),2)
+ df_warmseason_k = np.round( df_warmseason_nu.pivot_table(index='COUNTY', columns=['YEAR', 'CAT_K'], values=['K'],aggfunc=(np.median,len),fill_value=0),2)
+
+ df_warmseason_p.columns
+ df_warmseason_k.columns
+ df_warmseason_p.columns = list(map("_".join,df_warmseason_p.columns))
+ df_warmseason_k.columns = list(map("_".join,df_warmseason_k.columns))
+ df_warmseason_p.columns = df_warmseason_p.columns.str.replace("P_median_", "")
+ df_warmseason_p.columns = df_warmseason_p.columns.str.replace("P_len", "count")
+ df_warmseason_k.columns = df_warmseason_k.columns.str.replace("K_median_","")
+ df_warmseason_k.columns = df_warmseason_k.columns.str.replace("K_len","count")
+ df_warmseason_p = df_warmseason_p.reset_index()
+ df_warmseason_k = df_warmseason_k.reset_index()
+ file_out_p = fileOut.joinpath('warmseason_p_levels.csv')  # path and filename
+ df_warmseason_p.to_csv(file_out_p, index=False)  # output to csv
+ file_out_k = fileOut.joinpath('warmseason_k_levels.csv')  # path and filename
+ df_warmseason_k.to_csv(file_out_k, index=False)  # output to csv
+ print ('total number of records written to CSV:','{:,}'.format(len(df_warmseason_p)),'\n')
+ print ('total number of records written to CSV:','{:,}'.format(len(df_warmseason_k)),'\n')
+
+ <!-- Warm Season Grasses -->
+ <!-- Bluegrass', 'Cool Season Grass', 'Fescue', 'Fescue/Lespedeza', 'Fescue/Lespedeza (multiple)', 'Fine Fescue', 'Lespedeza', 'Lespedeza/Grass', 'Millet', 'Orchardgrass', 'Perennial Ryegrass', 'Sorghum Sudangrass', 'Sorghum/Sudangras', 'Switchgrass', 'Tall Fescue', 'Timothy'
+ -->
+ coolseason_sel = ['Bluegrass', 'Cool Season Grass', 'Fescue', 'Fescue/Lespedeza', 'Fescue/Lespedeza (multiple)', 'Fine Fescue', 'Lespedeza', 'Lespedeza/Grass', 'Millet', 'Orchardgrass', 'Perennial Ryegrass', 'Sorghum Sudangrass', 'Sorghum/Sudangras', 'Switchgrass', 'Tall Fescue', 'Timothy']
+ coolseason_sel.sort()
+ print(coolseason_sel)
+
+ df_coolseason = df[df.CROP.isin(coolseason_sel)]
+ df_coolseason_nu = df_coolseason[['FIPS_NO','COUNTY','YEAR','P','K']].copy()
+ print(df_coolseason_nu.head())
+
+ df_coolseason_nu['CAT_P'] = ''
+ df_coolseason_nu['CAT_P'] = np.where(df_coolseason_nu.P < 10, 'VL', df_coolseason_nu.CAT_P)
+ df_coolseason_nu['CAT_P'] = np.where(((df_coolseason_nu.P > 10) & (df_coolseason_nu.P <= 30)), 'L', df_coolseason_nu.CAT_P)
+ df_coolseason_nu['CAT_P'] = np.where(((df_coolseason_nu.P > 30) & (df_coolseason_nu.P <= 60)), 'M', df_coolseason_nu.CAT_P)
+ df_coolseason_nu['CAT_P'] = np.where((df_coolseason_nu.P > 60), 'H', df_coolseason_nu.CAT_P)
+
+ df_coolseason_nu['CAT_K'] = ''
+ df_coolseason_nu['CAT_K'] = np.where(df_coolseason_nu.K < 104, 'VL', df_coolseason_nu.CAT_K)
+ df_coolseason_nu['CAT_K'] = np.where(((df_coolseason_nu.K >= 104) & (df_coolseason_nu.K <= 186)), 'L', df_coolseason_nu.CAT_K)
+ df_coolseason_nu['CAT_K'] = np.where(((df_coolseason_nu.K > 186) & (df_coolseason_nu.K <= 300)), 'M', df_coolseason_nu.CAT_K)
+ df_coolseason_nu['CAT_K'] = np.where((df_coolseason_nu.K > 300), 'H', df_coolseason_nu.CAT_K)
+
+warnings.filterwarnings("ignore")
+df_coolseason_p = np.round( df_coolseason_nu.pivot_table(index='COUNTY', columns=['YEAR', 'CAT_P'], values=['P'],aggfunc=(np.median,len),fill_value=0),2)
+df_coolseason_k = np.round( df_coolseason_nu.pivot_table(index='COUNTY', columns=['YEAR', 'CAT_K'], values=['K'],aggfunc=(np.median,len),fill_value=0),2)
+
+df_coolseason_p.columns
+df_coolseason_k.columns
+df_coolseason_p.columns = list(map("_".join,df_coolseason_p.columns))
+df_coolseason_k.columns = list(map("_".join,df_coolseason_k.columns))
+df_coolseason_p.columns = df_coolseason_p.columns.str.replace("P_median_", "")
+df_coolseason_p.columns = df_coolseason_p.columns.str.replace("P_len", "count")
+df_coolseason_k.columns = df_coolseason_k.columns.str.replace("K_median_","")
+df_coolseason_k.columns = df_coolseason_k.columns.str.replace("K_len","count")
+df_coolseason_p = df_coolseason_p.reset_index()
+df_coolseason_k = df_coolseason_k.reset_index()
+file_out_p = fileOut.joinpath('coolseason_p_levels.csv')  # path and filename
+df_coolseason_p.to_csv(file_out_p, index=False)  # output to csv
+file_out_k = fileOut.joinpath('coolseason_k_levels.csv')  # path and filename
+df_coolseason_k.to_csv(file_out_k, index=False)  # output to csv
+print ('total number of records written to CSV:','{:,}'.format(len(df_coolseason_p)),'\n')
+print ('total number of records written to CSV:','{:,}'.format(len(df_coolseason_k)),'\n')
+
+<!-- Alfalfa clover -->
+<!--Alfalfa', 'Alfalfa/Cool Season', 'Bluegrass/White Clover', 'Clover/Grass', 'Fescue/White Clover', 'Orchardgrass/Red Clover', 'Orchardgrass/White Clover', 'Red Clover', 'Red Clover/Grass', 'Timothy/Red Clover', 'White Clover', 'White Clover/Grass'
+  -->
+alfalfa_sel = ['Alfalfa', 'Alfalfa/Cool Season', 'Bluegrass/White Clover', 'Clover/Grass', 'Fescue/White Clover', 'Orchardgrass/Red Clover', 'Orchardgrass/White Clover', 'Red Clover', 'Red Clover/Grass', 'Timothy/Red Clover', 'White Clover', 'White Clover/Grass']
+alfalfa_sel.sort()
+print(alfalfa_sel)
+
+df_alfalfa = df[df.CROP.isin(alfalfa_sel)]
+df_alfalfa_nu = df_alfalfa[['FIPS_NO','COUNTY','YEAR','P','K']].copy()
+print(df_alfalfa_nu.head())
+
+df_alfalfa_nu['CAT_P'] = ''
+df_alfalfa_nu['CAT_P'] = np.where(df_alfalfa_nu.P < 10, 'VL', df_alfalfa_nu.CAT_P)
+df_alfalfa_nu['CAT_P'] = np.where(((df_alfalfa_nu.P > 10) & (df_alfalfa_nu.P <= 30)), 'L', df_alfalfa_nu.CAT_P)
+df_alfalfa_nu['CAT_P'] = np.where(((df_alfalfa_nu.P > 30) & (df_alfalfa_nu.P <= 60)), 'M', df_alfalfa_nu.CAT_P)
+df_alfalfa_nu['CAT_P'] = np.where((df_alfalfa_nu.P > 60), 'H', df_alfalfa_nu.CAT_P)
+
+df_alfalfa_nu['CAT_K'] = ''
+df_alfalfa_nu['CAT_K'] = np.where(df_alfalfa_nu.K < 104, 'VL', df_alfalfa_nu.CAT_K)
+df_alfalfa_nu['CAT_K'] = np.where(((df_alfalfa_nu.K >= 104) & (df_alfalfa_nu.K <= 186)), 'L', df_alfalfa_nu.CAT_K)
+df_alfalfa_nu['CAT_K'] = np.where(((df_alfalfa_nu.K > 186) & (df_alfalfa_nu.K <= 300)), 'M', df_alfalfa_nu.CAT_K)
+df_alfalfa_nu['CAT_K'] = np.where((df_alfalfa_nu.K > 300), 'H', df_alfalfa_nu.CAT_K)
+
+warnings.filterwarnings("ignore")
+df_alfalfa_p = np.round( df_alfalfa_nu.pivot_table(index='COUNTY', columns=['YEAR', 'CAT_P'], values=['P'],aggfunc=(np.median,len),fill_value=0),2)
+df_alfalfa_k = np.round( df_alfalfa_nu.pivot_table(index='COUNTY', columns=['YEAR', 'CAT_K'], values=['K'],aggfunc=(np.median,len),fill_value=0),2)
+
+df_alfalfa_p.columns
+df_alfalfa_k.columns
+df_alfalfa_p.columns = list(map("_".join,df_alfalfa_p.columns))
+df_alfalfa_k.columns = list(map("_".join,df_alfalfa_k.columns))
+df_alfalfa_p.columns = df_alfalfa_p.columns.str.replace("P_median_", "")
+df_alfalfa_p.columns = df_alfalfa_p.columns.str.replace("P_len", "count")
+df_alfalfa_k.columns = df_alfalfa_k.columns.str.replace("K_median_","")
+df_alfalfa_k.columns = df_alfalfa_k.columns.str.replace("K_len","count")
+df_alfalfa_p = df_alfalfa_p.reset_index()
+df_alfalfa_k = df_alfalfa_k.reset_index()
+file_out_p = fileOut.joinpath('alfalfa_p_levels.csv')  # path and filename
+df_alfalfa_p.to_csv(file_out_p, index=False)  # output to csv
+file_out_k = fileOut.joinpath('alfalfa_k_levels.csv')  # path and filename
+df_alfalfa_k.to_csv(file_out_k, index=False)  # output to csv
+print ('total number of records written to CSV:','{:,}'.format(len(df_alfalfa_p)),'\n')
+print ('total number of records written to CSV:','{:,}'.format(len(df_alfalfa_k)),'\n')
