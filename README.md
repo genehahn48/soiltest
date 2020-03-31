@@ -5,7 +5,7 @@ Masters project for New Maps Plus program at the University of Kentucky.
 - [Introduction](#introduction)
 - [Methodology](#methodology)<br/>
      - [Data](#data)
-     - [Medium for Delivery](#medium for delivery)
+     - [Medium for Delivery](#medium_for_delivery)
      - [Application Layout](#application layout)
      - [Thematic Representation](#thematic representation)
      - [User Interaction](#user interaction)
