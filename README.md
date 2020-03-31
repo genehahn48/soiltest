@@ -3,14 +3,14 @@ Masters project for New Maps Plus program at the University of Kentucky.
 
 ## TOC
 - [Topic](#topic)
-- [I. Introduction](#i._introduction)
+- [Introduction](#introduction)
 - [Questions](#questions)
 - [Significance](#significance)
 - [Literature Review](#literature_review)
 - [Methods](#methods)
 - [Packages](#packages)
 - [Data References](#data_references)
-## I. Introduction
+## Introduction
 Soil nutrient test values are invaluable to farmers and homeowner to create the most productive growing conditions for crops or grass in the backyard. The [University of Kentucky College of Agriculture](http://www.rs.uky.edu/soil/TestingService.php) offer testing for Kentucky residents through their local [County Extension Office](http://extension.ca.uky.edu/county) so people are not blindly applying unneeded nutrients that will lead to environmental pollution. Nutrient recommendations can be found in [AGR-1](http://www2.ca.uky.edu/agcomm/pubs/agr/agr1/agr1.pdf) for crops and [AGR-53](http://www.uky.edu/WaterResources/FF/Nutrient%20Management/pdf/Lawn%20Fertilizer%20in%20Kentucky.pdf).
 ## Topic
 1. Design a map using Kentucky soil test data showing nutrient trend in phosphorus(P) and potassium(K) by county from 1990 to 2019.
