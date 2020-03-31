@@ -4,6 +4,7 @@ Masters project for New Maps Plus program at the University of Kentucky.
 ## TOC
 - [Introduction](#introduction)
 - [Methodology](#methodology)
+      [Data](#data)
 
 - [Questions](#questions)
 - [Significance](#significance)
@@ -14,9 +15,11 @@ Masters project for New Maps Plus program at the University of Kentucky.
 ## Introduction
 Soil nutrient test values are invaluable to farmers and homeowner to create the most productive growing conditions for crops or grasses in the backyard. The [University of Kentucky College of Agriculture](http://www.rs.uky.edu/soil/TestingService.php) offer testing for Kentucky residents through their local [County Extension Office](http://extension.ca.uky.edu/county) so people are not blindly applying unneeded nutrients that will lead to environmental pollution. Nutrient recommendations can be found in [AGR-1](http://www2.ca.uky.edu/agcomm/pubs/agr/agr1/agr1.pdf) for crops and [AGR-53](http://www.uky.edu/WaterResources/FF/Nutrient%20Management/pdf/Lawn%20Fertilizer%20in%20Kentucky.pdf) for lawns. Most farmers collect soil samples on a three year rotation from their fields to verify soil nutrient values are adequate for the growing crop. In recent years farmers have started to question whether AGR-1 recommendations have kept up with the new high yielding hybrids crops and nutrient recommendations should be higher for these production systems. <br/>
 
-Using the University soil test data from 1990 to 2019, we are going to look for trends in phosphorus(P) and potassium(K) data. This data will be used create a Kentucky map showing P and K categories using AGR-1 and have user interactives to select year and nutrient of interest. This map will help farmers, extension agents, and agronomist understand whether AGR-1 recommendations are potentially not on par with high yielding cropping systems.<br/>
+Using the University soil test data from 1990 to 2019, we are going to look for trends in phosphorus(P) and potassium(K) data. This data will be used create a Kentucky map showing P and K categories using AGR-1 and have user interactives to select year and nutrient of interest. Also have bar graph showing category frequencies across counties. This map will help farmers, extension agents, and agronomist understand whether AGR-1 recommendations are potentially not on par with high yielding cropping systems.<br/>
 
 ## Methodology
+
+### Data
 
 ## Topic
 1. Design a map using Kentucky soil test data showing nutrient trend in phosphorus(P) and potassium(K) by county from 1990 to 2019.
