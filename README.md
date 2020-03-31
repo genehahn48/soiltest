@@ -5,11 +5,11 @@ Masters project for New Maps Plus program at the University of Kentucky.
 - [Introduction](#introduction)
 - [Methodology](#methodology)<br/>
      - [Data](#data)
-     - [Medium for Delivery](#medium)
-     - [Application Layout](#application)
-     - [Thematic Representation](#thematic)
-     - [User Interaction](#user)
-     - [Aesthetics and Design Considerations](#aesthetics)
+     - [Medium for Delivery](#Medium_for_Delivery)
+     - [Application Layout](#application_layout)
+     - [Thematic Representation](#thematic_representation)
+     - [User Interaction](#User_Interaction)
+     - [Aesthetics and Design Considerations](#Aesthetics_and_Design_Considerations)
      - [Conclusion](#conclusion)
 
 ## Introduction
@@ -21,15 +21,15 @@ Using the University soil test data from 1990 to 2019, we are going to look for 
 
 ### Data
 
-### Medium for Delivery
+### Medium_for_Delivery
 
-### Application Layout
+### Application_Layout
 
-### Thematic Representation
+### Thematic_Representation
 
-### User Interaction
+### User_Interaction
 
-### Aesthetics and Design Considerations.
+### Aesthetics_and_Design_Considerations.
 
 ### Conclusion
 
