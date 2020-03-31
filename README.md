@@ -5,10 +5,10 @@ Masters project for New Maps Plus program at the University of Kentucky.
 - [Introduction](#introduction)
 - [Methodology](#methodology)<br/>
      - [Data](#data)
-     - [Medium for Delivery](#mediumfordelivery)
-     - [Application Layout](#application layout)
-     - [Thematic Representation](#thematic representation)
-     - [User Interaction](#user interaction)
+     - [Medium for Delivery](#medium)
+     - [Application Layout](#application)
+     - [Thematic Representation](#thematic)
+     - [User Interaction](#user)
      - [Aesthetics and Design Considerations](#aesthetics)
      - [Conclusion](#conclusion)
 
@@ -29,7 +29,9 @@ Using the University soil test data from 1990 to 2019, we are going to look for 
 
 ### User Interaction
 
-### Aesthetics and Design Considerations
+### Aesthetics and Design Considerations.
+
+### Conclusion
 
 ## Topic
 1. Design a map using Kentucky soil test data showing nutrient trend in phosphorus(P) and potassium(K) by county from 1990 to 2019.
