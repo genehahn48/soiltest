@@ -4,7 +4,7 @@ Masters project for New Maps Plus program at the University of Kentucky.
 ## TOC
 - [Introduction](#introduction)
 - [Methodology](#methodology)<br/>
-        [Data](#data)
+     - [Data](#data)
 
 - [Questions](#questions)
 - [Significance](#significance)
