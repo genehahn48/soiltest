@@ -36,6 +36,7 @@ Use the Grand Soil Database from the University of Kentucky's Soil test lab to e
     *  [Regions of Kentucky](https://www.uky.edu/KGS/gis/regions.htm)
 
 4. [United States Department of Agriculture National Agricultural Statistics Service](https://www.nass.usda.gov/Data_and_Statistics/index.php)
+Use [CropScape](https://nassgeodata.gmu.edu/CropScape/) map to download Kentucky crop mask layer 
 
 #### Tools used in Data Wrangling
 1. Create a CSV file from the University's Grand database which is a Microsoft Access database file.
