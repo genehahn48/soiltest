@@ -51,6 +51,7 @@ Use [CropScape](https://nassgeodata.gmu.edu/CropScape/) map to download Kentucky
     * County boundary simplified 15.0% and export as GeoJSON file
 #### Example of Data
 
+
 ### Medium_for_Delivery
 The delivery method will be webpage that is accessible across multiple platforms (ex. desktop and mobile devices).
 
