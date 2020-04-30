@@ -62,7 +62,7 @@ The data is representing County level soil testing so polygons will be classifie
 
 ### User_Interaction
 The user interaction will be with dropdown menus with selection for Year, Crop type, and Nutrient (P or K). The third map will also allow for the selection of a different year to compare data. The second map will allow the user to hover or click county to display the number of test for that county for the year. Also there will be a popup bargraph showing percentages of each categories in the county along with the median value for each category. Here is mock layout of the webpage design.
-![Mock up of webpage](data\mapLayout.jpg)
+![Mock up of webpage](data/mapLayout.jpg)
 
 
 ### Aesthetics_and_Design_Considerations
