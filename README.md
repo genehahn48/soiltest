@@ -30,12 +30,12 @@ Use the Grand Soil Database from the University of Kentucky's Soil test lab to e
 
 2. [University of Kentucky Soil Testing Lab](http://www.rs.uky.edu/soil/) private data
 
-3. Kentucky's State, Counties, and Regions download from [Kentucky Geological Survey](https://www.uky.edu/KGS/gis/bounds.htm)<br />
+3. Kentucky's State, Counties, and Regions download from [Kentucky Geological Survey](https://www.uky.edu/KGS/gis/bounds.htm)<br/>
     Metadata:
     *  [State KY](https://www.uky.edu/KGS/gis/ky.htm)
     *  [Regions of Kentucky](https://www.uky.edu/KGS/gis/regions.htm)
 
-4. [United States Department of Agriculture National Agricultural Statistics Service](https://www.nass.usda.gov/Data_and_Statistics/index.php)
+4. [United States Department of Agriculture National Agricultural Statistics Service](https://www.nass.usda.gov/Data_and_Statistics/index.php)<br/>
 Use [CropScape](https://nassgeodata.gmu.edu/CropScape/) map to download Kentucky crop mask layer
 
 #### Tools used in Data Wrangling
@@ -52,16 +52,24 @@ Use [CropScape](https://nassgeodata.gmu.edu/CropScape/) map to download Kentucky
 #### Example of Data
 
 ### Medium_for_Delivery
+The delivery method will be webpage that is accessible across multiple platforms (ex. desktop and mobile devices).
 
 ### Application_Layout
+The general layout will be four maps separated into quadrants on the page. The quadrant layout will be suite for computer displays. The mobile layout will cascade down the page with four individual maps. The first map will have choropleth of the median value of the nutrient. The second map will have mask of agricultural land with classified colors representing total agricultural land by county. The third and fourth map will be repeat of the first two but represent different year to allow for comparison.
 
 ### Thematic_Representation
+The data is representing County level soil testing so polygons will be classified by median value. Also land mask of the agricultural will be display so total landuse in agriculture is represented so visual comparisons can be made for how much ag is in each county.  
 
 ### User_Interaction
+The user interaction will be with dropdown menus with selection for Year, Crop type, and Nutrient (P or K). The third map will also allow for the selection of a different year to compare data. The second map will allow the user to hover or click county to display the number of test for that county for the year. Also there will be a popup bargraph showing percentages of each categories in the county along with the median value for each category. Here is mock layout of the webpage design.
+![Mock up of webpage](data\mapLayout.jpg)
+
 
 ### Aesthetics_and_Design_Considerations
 
+
 ### Conclusion
+
 ### Thanks
 I would like to thanks several people for helping with this project: Dr. Rich Donohue, Dr. Edwin Ritchey, Dr. Frank Sikora, Dr. Joshua McGrath, and Mark Cruse
 
