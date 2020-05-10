@@ -63,12 +63,21 @@
       const soyLevel = d3.csv('project-data/soy_levels.csv');
       const tobaccoLevel = d3.csv('project-data/tobacco_levels.csv');
       const warmseasonLevel = d3.csv('project-data/warmseason_levels.csv');
-      const cornMedianCSV = d3.csv('project-data/corn_median.csv');
-
-
+      // Load median values for all categories
+      const alfalfaMedCsv = d3.csv('project-data/alfalfa_median.csv');
+      const canolaMedCSV = d3.csv('project-data/canola_median.csv');
+      const coolseasonMedCSV = d3.csv('project-data/coolseason_median.csv');
+      const cornMedCSV = d3.csv('project-data/corn_median.csv');
+      const smallgrainsMedCSV = d3.csv('project-data/smallgrains_median.csv');
+      const sorghumMedCSV = d3.csv('project-data/sorghum_median.csv');
+      const soyMedCSV = d3.csv('project-data/soy_median.csv');
+      const tobaccoMedCSV = d3.csv('project-data/tobacco_median.csv');
+      const warmseasonMedCSV = d3.csv('project-data/warmseason_median.csv');
 
       // wait until they are ready and then send to dataReady function
-      Promise.all([countiesJson, regionsJson, cornMedianCSV, alfalfaLevel canolaLevel, coolseasonLevel, cornLevel, smallgrainsLevel, sorghumLevel, soyLevel, tobaccoLevel, warmseasonLevel]).then(dataReady);
+      Promise.all([countiesJson, regionsJson, cornMedCSV, alfalfaLevel, canolaLevel, coolseasonLevel, cornLevel, smallgrainsLevel, sorghumLevel, soyLevel, tobaccoLevel, warmseasonLevel, alfalfaMedCsv, canolaMedCSV, coolseasonMedCSV,
+        smallgrainsMedCSV, sorghumMedCSV, tobaccoMedCSV, warmseasonMedCSV
+      ]).then(dataReady);
 
       // Global variables
       const cropType = ["Alfalfa", "Canola", "Cool Season Grass", "Corn", "Small Grains", "Sorghum", "Soybean", "Tobacco", "Warm Season Grass"];
@@ -78,8 +87,8 @@
       const selNutrient = ["Phosphorus", "Potassium"];
 
 
-      console.log(cropType)
-      console.log(selYear)
+      // console.log(cropType)
+      // console.log(selYear)
 
       function dataReady(data) {
 
@@ -87,7 +96,7 @@
         const countiesJson = data[0];
 
         // reference the third data set, the CSV
-        const cornMedianData = data[2];
+        const cornMedData = data[2];
         const alfalfa = data[3];
         const canola = data[4];
         const coolseason = data[5];
@@ -97,34 +106,41 @@
         const soy = data[9];
         const tobacco = data[10];
         const warmseason = data[11];
+        const alfalfaMedData = data[12];
+        const canolaMedData = data[13];
+        const coolseasonMedData = data[14];
+        const smallgrainsMedData = data[15];
+        const sorghumMedData = data[16];
+        const tobaccoMedData = data[17];
+        const warmseasonMedData = data[18];
 
         // here we want to bind CSV data to the county GeoJSON
-
+        console.log(countiesJson)
         // loop through the county features
         countiesJson.features.forEach(function(feature) {
 
           // loop through corn median CSV data
-          corn.forEach(function(row) {
+          cornMedData.forEach(function(row) {
 
             // if the county name and CSV name match
-            if (row.COUNTY == feature.properties.NAME) {
+            if (row.COUNTY == feature.properties.name) {
 
               // create a new property for the corn mean and assign the data
-              feature.properties['corn_level_data'] = row;
+              feature.properties['corn_med'] = row;
             }
           })
         })
 
         // double check that the bind was successful
         console.log(data[0])
-        console.log(data[6])
+        // console.log(data[6])
 
 
         // draw geojson to the map
         L.geoJson(data[0]).addTo(map01);
         // Add selection dropdown
-        addCroptype(cropType);
-        addSelyear(selYear);
+        // addCroptype(cropType);
+        // addSelyear(selYear);
       }
     </script>
   </body>
