@@ -1,163 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Soil test map</title>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soil test map</title>
 
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
-    integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
-    crossorigin="" />
-  <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin="" />
+    <link rel="stylesheet" href="css/style.css" />
+
+  </head>
   <style>
-    body {
-      background: rgb(235, 235, 236);
-      font-family: sans-serif;
-    }
-
-    header {
-      padding: 8px 15px;
-      background-color: white;
-      /* just to visually see now, change later */
-    }
-
-    h1 {
-      font-size: 1.5em;
-      font-weight: normal;
-    }
-
-    h2 {
-      font-size: 1.3em;
-      font-weight: normal;
-    }
-
-    #map-01,
-    #map-02,
-    #map-03,
-    #map-04 {
-      height: 300px;
-      width: 100%;
-    }
-
-    .grid-container {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      grid-gap: 8px;
-      grid-template-rows: 0.3fr 300px;
-    }
-
-    .map-1 {
-      grid-area: 1 / 1 / 2 / 2;
-    }
-
-    .map-2 {
-      grid-area: 1 / 2 / 2 / 3;
-    }
-
-    .map-3 {
-      grid-area: 2 / 1 / 3 / 2;
-    }
-
-    .map-4 {
-      grid-area: 2 / 2 / 3 / 3;
-    }
-
-    .yellow {
-      background: #fafbd1;
-    }
-
-    .blue {
-      background: #e0ecf9;
-    }
-
-    .green {
-      background: #d4edda;
-    }
   </style>
-</head>
 
-<body>
+  <body>
 
-  <header>
-    <h1>Soil Test Map</h1>
-    <h2>subheading here</h2>
-  </header>
-  <div class="grid-container">
+    <header>
+      <h1>Soil Test Map</h1>
+      <h2>subheading here</h2>
+    </header>
+    <div class="grid-container">
 
-    <div class="map-1">
-      <div id="map-01"></div>
+      <div class="map-1">
+        <div id="map-01"></div>
+      </div>
+      <div class="map-2">
+        <div id="map-02" class="yellow">Map #2</div>
+      </div>
+      <div class="map-3 blue">
+        <div id="map-03" class="blue">Map #3</div>
+      </div>
+      <div class="map-4 green">
+        <div id="map-04" class="green">Map #4</div>
+      </div>
     </div>
-    <div class="map-2">
-      <div id="map-02" class="yellow">Map #2</div>
-    </div>
-    <div class="map-3 blue">
-      <div id="map-03" class="blue">Map #3</div>
-    </div>
-    <div class="map-4 green">
-      <div id="map-04" class="green">Map #4</div>
-    </div>
-  </div>
-  <footer>
-    <p>Map authored by Gene</p>
-    <p>More information here ...</p>
-  </footer>
+    <footer>
+      <p>Map authored by Gene</p>
+      <p>More information here ...</p>
+    </footer>
 
-  <script src="https://d3js.org/d3.v5.min.js"></script>
-  <script src="https://code.jquery.com/jquery-3.5.0.min.js"
-    integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
-  <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
-    integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
-    crossorigin=""></script>
-  <script>
-    const map01 = L.map('map-01').setView([37.62, -85.20], 7);
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.0.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
+    <script>
+      const map01 = L.map('map-01').setView([37.62, -85.20], 7);
 
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-      subdomains: 'abcd',
-      maxZoom: 19
-    }).addTo(map01);
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+        subdomains: 'abcd',
+        maxZoom: 19
+      }).addTo(map01);
 
-    // request all your desired datasets first
-    const countiesJson = d3.json('project-data/ky-counties.json');
-    const regionsJson = d3.json('project-data/ky-regions.json');
-    const cornMedianCSV = d3.csv('project-data/corn_median.csv')
+      // request all your desired datasets first
+      const countiesJson = d3.json('project-data/ky-farm-ac.geojson');
+      const regionsJson = d3.json('project-data/ky-regions.json');
+      const cornMedianCSV = d3.csv('project-data/corn_median.csv');
+      const alfalfaK = d3.csv('project-data/alfalfa_k_levels.csv');
+      const alfalfaP = d3.csv('project-data/alfalfa_p_levels.csv');
+      const cornK = d3.csv('project-data/corn_k_levels.csv');
+      const cornP = d3.csv('project-data/corn_p_levels.csv');
+      const soyK = d3.csv('project-data/soy_k_levels.csv');
+      const soyP = d3.csv('project-data/soy_p_levels.csv');
+      // wait until they are ready and then send to dataReady function
+      Promise.all([countiesJson, regionsJson, cornMedianCSV, alfalfaK, alfalfaP, cornK, cornP, soyK, soyP]).then(dataReady);
 
-    // wait until they are ready and then send to dataReady function
-    Promise.all([countiesJson, regionsJson, cornMedianCSV]).then(dataReady);
+      // Global variables
+      const cropType = ["Alfalfa", "Canola", "Cool Season Grass", "Corn", "Small Grains", "Sorghum", "Soybean", "Tobacco", "Warm Season Grass"];
 
-    function dataReady(data) {
+      const selYear = [1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019];
 
-      // reference the counties GeoJSON data
-      const countiesJson = data[0];
+      const selNutrient = ["Phosphorus", "Potassium"];
 
-      // reference the third data set, the CSV
-      const cornMedianData = data[2];
 
-      // here we want to bind CSV data to the county GeoJSON
+      console.log(cropType)
+      console.log(selYear)
 
-      // loop through the county features
-      countiesJson.features.forEach(function (feature) {
+      function dataReady(data) {
 
-        // loop through corn median CSV data
-        cornMedianData.forEach(function (row) {
+        // reference the counties GeoJSON data
+        const countiesJson = data[0];
 
-          // if the county name and CSV name match
-          if (row.COUNTY == feature.properties.NAME) {
+        // reference the third data set, the CSV
+        const cornMedianData = data[2];
+        const cornLevels = data[5, 6];
 
-            // create a new property for the corn mean and assign the data
-            feature.properties['corn_mean_data'] = row;
-          }
+        // here we want to bind CSV data to the county GeoJSON
+
+        // loop through the county features
+        countiesJson.features.forEach(function(feature) {
+
+          // loop through corn median CSV data
+          cornMedianData.forEach(function(row) {
+
+            // if the county name and CSV name match
+            if (row.COUNTY == feature.properties.NAME) {
+
+              // create a new property for the corn mean and assign the data
+              feature.properties['corn_mean_data'] = row;
+            }
+          })
         })
-      })
 
-      // double check that the bind was successful
-      console.log(data[0])
+        // double check that the bind was successful
+        console.log(data[0])
+        console.log(data[2])
+        console.log(cornLevels[119])
 
-      // draw geojson to the map
-      L.geoJson(data[0]).addTo(map01);
-    }
-  </script>
-</body>
+        // draw geojson to the map
+        L.geoJson(data[0]).addTo(map01);
+        // Add selection dropdown
+        addCroptype(cropType);
+        addSelyear(selYear);
+      }
+    </script>
+  </body>
 
 </html>
