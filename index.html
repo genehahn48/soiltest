@@ -117,6 +117,46 @@
       subdomains: 'abcd',
       maxZoom: 19
     }).addTo(map01);
+
+    // request all your desired datasets first
+    const countiesJson = d3.json('project-data/ky-counties.json');
+    const regionsJson = d3.json('project-data/ky-regions.json');
+    const cornMedianCSV = d3.csv('project-data/corn_median.csv')
+
+    // wait until they are ready and then send to dataReady function
+    Promise.all([countiesJson, regionsJson, cornMedianCSV]).then(dataReady);
+
+    function dataReady(data) {
+
+      // reference the counties GeoJSON data
+      const countiesJson = data[0];
+
+      // reference the third data set, the CSV
+      const cornMedianData = data[2];
+
+      // here we want to bind CSV data to the county GeoJSON
+
+      // loop through the county features
+      countiesJson.features.forEach(function (feature) {
+
+        // loop through corn median CSV data
+        cornMedianData.forEach(function (row) {
+
+          // if the county name and CSV name match
+          if (row.COUNTY == feature.properties.NAME) {
+
+            // create a new property for the corn mean and assign the data
+            feature.properties['corn_mean_data'] = row;
+          }
+        })
+      })
+
+      // double check that the bind was successful
+      console.log(data[0])
+
+      // draw geojson to the map
+      L.geoJson(data[0]).addTo(map01);
+    }
   </script>
 </body>
 
