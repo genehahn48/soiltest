@@ -77,25 +77,41 @@
       // wait until they are ready and then send to dataReady function
       Promise.all([countiesJson, regionsJson, cornMedCSV, alfalfaLevel, canolaLevel, coolseasonLevel, cornLevel, smallgrainsLevel, sorghumLevel, soyLevel, tobaccoLevel, warmseasonLevel, alfalfaMedCsv, canolaMedCSV, coolseasonMedCSV,
         smallgrainsMedCSV, sorghumMedCSV, tobaccoMedCSV, warmseasonMedCSV
-      ]).then(dataReady);
+      ]).then(dataReady, error);
+
+      // function fired if there is an error
+      function error(error) {
+        console.log(error)
+      }
 
       // Global variables
       const cropType = ["Alfalfa", "Canola", "Cool Season Grass", "Corn", "Small Grains", "Sorghum", "Soybean", "Tobacco", "Warm Season Grass"];
+
+      const loCroptype = ["alfalfa", "canola", "coolseason", "corn", "smallgrains", "sorghum", "soy", "tobacco", "warmseason"];
 
       const selYear = [1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019];
 
       const selNutrient = ["Phosphorus", "Potassium"];
 
+      const MedData = ["cornMedData", "alfalfaMedData", "canolaMedData", "coolseasonMedData", "smallgrainsMedData", "sorghumMedData", "tobaccoMedData", "warmseasonMedData"];
 
-      // console.log(cropType)
-      // console.log(selYear)
+      // try to build funtion to link data to geojson
+      loCroptype.forEach(function(crop, i) {
+        console.log(i + 3 + " Crop : " + crop)
+      });
+
+      selYear.forEach(display);
+
+      function display(year, index) {
+        console.log(index + 8 + " Year: " + year)
+      };
 
       function dataReady(data) {
-
+        // console.log(cropType, selYear)
         // reference the counties GeoJSON data
         const countiesJson = data[0];
 
-        // reference the third data set, the CSV
+        // reference the data set, the CSV
         const cornMedData = data[2];
         const alfalfa = data[3];
         const canola = data[4];
@@ -115,13 +131,13 @@
         const warmseasonMedData = data[18];
 
         // here we want to bind CSV data to the county GeoJSON
-        console.log(countiesJson)
+        console.log(MedData)
         // loop through the county features
         countiesJson.features.forEach(function(feature) {
 
           // loop through corn median CSV data
-          cornMedData.forEach(function(row) {
 
+          cornMedData.forEach(function(row, i) {
             // if the county name and CSV name match
             if (row.COUNTY == feature.properties.name) {
 
@@ -132,6 +148,7 @@
         })
 
         // double check that the bind was successful
+        console.log()
         console.log(data[0])
         // console.log(data[6])
 
@@ -142,6 +159,22 @@
         // addCroptype(cropType);
         // addSelyear(selYear);
       }
+      // Create loop to bind data
+      // countiesJson.features.forEach(function(feature) {
+      //
+      //   // loop through corn median CSV data
+      //   MedData.forEach(function(name, i) {
+      //     name[i].forEach(function(row, i) {
+      //       console.log(row)
+      //       // if the county name and CSV name match
+      //       if (row.COUNTY == feature.properties.name) {
+      //
+      //         // create a new property for the corn mean and assign the data
+      //         feature.properties[name[i]] = row;
+      //       }
+      //     })
+      //   })
+      // });
     </script>
   </body>
 
