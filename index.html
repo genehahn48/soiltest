@@ -16,12 +16,20 @@
   <body>
 
     <header>
-      <h1>Soil Test Map</h1>
-      <h2>subheading here</h2>
+      <h1>Soil Test Data Single Crop Map</h1>
+      <h2>Select Nurtient</h2>
     </header>
     <div class="grid-container">
 
       <div class="map-1">
+        <form>
+          <label for="year">Year</label>
+          <input type="range" min=1995 max=2015 step=5 id="year" value=1995 oninput="selected_year.value = year.value">
+          <output name="selected_year" id="selected_year">2000</output>
+        </form>
+
+        <div style="display: flex;">
+              <div id="legend"></div>
         <div id="map-01"></div>
       </div>
       <div class="map-2">
