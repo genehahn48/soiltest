@@ -5,10 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Soil test map</title>
-
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin="" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+  integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+  crossorigin=""/>
     <link rel="stylesheet" href="css/style.css" />
-
   </head>
   <style>
   </style>
@@ -17,21 +17,29 @@
 
     <header>
       <h1>Soil Test Data Single Crop Map</h1>
-      <h2>Select Nurtient</h2>
+      <h2>Select year, nutrient, and crop type.</h2>
     </header>
     <div class="grid-container">
 
       <div class="map-1">
-        <form>
-          <label for="year">Year</label>
-          <input type="range" min=1995 max=2015 step=5 id="year" value=1995 oninput="selected_year.value = year.value">
-          <output name="selected_year" id="selected_year">2000</output>
+        <form name = "map01">
+          <label for="yearMap1">Year</label>
+          <input type="range" min=1990 max=2019 step=1 id="yearMap1" value=2010
+          oninput="selected_yearMap1.value = yearVal(this.value)">
+          <output name="selected_yearMap1" id="selected_year1">2010</output>
+<!-- chemical selection radio button map01 -->
+            <input type="radio" id="p" name="chemMap01" onclick="nutVal(this.value)" value="P" checked>
+              <label for="P">Phosphorus</label>
+          <input type="radio" id="k" name="chemMap01"  onclick="nutVal(this.value)" value="K">
+            <label for="K">Potassium</label>
+            <div class="filterCrop">
+          </div>
         </form>
-
         <div style="display: flex;">
-              <div id="legend"></div>
+        <div id="legend"></div>
         <div id="map-01"></div>
       </div>
+
       <div class="map-2">
         <div id="map-02" class="yellow">Map #2</div>
       </div>
@@ -47,143 +55,120 @@
       <p>More information here ...</p>
     </footer>
 
-    <script src="https://d3js.org/d3.v5.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.0.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
-    <script>
-      const map01 = L.map('map-01').setView([37.62, -85.20], 7);
+    <!-- load D3 library -->
+      <script src="https://d3js.org/d3.v6.min.js"></script>
+      <!-- load D3 color  -->
+        <script src="https://d3js.org/d3-color.v1.min.js"></script>
+      <!-- load jQuery library -->
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+    crossorigin="anonymous"></script>
+     <!-- load TopoJSON -->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+        integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+        crossorigin=""></script>
+        <!-- load global variables from variables.js files -->
+      <script type="text/javascript" src="/js/variables.js"></script>
+      <script>
 
-      L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-        subdomains: 'abcd',
-        maxZoom: 19
+        const map01 = L.map('map-01').setView([37.8, -85.65], 7);
+        L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',{
+        subdomains:['mt0','mt1','mt2','mt3'],
+        maxZoom: 10, // set maxZoom to county level
+        minZoom: 7,    // set minZoom to State of Kentucky
       }).addTo(map01);
 
-      // request all your desired datasets first
-      const countiesJson = d3.json('project-data/ky-farm-ac.geojson');
-      const regionsJson = d3.json('project-data/ky-regions.json');
-      const alfalfaLevel = d3.csv('project-data/alfalfa_levels.csv');
-      const canolaLevel = d3.csv('project-data/canola_levels.csv');
-      const coolseasonLevel = d3.csv('project-data/coolseason_levels.csv');
-      const cornLevel = d3.csv('project-data/corn_levels.csv');
-      const smallgrainsLevel = d3.csv('project-data/smallgrains_levels.csv');
-      const sorghumLevel = d3.csv('project-data/sorghum_levels.csv');
-      const soyLevel = d3.csv('project-data/soy_levels.csv');
-      const tobaccoLevel = d3.csv('project-data/tobacco_levels.csv');
-      const warmseasonLevel = d3.csv('project-data/warmseason_levels.csv');
-      // Load median values for all categories
-      const alfalfaMedCsv = d3.csv('project-data/alfalfa_median.csv');
-      const canolaMedCSV = d3.csv('project-data/canola_median.csv');
-      const coolseasonMedCSV = d3.csv('project-data/coolseason_median.csv');
-      const cornMedCSV = d3.csv('project-data/corn_median.csv');
-      const smallgrainsMedCSV = d3.csv('project-data/smallgrains_median.csv');
-      const sorghumMedCSV = d3.csv('project-data/sorghum_median.csv');
-      const soyMedCSV = d3.csv('project-data/soy_median.csv');
-      const tobaccoMedCSV = d3.csv('project-data/tobacco_median.csv');
-      const warmseasonMedCSV = d3.csv('project-data/warmseason_median.csv');
 
-      // wait until they are ready and then send to dataReady function
-      Promise.all([countiesJson, regionsJson, cornMedCSV, alfalfaLevel, canolaLevel, coolseasonLevel, cornLevel, smallgrainsLevel, sorghumLevel, soyLevel, tobaccoLevel, warmseasonLevel, alfalfaMedCsv, canolaMedCSV, coolseasonMedCSV,
-        smallgrainsMedCSV, sorghumMedCSV, tobaccoMedCSV, warmseasonMedCSV
-      ]).then(dataReady, error);
 
-      // function fired if there is an error
-      function error(error) {
-        console.log(error)
-      }
+        // wait until they are ready and then send to dataReady function
+        Promise.all([countiesJson,regionsJson,alfalfaLevel,canolaLevel,coolseasonLevel,cornLevel,
+                      smallgrainsLevel,sorghumLevel,soyLevel,tobaccoLevel,
+                      warmseasonLevel,alfalfaMedCsv,canolaMedCSV,coolseasonMedCSV,
+                      cornMedCSV,smallgrainsMedCSV,sorghumMedCSV,soyMedCSV,tobaccoMedCSV,warmseasonMedCSV
+        ]).then(dataReady, error);
 
-      // Global variables
-      const cropType = ["Alfalfa", "Canola", "Cool Season Grass", "Corn", "Small Grains", "Sorghum", "Soybean", "Tobacco", "Warm Season Grass"];
-
-      const loCroptype = ["alfalfa", "canola", "coolseason", "corn", "smallgrains", "sorghum", "soy", "tobacco", "warmseason"];
-
-      const selYear = [1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019];
-
-      const selNutrient = ["Phosphorus", "Potassium"];
-
-      const MedData = ["cornMedData", "alfalfaMedData", "canolaMedData", "coolseasonMedData", "smallgrainsMedData", "sorghumMedData", "tobaccoMedData", "warmseasonMedData"];
-
-      // try to build funtion to link data to geojson
-      loCroptype.forEach(function(crop, i) {
-        console.log(i + 3 + " Crop : " + crop)
-      });
-
-      selYear.forEach(display);
-
-      function display(year, index) {
-        console.log(index + 8 + " Year: " + year)
-      };
-
-      function dataReady(data) {
-        // console.log(cropType, selYear)
-        // reference the counties GeoJSON data
-        const countiesJson = data[0];
-
-        // reference the data set, the CSV
-        const cornMedData = data[2];
-        const alfalfa = data[3];
-        const canola = data[4];
-        const coolseason = data[5];
-        const corn = data[6];
-        const smallgrains = data[7];
-        const sorghum = data[8];
-        const soy = data[9];
-        const tobacco = data[10];
-        const warmseason = data[11];
-        const alfalfaMedData = data[12];
-        const canolaMedData = data[13];
-        const coolseasonMedData = data[14];
-        const smallgrainsMedData = data[15];
-        const sorghumMedData = data[16];
-        const tobaccoMedData = data[17];
-        const warmseasonMedData = data[18];
-
-        // here we want to bind CSV data to the county GeoJSON
-        console.log(MedData)
-        // loop through the county features
-        countiesJson.features.forEach(function(feature) {
-
-          // loop through corn median CSV data
-
-          cornMedData.forEach(function(row, i) {
-            // if the county name and CSV name match
-            if (row.COUNTY == feature.properties.name) {
-
-              // create a new property for the corn mean and assign the data
-              feature.properties['corn_med'] = row;
-            }
-          })
+        // function fired if there is an error
+        function error(error) {
+          console.log(error)
+        }
+  // load data with dataReady function
+    function dataReady(data) {
+  // reference the counties GeoJSON data
+          const countiesJson = data[0];
+          const regionsJson = data[1];
+  // reference the data set, the CSV
+          const alfalfa = data[2];
+          const canola = data[3];
+          const coolseason = data[4];
+          const corn = data[5];
+          const smallgrains = data[6];
+          const sorghum = data[7];
+          const soy = data[8];
+          const tobacco = data[9];
+          const warmseason = data[10];
+          const alfalfaMedData = data[11];
+          const canolaMedData = data[12];
+          const coolseasonMedData = data[13];
+          const cornMedData = data[14];
+          const smallgrainsMedData = data[15];
+          const sorghumMedData = data[16];
+          const tobaccoMedData = data[17];
+          const warmseasonMedData = data[18];
+  // here we want to bind CSV data to the county GeoJSON
+  // create variable bindData to loop all csv files in leaflet bind features to json
+        const bindData = [alfalfa, canola, coolseason, corn, smallgrains, sorghum, soy, tobacco, warmseason,
+                        alfalfaMedData, canolaMedData, coolseasonMedData, cornMedData,smallgrainsMedData,
+                        sorghumMedData, tobaccoMedData, warmseasonMedData];
+  // create variable to name loop data bind to GeoJSON
+        const bindName = loCroptype;
+        MedData.forEach(function(x){
+          bindName.push(x)
         })
 
-        // double check that the bind was successful
-        console.log()
-        console.log(data[0])
-        // console.log(data[6])
+  // loop bindData and send bindName to name crops
+      bindData.forEach(function(bindData,x){
+  // loop through the county features
+      countiesJson.features.forEach(function(feature) {
+            bindData.forEach(function(row, i) {
+        // if the county name and CSV name match
+        if (row.COUNTY == feature.properties.name) {
+
+          // create a new property for the csv data in the json and assign the data
+          feature.properties[bindName[x]] = row;
+        }
+      })
+    })
+  });
+  // double check that the bind was successful
+      console.log(data[0],"county data");
+      console.log(data[1],"region");
+      console.log(countiesJson);
+      console.log(regionsJson);
+      console.log(nutValmap1 +" : Map1");
+      console.log(yearValMap1);
+
+    // draw geojson to the map
+          L.geoJson(data[0]).addTo(map01);
+          L.geoJson(data[1]).addTo(map01);
+          // Add selection dropdown
+          // addCroptype(cropType);
+          // addSelyear(selYear);
+
+    };
+
+    function nutVal (n){
+          console.log(n+": map1")
+          nutValmap1=n
+          return nutValmap1
+        };
+        function yearVal (n){
+              console.log(n+": map1 year")
+              yearValMap1 = n
+              return yearValMap1
+            };
 
 
-        // draw geojson to the map
-        L.geoJson(data[0]).addTo(map01);
-        // Add selection dropdown
-        // addCroptype(cropType);
-        // addSelyear(selYear);
-      }
-      // Create loop to bind data
-      // countiesJson.features.forEach(function(feature) {
-      //
-      //   // loop through corn median CSV data
-      //   MedData.forEach(function(name, i) {
-      //     name[i].forEach(function(row, i) {
-      //       console.log(row)
-      //       // if the county name and CSV name match
-      //       if (row.COUNTY == feature.properties.name) {
-      //
-      //         // create a new property for the corn mean and assign the data
-      //         feature.properties[name[i]] = row;
-      //       }
-      //     })
-      //   })
-      // });
-    </script>
-  </body>
+      </script>
+    </body>
 
-</html>
+  </html>
