@@ -35,7 +35,6 @@
             <div class="filterCrop">
           </div>
         </form>
-        <div style="display: flex;">
         <div id="legend"></div>
         <div id="map-01"></div>
       </div>
@@ -75,7 +74,7 @@
         L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',{
         subdomains:['mt0','mt1','mt2','mt3'],
         maxZoom: 10, // set maxZoom to county level
-        minZoom: 7,    // set minZoom to State of Kentucky
+        minZoom: 6,    // set minZoom to State of Kentucky
       }).addTo(map01);
 
 
