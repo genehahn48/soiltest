@@ -60,3 +60,11 @@ h2 {
 .green {
   background: #d4edda;
 }
+
+.footer {
+  background-color: lightblue;
+  padding-top: 10px;
+  padding-right: 10px;
+  padding-bottom: 0px;
+  padding-left: 10px;
+}
