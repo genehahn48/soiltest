@@ -190,23 +190,47 @@
   });
   // double check that the bind was successful
       console.log(data[0],"county data");
+      const countyData = data[0];
       console.log(data[1],"region");
       console.log(countiesJson);
       console.log(regionsJson);
       console.log(nutValmap1 +" : Map1");
       console.log(yearValMap1);
-
+console.log(nutValmap1 + "_med"+yearValMap1)
     // draw geojson to the map
           L.geoJson(data[0]).addTo(map01);
           // L.geoJson(data[1]).addTo(map01); // regions of KY
           L.geoJson(data[0]).addTo(map02);
           L.geoJson(data[0]).addTo(map03);
           L.geoJson(data[1]).addTo(map04);
+console.log(countyData)
+          console.log(countyData.feature.properties.alfalfaMedData[(nutValmap1 + "_med"+yearValMap1)])
           // Add selection dropdown
           // addCroptype(cropType);
           // addSelyear(selYear);
 
     };
+
+    function getColor(d) {
+        return d > 60  ? '#800026' :
+               d >= 28  ? '#BD0026' :
+               d >= 6   ? '#E31A1C' :
+               d >= 1   ? '#FC4E2A' :
+               d = 0   ? '#FED976' :
+                          '#FFEDA0';
+    }
+
+    function style(feature) {
+    return {
+        fillColor: getColor(feature.properties.density),
+        weight: 2,
+        opacity: 1,
+        color: 'white',
+        dashArray: '3',
+        fillOpacity: 0.7
+    };
+}
+
 
     function nutVal (n){
         console.log(n+": map1")
