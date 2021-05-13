@@ -63,8 +63,53 @@ h2 {
 
 .footer {
   background-color: lightblue;
-  padding-top: 10px;
-  padding-right: 10px;
-  padding-bottom: 0px;
-  padding-left: 10px;
+  padding-top: 20px;
+  padding-right: 0px;
+  padding-bottom: 10px;
+  padding-left: 0px;
+}
+
+.dropbtn {
+  background-color: #04AA6D;
+  color: Black;
+  padding: 5px;
+  font-size: 14px;
+  border: none;
+  cursor: pointer;
+}
+
+.dropbtn:hover, .dropbtn:focus {
+  background-color: #3e8e41;
+}
+
+.dropdown {
+  float: right;
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 85px;
+  overflow: auto;
+  box-shadow: 0px 8px 15px 0px rgba(0, 0, 0, 0.2);
+  right: 0;
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 8px 15px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown a:hover {
+  background-color: #ddd;
+}
+
+.show {
+  display: block;
 }
