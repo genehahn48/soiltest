@@ -1,7 +1,7 @@
 /* CSS styles Soil Test Map */
 
 body {
-  background: rgb(235, 235, 236);
+  background: rgb(209, 239, 240);
   font-family: sans-serif;
 }
 
@@ -60,56 +60,58 @@ h2 {
 .green {
   background: #d4edda;
 }
-
+.label{
+  position: relative;
+  left: 20px;
+  }
 .footer {
   background-color: lightblue;
   padding-top: 20px;
-  padding-right: 0px;
-  padding-bottom: 10px;
-  padding-left: 0px;
+  padding-right: 10px;
+  padding-bottom: 0px;
+  padding-left: 10px;
 }
 
 .dropbtn {
-  background-color: #04AA6D;
-  color: Black;
-  padding: 5px;
-  font-size: 14px;
-  border: none;
-  cursor: pointer;
+    background-color:#599899;
+    color: black;
+    padding: 5px;
+    font-size: 16px;
+    border: 3px solid gray;
+    cursor: pointer;
 }
 
+/* Dropdown button on hover & focus */
 .dropbtn:hover, .dropbtn:focus {
-  background-color: #3e8e41;
+    background-color: #1e6061;
 }
 
+/* The container <div> - needed to position the dropdown content */
 .dropdown {
-  float: right;
-  position: relative;
-  display: inline-block;
+    position: relative;
+    left: 65px;
+    display: inline-block;
 }
 
+/* Dropdown Content (Hidden by Default) */
 .dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f1f1f1;
-  min-width: 85px;
-  overflow: auto;
-  box-shadow: 0px 8px 15px 0px rgba(0, 0, 0, 0.2);
-  right: 0;
-  z-index: 1;
+    display: none;
+    position: relative;
+    background-color: #f9f9f9;
+    min-width: 250px;
+    box-shadow: 0px 5px 5px 0px rgba(0,0,0,0.2);
 }
 
+/* Links inside the dropdown */
 .dropdown-content a {
-  color: black;
-  padding: 8px 15px;
-  text-decoration: none;
-  display: block;
+    color: black;
+    padding: 6px 6px;
+    text-decoration: none;
+    display: block;
 }
 
-.dropdown a:hover {
-  background-color: #ddd;
-}
+/* Change color of dropdown links on hover */
+.dropdown-content option:hover {background-color: #f1f1f1}
 
-.show {
-  display: block;
-}
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+.show {display:block;}

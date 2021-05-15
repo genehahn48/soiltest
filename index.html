@@ -1,46 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Soil test map</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
-    <link rel="stylesheet" href="css/style.css" />
-  </head>
-  <style>
-  </style>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Soil test map</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<style>
+</style>
 
-  <body>
+<body>
 
-    <header>
-      <h1>Soil Test Data Single Crop Map</h1>
-      <h2>Select year, nutrient, and crop type.</h2>
-    </header>
-    <div class="grid-container">
+  <header>
+    <h1>Soil Test Data Single Crop Map</h1>
+    <h2>Select year, nutrient, and crop type.</h2>
+  </header>
+  <div class="grid-container">
 
-      <div class="map-1">
-        <form name="map01">
-          <label for="yearMap1">Year</label>
-          <input type="range" min=1990 max=2019 step=1 id="yearMap1" value=2010 oninput="selected_yearMap1.value = yearVal(this.value)">
-          <output name="selected_yearMap1" id="selected_year1">2010</output>
-          <!-- chemical selection radio button map01 -->
-          <input type="radio" id="p" name="chemMap01" onclick="nutVal(this.value)" value="P" checked>
-          <label for="P">Phosphorus</label>
-          <input type="radio" id="k" name="chemMap01" onclick="nutVal(this.value)" value="K">
-          <label for="K">Potassium</label>
-          <!-- <div class="filterCrop"> -->
-
-        </form>
+    <div class="map-1">
+      <form name="map01">
+        <label for="yearMap1">Year</label>
+        <input type="range" min=1990 max=2019 step=1 id="yearMap1" value=2010 oninput="selected_yearMap1.value = yearVal(this.value)">
+        <output name="selected_yearMap1" id="selected_year1">2010</output>
+        <!-- chemical selection radio button map01 -->
+        <input type="radio" id="p" name="chemMap01" onclick="nutVal(this.value)" value="P" checked>
+        <label for="P">Phosphorus</label>
+        <input type="radio" id="k" name="chemMap01" onclick="nutVal(this.value)" value="K">
+        <label for="K">Potassium</label>
+        <!-- <div class="filterCrop"> -->
         <div class="dropdown">
-          <button onclick="myFunction()" class="dropbtn">Dropdown</button>
+          <button onclick="myFunction(this.value)" class="dropbtn">Crop Type</button>
           <div id="myDropdown" class="dropdown-content">
-            <a href="#home">Home</a>
-            <a href="#about">About</a>
-            <a href="#contact">Contact</a>
+            <option value="alfalfaMedData">Alfalfa</option>
+            <option value="canolaMedData">Canola</option>
+            <option value="coolseasonMedData">Cool Season Grass</option>
+            <option value="cornMedData">Corn</option>
+            <option value="smallgrainsMedData">Small Grains</option>
+            <option value="sorghumMedData">Sorghum</option>
+            <option value="tobaccoMedData">Tobacco</option>
+            <option value="warmseasonMedData">Warm Season Grass</option>
           </div>
         </div>
-      </div>
+      </form>
       <div id="legend"></div>
       <div id="map-01"></div>
     </div>
@@ -83,210 +86,258 @@
     <div class="map-4 green">
       <div id="map-04" class="green">Map #4</div>
     </div>
-    </div>
-    <footer>
-      <p>Map authored by Gene</p>
-      <p>More information here ...</p>
-    </footer>
+  </div>
+  </div>
+  <footer>
+    <p>Map authored by Gene</p>
+    <p>More information here ...</p>
+  </footer>
 
-    <!-- load D3 library -->
-    <script src="https://d3js.org/d3.v6.min.js"></script>
-    <!-- load D3 color  -->
-    <script src="https://d3js.org/d3-color.v1.min.js"></script>
-    <!-- load jQuery library -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <!-- load TopoJSON -->
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
-    <!-- load global variables from variables.js files -->
-    <script type="text/javascript" src="js/variables.js"></script>
-    <script>
-      const map01 = L.map('map-01').setView([37.8, -85.65], 7);
-      L.tileLayer('https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
-        subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
-        maxZoom: 10, // set maxZoom to county level
-        minZoom: 6, // set minZoom to State of Kentucky
-      }).addTo(map01);
+  <!-- load D3 library -->
+  <script src="https://d3js.org/d3.v6.min.js"></script>
+  <!-- load D3 color  -->
+  <script src="https://d3js.org/d3-color.v1.min.js"></script>
+  <!-- load jQuery library -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <!-- load TopoJSON -->
+  <script src="https://unpkg.com/topojson@3"></script>
 
-      const map02 = L.map('map-02').setView([37.8, -85.65], 7);
-      L.tileLayer('https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
-        subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
-        maxZoom: 10, // set maxZoom to county level
-        minZoom: 7, // set minZoom to State of Kentucky
-      }).addTo(map02);
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+  <!-- load global variables from variables.js files -->
+  <script type="text/javascript" src="js/variables.js"></script>
+  <script>
 
-      const map03 = L.map('map-03').setView([37.8, -85.65], 7);
-      L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_only_labels/{z}/{x}/{y}{r}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-        subdomains: 'abcd',
-        maxZoom: 10, // set maxZoom to county level
-        minZoom: 7, // set minZoom to State of Kentucky
-      }).addTo(map03);
+// value from dropdown
+//   $(document).ready(function(){
+//     $("div.myDropdown").change(function(){
+//         var selectedCrop = $(this).children("option:slect").val();
+//         alert("Your selected crop type is :" + selectedCrop);
+//         console.log(selectedCrop)
+// return selectedCrop
+//     });
+// });
+  // variables for leaflet maps Start map variables
+    var map01 = L.map('map-01').setView([37.8, -85.65], 7);
+    L.tileLayer('https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+      subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
+      maxZoom: 10, // set maxZoom to county level
+      minZoom: 6, // set minZoom to State of Kentucky
+    }).addTo(map01),
 
-      const map04 = L.map('map-04').setView([37.8, -85.65], 7);
-      L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_only_labels/{z}/{x}/{y}{r}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-        subdomains: 'abcd',
-        maxZoom: 10, // set maxZoom to county level
-        minZoom: 7, // set minZoom to State of Kentucky
-      }).addTo(map04);
+      map02 = L.map('map-02').setView([37.8, -85.65], 7);
+    L.tileLayer('https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+      subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
+      maxZoom: 10, // set maxZoom to county level
+      minZoom: 7, // set minZoom to State of Kentucky
+    }).addTo(map02),
 
-      // wait until they are ready and then send to dataReady function
-      Promise.all([countiesJson, regionsJson, alfalfaLevel, canolaLevel, coolseasonLevel, cornLevel,
-        smallgrainsLevel, sorghumLevel, soyLevel, tobaccoLevel,
-        warmseasonLevel, alfalfaMedCsv, canolaMedCSV, coolseasonMedCSV,
-        cornMedCSV, smallgrainsMedCSV, sorghumMedCSV, soyMedCSV, tobaccoMedCSV, warmseasonMedCSV
-      ]).then(dataReady, error);
+      map03 = L.map('map-03').setView([37.8, -85.65], 7);
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_only_labels/{z}/{x}/{y}{r}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+      subdomains: 'abcd',
+      maxZoom: 10, // set maxZoom to county level
+      minZoom: 7, // set minZoom to State of Kentucky
+    }).addTo(map03),
 
-      // function fired if there is an error
-      function error(error) {
-        console.log(error)
+      map04 = L.map('map-04').setView([37.8, -85.65], 7);
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_only_labels/{z}/{x}/{y}{r}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+      subdomains: 'abcd',
+      maxZoom: 10, // set maxZoom to county level
+      minZoom: 7, // set minZoom to State of Kentucky
+    }).addTo(map04)
+    // End map variables
+
+    // get width and height of maps with jQuery
+    var wMap1 = $("#map-01").width(),
+        hMap1 = $("#map-01").height(),
+        widthForLegend = 100
+    // console.log(wMap1 + " :width" + hMap1 + ": height")
+    //Define color for map and legend
+    var colorbrewer = {
+      YlOrRd: {
+        9: ["#ffffcc", "#ffeda0", "#fed976", "#feb24c", "#fd8d3c", "#fc4e2a", "#e31a1c", "#bd0026", "#800026"]
       }
-      // load data with dataReady function
-      function dataReady(data) {
-        // reference the counties GeoJSON data
-        const countiesJson = data[0];
-        const regionsJson = data[1];
-        // reference the data set, the CSV
-        const alfalfa = data[2];
-        const canola = data[3];
-        const coolseason = data[4];
-        const corn = data[5];
-        const smallgrains = data[6];
-        const sorghum = data[7];
-        const soy = data[8];
-        const tobacco = data[9];
-        const warmseason = data[10];
-        const alfalfaMedData = data[11];
-        const canolaMedData = data[12];
-        const coolseasonMedData = data[13];
-        const cornMedData = data[14];
-        const smallgrainsMedData = data[15];
-        const sorghumMedData = data[16];
-        const tobaccoMedData = data[17];
-        const warmseasonMedData = data[18];
-        // here we want to bind CSV data to the county GeoJSON
-        // create variable bindData to loop all csv files in leaflet bind features to json
-        const bindData = [alfalfa, canola, coolseason, corn, smallgrains, sorghum, soy, tobacco, warmseason,
-          alfalfaMedData, canolaMedData, coolseasonMedData, cornMedData, smallgrainsMedData,
-          sorghumMedData, tobaccoMedData, warmseasonMedData
-        ];
-        // create variable to name loop data bind to GeoJSON
-        const bindName = loCroptype;
-        MedData.forEach(function(x) {
-          bindName.push(x)
-        })
+    };
+// select the map element
+//     var svg = d3.select("#map-01")
+//       .append("svg") // append a new SVG element
+//       .attr("width", wMap1) // give the SVG element a width attribute and value
+//       .attr("height", hMap1) // same for the height
+// // select legend element
+//       var svgForLegend = d3.select("#legend")
+//             .append("svg")
+//             .attr("width", widthForLegend)
+//             .attr("height", hMap1);
 
-        // loop bindData and send bindName to name crops
-        bindData.forEach(function(bindData, x) {
-          // loop through the county features
-          countiesJson.features.forEach(function(feature) {
-            bindData.forEach(function(row, i) {
-              // if the county name and CSV name match
-              if (row.COUNTY == feature.properties.name) {
+    // wait until they are ready and then send to dataReady function
+    Promise.all([countiesJson, regionsJson, alfalfaLevel, canolaLevel, coolseasonLevel, cornLevel,
+      smallgrainsLevel, sorghumLevel, soyLevel, tobaccoLevel,
+      warmseasonLevel, alfalfaMedCsv, canolaMedCSV, coolseasonMedCSV,
+      cornMedCSV, smallgrainsMedCSV, sorghumMedCSV, soyMedCSV, tobaccoMedCSV, warmseasonMedCSV
+    ]).then(dataReady, error);
 
-                // create a new property for the csv data in the json and assign the data
-                feature.properties[bindName[x]] = row;
-              }
-            })
-          })
-        });
-        // double check that the bind was successful
-        console.log(data[0], "county data");
-        const countyData = data[0];
-        console.log(data[1], "region");
-        console.log(countiesJson);
-        console.log(regionsJson);
-        console.log(nutValmap1 + " : Map1");
-        console.log(yearValMap1);
-        console.log(nutValmap1 + "_med" + yearValMap1)
-        // draw geojson to the map
-        L.geoJson(data[0]).addTo(map01);
-        // L.geoJson(data[1]).addTo(map01); // regions of KY
-        L.geoJson(data[0]).addTo(map02);
-        L.geoJson(data[0]).addTo(map03);
-        L.geoJson(data[1]).addTo(map04);
-        console.log(countyData)
-        // console.log(countyData.feature.properties.alfalfaMedData[(nutValmap1 + "_med" + yearValMap1)])
-        // Add selection dropdown
-        // addCroptype(cropType);
-        // addSelyear(selYear);
+    // function fired if there is an error
+    function error(error) {
+      console.log(error)
+    }
+    // load data with dataReady function
+    function dataReady(data) {
+      // reference the counties GeoJSON data
+      const countiesJson = data[0];
+      const regionsJson = data[1];
+      // reference the data set, the CSV
+      const alfalfa = data[2];
+      const canola = data[3];
+      const coolseason = data[4];
+      const corn = data[5];
+      const smallgrains = data[6];
+      const sorghum = data[7];
+      const soy = data[8];
+      const tobacco = data[9];
+      const warmseason = data[10];
+      const alfalfaMedData = data[11];
+      const canolaMedData = data[12];
+      const coolseasonMedData = data[13];
+      const cornMedData = data[14];
+      const smallgrainsMedData = data[15];
+      const sorghumMedData = data[16];
+      const tobaccoMedData = data[17];
+      const warmseasonMedData = data[18];
+      // here we want to bind CSV data to the county GeoJSON
+      // create variable bindData to loop all csv files in leaflet bind features to json
+      const bindData = [alfalfa, canola, coolseason, corn, smallgrains, sorghum, soy, tobacco, warmseason,
+        alfalfaMedData, canolaMedData, coolseasonMedData, cornMedData, smallgrainsMedData,
+        sorghumMedData, tobaccoMedData, warmseasonMedData
+      ];
+      // create variable to name loop data bind to GeoJSON
+      const bindName = loCroptype;
+      MedData.forEach(function(x) {
+        bindName.push(x)
+      })
 
-      };
+      // loop bindData and send bindName to name crops
+      bindData.forEach(function(bindData, x) {
+        // loop through the county features
+        countiesJson.features.forEach(function(feature) {
+          bindData.forEach(function(row, i) {
+            // if the county name and CSV name match
+            if (row.COUNTY == feature.properties.name) {
 
-      function getColor(d) {
-        return d > 60 ? '#800026' :
-          d >= 28 ? '#BD0026' :
-          d >= 6 ? '#E31A1C' :
-          d >= 1 ? '#FC4E2A' :
-          d = 0 ? '#FED976' :
-          '#FFEDA0';
-      }
-
-      function style(feature) {
-        return {
-          fillColor: getColor(feature.properties.density),
-          weight: 2,
-          opacity: 1,
-          color: 'white',
-          dashArray: '3',
-          fillOpacity: 0.7
-        };
-      }
-
-      function myFunction() {
-        document.getElementById("myDropdown").classList.toggle("show");
-      }
-
-      // Close the dropdown if the user clicks outside of it
-      window.onclick = function(event) {
-        if (!event.target.matches('.dropbtn')) {
-          var dropdowns = document.getElementsByClassName("dropdown-content");
-          var i;
-          for (i = 0; i < dropdowns.length; i++) {
-            var openDropdown = dropdowns[i];
-            if (openDropdown.classList.contains('show')) {
-              openDropdown.classList.remove('show');
+              // create a new property for the csv data in the json and assign the data
+              feature.properties[bindName[x]] = row;
             }
+          })
+        })
+      });
+      // double check that the bind was successful
+      console.log(data[0], "county data");
+      const countyData = data[0];
+      console.log(data[1], "region");
+      console.log(countiesJson);
+      console.log(regionsJson);
+      console.log(nutValmap1 + " : Map1");
+      console.log(yearValMap1);
+      console.log(nutValmap1 + "_med" + yearValMap1)
+      // draw geojson to the map
+      L.geoJson(data[0]).addTo(map01);
+      // L.geoJson(data[1]).addTo(map01); // regions of KY
+      L.geoJson(data[0]).addTo(map02);
+      L.geoJson(data[0]).addTo(map03);
+      L.geoJson(data[1]).addTo(map04);
+      console.log(countyData)
+
+      // getting axcess to median data
+      // countyData.features.forEach(function(county) {
+      //   var currentPropName = nutValmap1 + "_med" + yearValMap1;
+      //   console.log(county.properties.alfalfaMedData[currentPropName]);
+      // })
+      // console.log(countyData.feature.properties.alfalfaMedData[(nutValmap1 + "_med" + yearValMap1)])
+      // Add selection dropdown
+      // addCroptype(cropType);
+      // addSelyear(selYear);
+
+    };
+
+    function getColor(d) {
+      return d > 60 ? '#800026' :
+        d >= 28 ? '#BD0026' :
+        d >= 6 ? '#E31A1C' :
+        d >= 1 ? '#FC4E2A' :
+        d = 0 ? '#FED976' :
+        '#FFEDA0';
+    }
+
+    function style(feature) {
+      return {
+        fillColor: getColor(feature.properties.density),
+        weight: 2,
+        opacity: 1,
+        color: 'white',
+        dashArray: '3',
+        fillOpacity: 0.7
+      };
+    }
+
+    function myFunction(crop) {
+      document.getElementById("myDropdown").classList.toggle("show");
+      // var cropMap1 = document.getElementById("myDropdown");
+      // cropMap1.value = crop;
+      // cropMap1.innerHTML = crop;
+
+    }
+
+    // Close the dropdown if the user clicks outside of it
+    window.onclick = function(event) {
+      if (!event.target.matches('.dropbtn')) {
+        var dropdowns = document.getElementsByClassName("dropdown-content");
+        var i;
+        for (i = 0; i < dropdowns.length; i++) {
+          var openDropdown = dropdowns[i];
+          if (openDropdown.classList.contains('show')) {
+            openDropdown.classList.remove('show');
           }
         }
       }
+      var crop = document.getElementById("myDropdown");
+              }
 
-      function nutVal(n) {
-        console.log(n + ": map1")
-        nutValmap1 = n
-        return nutValmap1
-      };
+    function nutVal(n) {
+      console.log(n + ": map1")
+      nutValmap1 = n
+      return nutValmap1
+    };
 
-      function nutVal2(n) {
-        console.log(n + "map2")
-        nutValmap2 = n
-        return nutValmap2
-      };
+    function nutVal2(n) {
+      console.log(n + "map2")
+      nutValmap2 = n
+      return nutValmap2
+    };
 
-      function nutVal3(n) {
-        console.log(n + "map3")
-        nutValmap3 = n
-        return nutValmap3
-      };
+    function nutVal3(n) {
+      console.log(n + "map3")
+      nutValmap3 = n
+      return nutValmap3
+    };
 
-      function yearVal(n) {
-        console.log(n + ": map1 year")
-        yearValMap1 = n
-        return yearValMap1
-      };
+    function yearVal(n) {
+      console.log(n + ": map1 year")
+      yearValMap1 = n
+      return yearValMap1
+    };
 
-      function yearVal2(n) {
-        console.log(n + ": map2 year")
-        yearValMap2 = n
-        return yearValMap2
-      };
+    function yearVal2(n) {
+      console.log(n + ": map2 year")
+      yearValMap2 = n
+      return yearValMap2
+    };
 
-      function yearVal3(n) {
-        console.log(n + ": map3 year")
-        yearValMap3 = n
-        return yearValMap3
-      };
-    </script>
-  </body>
+    function yearVal3(n) {
+      console.log(n + ": map3 year")
+      yearValMap3 = n
+      return yearValMap3
+    };
+  </script>
+</body>
 
 </html>
