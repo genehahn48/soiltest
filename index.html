@@ -30,62 +30,62 @@
         <input type="radio" id="k" name="chemMap01" onclick="nutVal(this.value)" value="K">
         <label for="K">Potassium</label>
         <!-- <div class="filterCrop"> -->
-        <select id= "dropdown" name="dropdown" class="dropdown" onchange= "crop(this.value)">
+        <select id="dropdown" name="dropdown" class="dropdown" onchange="crop(this.value)">
           <!-- <div id="myDropdown" class="dropdown-content"> -->
-            <option value="alfalfaMedData">Alfalfa</option>
-            <option value="canolaMedData">Canola</option>
-            <option value="coolseasonMedData">Cool Season Grass</option>
-            <option value="cornMedData">Corn</option>
-            <option value="smallgrainsMedData">Small Grains</option>
-            <option value="sorghumMedData">Sorghum</option>
-            <option value="soyMedData">SoyBeans</option>
-            <option value="tobaccoMedData">Tobacco</option>
-            <option value="warmseasonMedData">Warm Season Grass</option>
-          </div>
-        </select>
-      </form>
-        <div id="legend"></div>
-      <div id="map-01"></div>
+          <option value="alfalfaMedData">Alfalfa</option>
+          <option value="canolaMedData">Canola</option>
+          <option value="coolseasonMedData">Cool Season Grass</option>
+          <option value="cornMedData">Corn</option>
+          <option value="smallgrainsMedData">Small Grains</option>
+          <option value="sorghumMedData">Sorghum</option>
+          <option value="soyMedData">SoyBeans</option>
+          <option value="tobaccoMedData">Tobacco</option>
+          <option value="warmseasonMedData">Warm Season Grass</option>
     </div>
+    </select>
+    </form>
+    <div id="legend"></div>
+    <div id="map-01"></div>
+  </div>
 
-    <div class="map-2">
-      <form name="map02">
-        <label for="yearMap2">Year</label>
-        <input type="range" min=1990 max=2019 step=1 id="yearMap2" value=2010 oninput="selected_yearMap2.value = yearVal2(this.value)">
-        <output name="selected_yearMap2" id="selected_year">2010</output>
-        <!-- chemical selection radio button map01 -->
-        <input type="radio" id="p" name="chemMap02" onclick="nutVal2(this.value)" value="P" checked>
-        <label for="P">Phosphorus</label>
-        <input type="radio" id="k" name="chemMap02" onclick="nutVal2(this.value)" value="K">
-        <label for="k">Potassium</label>
-        <div class="filterCrop">
-        </div>
-      </form>
-      <div id="legend2"></div>
-      <div id="map-02"></div>
-    </div>
+  <div class="map-2">
+    <form name="map02">
+      <label for="yearMap2">Year</label>
+      <input type="range" min=1990 max=2019 step=1 id="yearMap2" value=2010 oninput="selected_yearMap2.value = yearVal2(this.value)">
+      <output name="selected_yearMap2" id="selected_year">2010</output>
+      <!-- chemical selection radio button map01 -->
+      <input type="radio" id="p" name="chemMap02" onclick="nutVal2(this.value)" value="P" checked>
+      <label for="P">Phosphorus</label>
+      <input type="radio" id="k" name="chemMap02" onclick="nutVal2(this.value)" value="K">
+      <label for="k">Potassium</label>
+      <div class="filterCrop">
+      </div>
+    </form>
+    <div id="legend2"></div>
+    <div id="map-02"></div>
+  </div>
 
-    <!-- <div class="map-3 blue" id="map-03" class="blue"> -->
-    <div class="map-3 blue">
-      <form name="map03">
-        <label for="yearMap3">Year</label>
-        <input type="range" min=1990 max=2019 step=1 id="yearMap3" value=2010 oninput="selected_yearMap3.value = yearVal3(this.value)">
-        <output name="selected_yearMap3" id="selected_year">2010</output>
-        <!-- chemical selection radio button map01 -->
-        <input type="radio" id="p" name="chemMap03" onclick="nutVal3(this.value)" value="P" checked>
-        <label for="P">Phosphorus</label>
-        <input type="radio" id="k" name="chemMap03" onclick="nutVal3(this.value)" value="K">
-        <label for="k">Potassium</label>
-        <div class="filterCrop">
-        </div>
-      </form>
-      <div id="map-03"></div>
-    </div>
+  <!-- <div class="map-3 blue" id="map-03" class="blue"> -->
+  <div class="map-3 blue">
+    <form name="map03">
+      <label for="yearMap3">Year</label>
+      <input type="range" min=1990 max=2019 step=1 id="yearMap3" value=2010 oninput="selected_yearMap3.value = yearVal3(this.value)">
+      <output name="selected_yearMap3" id="selected_year">2010</output>
+      <!-- chemical selection radio button map01 -->
+      <input type="radio" id="p" name="chemMap03" onclick="nutVal3(this.value)" value="P" checked>
+      <label for="P">Phosphorus</label>
+      <input type="radio" id="k" name="chemMap03" onclick="nutVal3(this.value)" value="K">
+      <label for="k">Potassium</label>
+      <div class="filterCrop">
+      </div>
+    </form>
+    <div id="map-03"></div>
+  </div>
 
 
-    <div class="map-4 green">
-      <div id="map-04" class="green">Map #4</div>
-    </div>
+  <div class="map-4 green">
+    <div id="map-04" class="green">Map #4</div>
+  </div>
   </div>
   </div>
   <footer>
@@ -106,29 +106,28 @@
   <!-- load global variables from variables.js files -->
   <script type="text/javascript" src="js/variables.js"></script>
   <script>
-
-  // variables for leaflet maps Start map variables
+    // variables for leaflet maps Start map variables
     var map01 = L.map('map-01').setView([37.8, -85.65], 7);
     L.tileLayer('https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
-      subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
-      maxZoom: 10, // set maxZoom to county level
-      minZoom: 6, // set minZoom to State of Kentucky
-    }).addTo(map01),
+        subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
+        maxZoom: 10, // set maxZoom to county level
+        minZoom: 6, // set minZoom to State of Kentucky
+      }).addTo(map01),
 
       map02 = L.map('map-02').setView([37.8, -85.65], 7);
     L.tileLayer('https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
-      subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
-      maxZoom: 10, // set maxZoom to county level
-      minZoom: 7, // set minZoom to State of Kentucky
-    }).addTo(map02),
+        subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
+        maxZoom: 10, // set maxZoom to county level
+        minZoom: 7, // set minZoom to State of Kentucky
+      }).addTo(map02),
 
       map03 = L.map('map-03').setView([37.8, -85.65], 7);
     L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_only_labels/{z}/{x}/{y}{r}.png', {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-      subdomains: 'abcd',
-      maxZoom: 10, // set maxZoom to county level
-      minZoom: 7, // set minZoom to State of Kentucky
-    }).addTo(map03),
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+        subdomains: 'abcd',
+        maxZoom: 10, // set maxZoom to county level
+        minZoom: 7, // set minZoom to State of Kentucky
+      }).addTo(map03),
 
       map04 = L.map('map-04').setView([37.8, -85.65], 7);
     L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_only_labels/{z}/{x}/{y}{r}.png', {
@@ -144,8 +143,8 @@
 
     // get width and height of maps with jQuery
     var wMap1 = $("#map-01").width(),
-        hMap1 = $("#map-01").height(),
-        widthForLegend = 100
+      hMap1 = $("#map-01").height(),
+      widthForLegend = 100
     // console.log(wMap1 + " :width" + hMap1 + ": height")
     //Define color for map and legend
     var colorbrewer = {
@@ -153,16 +152,16 @@
         9: ["#ffffcc", "#ffeda0", "#fed976", "#feb24c", "#fd8d3c", "#fc4e2a", "#e31a1c", "#bd0026", "#800026"]
       }
     };
-// select the map element
-//     var svg = d3.select("#map-01")
-//       .append("svg") // append a new SVG element
-//       .attr("width", wMap1) // give the SVG element a width attribute and value
-//       .attr("height", hMap1) // same for the height
-// // select legend element
-//       var svgForLegend = d3.select("#legend")
-//             .append("svg")
-//             .attr("width", widthForLegend)
-//             .attr("height", hMap1);
+    // select the map element
+    //     var svg = d3.select("#map-01")
+    //       .append("svg") // append a new SVG element
+    //       .attr("width", wMap1) // give the SVG element a width attribute and value
+    //       .attr("height", hMap1) // same for the height
+    // // select legend element
+    //       var svgForLegend = d3.select("#legend")
+    //             .append("svg")
+    //             .attr("width", widthForLegend)
+    //             .attr("height", hMap1);
 
     // wait until they are ready and then send to dataReady function
     Promise.all([countiesJson, regionsJson, alfalfaLevel, canolaLevel, coolseasonLevel, cornLevel,
@@ -253,23 +252,24 @@
       // addSelyear(selYear);
 
     };
-// get option from dropdown Start
+    // get option from dropdown Start
     function crop() {
-        // get references to select list and display text box
-        var sel = document.getElementById("dropdown");
-        var cropval = sel.value
-        console.log(cropval+" : crop value")
+      // get references to select list and display text box
+      var sel = document.getElementById("dropdown");
+      var cropval = sel.value
+      console.log(cropval + " : crop value")
       return cropval
     }; // End dropdown get Value
 
     // immediate function to preserve global namespace
-    function getColor(d) {
-      return d > 60 ? '#800026' :
-        d >= 28 ? '#BD0026' :
-        d >= 6 ? '#E31A1C' :
-        d >= 1 ? '#FC4E2A' :
-        d = 0 ? '#FED976' :
-        '#FFEDA0';
+    function getColorP(d) {
+      return d > 80 ? '#980043' :
+        d >= 60 ? '#dd1c77' :
+        d >= 27 ? '#df65b0' :
+        d >= 7 ? '#d7b5d8' :
+        d >= 5 ? '#f1eef6' :
+        d = 0 ? '#edf8fb' :
+        '#edf8fb';
     }
 
     function style(feature) {
@@ -283,7 +283,7 @@
       };
     }
 
-      function nutVal(n) {
+    function nutVal(n) {
       console.log(n + ": map1")
       nutValmap1 = n
       return nutValmap1
