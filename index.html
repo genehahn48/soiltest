@@ -30,21 +30,21 @@
         <input type="radio" id="k" name="chemMap01" onclick="nutVal(this.value)" value="K">
         <label for="K">Potassium</label>
         <!-- <div class="filterCrop"> -->
-        <div class="dropdown">
-          <button onclick="myFunction(this.value)" class="dropbtn">Crop Type</button>
-          <div id="myDropdown" class="dropdown-content">
+        <select id= "dropdown" name="dropdown" class="dropdown" onchange= "crop(this.value)">
+          <!-- <div id="myDropdown" class="dropdown-content"> -->
             <option value="alfalfaMedData">Alfalfa</option>
             <option value="canolaMedData">Canola</option>
             <option value="coolseasonMedData">Cool Season Grass</option>
             <option value="cornMedData">Corn</option>
             <option value="smallgrainsMedData">Small Grains</option>
             <option value="sorghumMedData">Sorghum</option>
+            <option value="soyMedData">SoyBeans</option>
             <option value="tobaccoMedData">Tobacco</option>
             <option value="warmseasonMedData">Warm Season Grass</option>
           </div>
-        </div>
+        </select>
       </form>
-      <div id="legend"></div>
+        <div id="legend"></div>
       <div id="map-01"></div>
     </div>
 
@@ -107,15 +107,6 @@
   <script type="text/javascript" src="js/variables.js"></script>
   <script>
 
-// value from dropdown
-//   $(document).ready(function(){
-//     $("div.myDropdown").change(function(){
-//         var selectedCrop = $(this).children("option:slect").val();
-//         alert("Your selected crop type is :" + selectedCrop);
-//         console.log(selectedCrop)
-// return selectedCrop
-//     });
-// });
   // variables for leaflet maps Start map variables
     var map01 = L.map('map-01').setView([37.8, -85.65], 7);
     L.tileLayer('https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
@@ -147,6 +138,9 @@
       minZoom: 7, // set minZoom to State of Kentucky
     }).addTo(map04)
     // End map variables
+
+    // object select variable
+    var cropval = "alfalfaMedData"
 
     // get width and height of maps with jQuery
     var wMap1 = $("#map-01").width(),
@@ -202,13 +196,14 @@
       const cornMedData = data[14];
       const smallgrainsMedData = data[15];
       const sorghumMedData = data[16];
-      const tobaccoMedData = data[17];
-      const warmseasonMedData = data[18];
+      const soyMedData = data[17];
+      const tobaccoMedData = data[18];
+      const warmseasonMedData = data[19];
       // here we want to bind CSV data to the county GeoJSON
       // create variable bindData to loop all csv files in leaflet bind features to json
       const bindData = [alfalfa, canola, coolseason, corn, smallgrains, sorghum, soy, tobacco, warmseason,
         alfalfaMedData, canolaMedData, coolseasonMedData, cornMedData, smallgrainsMedData,
-        sorghumMedData, tobaccoMedData, warmseasonMedData
+        sorghumMedData, soyMedData, tobaccoMedData, warmseasonMedData
       ];
       // create variable to name loop data bind to GeoJSON
       const bindName = loCroptype;
@@ -245,7 +240,7 @@
       L.geoJson(data[0]).addTo(map02);
       L.geoJson(data[0]).addTo(map03);
       L.geoJson(data[1]).addTo(map04);
-      console.log(countyData)
+      console.log(cropval)
 
       // getting axcess to median data
       // countyData.features.forEach(function(county) {
@@ -258,7 +253,16 @@
       // addSelyear(selYear);
 
     };
+// get option from dropdown Start
+    function crop() {
+        // get references to select list and display text box
+        var sel = document.getElementById("dropdown");
+        var cropval = sel.value
+        console.log(cropval+" : crop value")
+      return cropval
+    }; // End dropdown get Value
 
+    // immediate function to preserve global namespace
     function getColor(d) {
       return d > 60 ? '#800026' :
         d >= 28 ? '#BD0026' :
@@ -279,30 +283,7 @@
       };
     }
 
-    function myFunction(crop) {
-      document.getElementById("myDropdown").classList.toggle("show");
-      // var cropMap1 = document.getElementById("myDropdown");
-      // cropMap1.value = crop;
-      // cropMap1.innerHTML = crop;
-
-    }
-
-    // Close the dropdown if the user clicks outside of it
-    window.onclick = function(event) {
-      if (!event.target.matches('.dropbtn')) {
-        var dropdowns = document.getElementsByClassName("dropdown-content");
-        var i;
-        for (i = 0; i < dropdowns.length; i++) {
-          var openDropdown = dropdowns[i];
-          if (openDropdown.classList.contains('show')) {
-            openDropdown.classList.remove('show');
-          }
-        }
-      }
-      var crop = document.getElementById("myDropdown");
-              }
-
-    function nutVal(n) {
+      function nutVal(n) {
       console.log(n + ": map1")
       nutValmap1 = n
       return nutValmap1

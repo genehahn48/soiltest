@@ -32,7 +32,7 @@ const minYear = Math.min.apply(Math,selYear); // get min year
 const maxYear = Math.max.apply(Math,selYear); // get max year
 // console.log(maxYear);
 const selNutrient = ["Phosphorus", "Potassium"];
-const MedData = [ "alfalfaMedData", "canolaMedData", "coolseasonMedData", "cornMedData","smallgrainsMedData", "sorghumMedData", "tobaccoMedData", "warmseasonMedData"];
+const MedData = [ "alfalfaMedData", "canolaMedData", "coolseasonMedData", "cornMedData","smallgrainsMedData", "sorghumMedData", "soyMedData", "tobaccoMedData", "warmseasonMedData"];
 // set initial variables that change with selection options
 let nutValmap1 = "P";
 let yearValMap1 = 2010;
