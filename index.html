@@ -27,7 +27,7 @@
 
         <input type="radio" id="map01-p" name="chemMap01" value="P" checked>
         <label for="P">Phosphorus</label>
-        <input type="radio" id="map02-k" name="chemMap01" value="K">
+        <input type="radio" id="map01-k" name="chemMap01" value="K">
         <label for="K">Potassium</label>
 
         <select id="map01-dropdown" name="dropdown" class="dropdown">
@@ -236,9 +236,12 @@
     }; // END dataReady
 
     function addLegends() {
-      var legend = L.control({ position: 'topleft' });
 
-      legend.onAdd = function (map01) {
+      console.log(nutValmap1 +" : addLegends")
+      var legend = L.control({ position: 'topleft' });
+        if(nutValmap1 == "P"){
+      console.log(nutValmap1+" :legends")
+            legend.onAdd = function (map01) {
 
         var div = L.DomUtil.create('map-01', 'legend'),
           grades = [0, 5, 7, 27, 60, 80],
@@ -255,6 +258,27 @@
       };
 
       legend.addTo(map01);
+    } else {
+
+      legend.onAdd = function (map01) {
+
+        var div = L.DomUtil.create('map-01', 'legend'),
+          grades = [0, 100, 190, 300, 420],
+          labels = [];
+
+        // loop through our density intervals and generate a label with a colored square for each interval
+        for (var i = 0; i < grades.length; i++) {
+          div.innerHTML +=
+            '<i style="background:' + getColorK(grades[i] + 1) + '"></i> ' +
+            grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
+        }
+
+        return div;
+      };
+
+      legend.addTo(map01);
+    }
+    // legend.addTo(map01);
     }
     function drawMaps(countyData) {
       // function will be called once and create L.geoJson objects from data
@@ -288,7 +312,14 @@
         nutValmap1 = this.value // reassign value
         // you then need to refresh/redraw the map with that value
         // such as by calling a refreshMap function
-        styleMaps();
+        styleMaps(addLegends());
+        ;
+      })
+      d3.selectAll('select').on('change', function(){
+        console.log(this.value) // get value from dropdown crop type
+        cropval = this.value // crop type
+        styleMaps(addLegends());
+
       })
     }
 
@@ -318,11 +349,9 @@
     // style color map for median data Start
     function style(feature) {
 
-      if (nutValmap1 = "P") {
-
-        var currentPropName = nutValmap1 + "_med" + yearValMap1;
-
-        return {
+      if (nutValmap1 == 'P') {
+var currentPropName = nutValmap1 + "_med" + yearValMap1;
+          return {
           fillColor: getColorP(feature.properties[cropval][currentPropName]),
           weight: 1,
           opacity: 1,
@@ -331,7 +360,9 @@
           fillOpacity: 0.8
         };
       } else {
+        var currentPropName = nutValmap1 + "_med" + yearValMap1;
         return {
+
           fillColor: getColorK(feature.properties[cropval][currentPropName]),
           weight: .5,
           opacity: 1,
