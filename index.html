@@ -5,9 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Soil test map</title>
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
-    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
-    crossorigin="" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <style>
@@ -24,11 +22,11 @@
         <label for="yearMap1">Year</label>
         <input type="range" min=1990 max=2019 step=1 id="yearMap1" value=2010>
         <output name="selected_yearMap1" id="selected_year1">2010</output>
-
-        <input type="radio" id="map01-p" name="chemMap01" value="P" checked>
-        <label for="P">Phosphorus</label>
-        <input type="radio" id="map01-k" name="chemMap01" value="K">
-        <label for="K">Potassium</label>
+        <div id="map01-radios">
+          <input type="radio" id="map01-p" name="chemMap01" value="P" checked>
+          <label for="P">Phosphorus</label>
+          <input type="radio" id="map01-k" name="chemMap01" value="K">
+          <label for="K">Potassium</label>
 
         <select id="map01-dropdown" name="dropdown" class="dropdown">
           <option value="alfalfaMedData">Alfalfa</option>
@@ -42,6 +40,7 @@
           <option value="warmseasonMedData">Warm Season Grass</option>
         </select>
       </form>
+      </div>
       <div id="legend"></div>
       <div id="map-01"></div>
     </div>
@@ -96,17 +95,13 @@
   <!-- load D3 color  -->
   <script src="https://d3js.org/d3-color.v1.min.js"></script>
   <!-- load jQuery library -->
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
   <!-- load TopoJSON -->
   <script src="https://unpkg.com/topojson@3"></script>
 
-  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
-    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
-    crossorigin=""></script>
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
 
   <script>
-
     // Global variables for Soil test datasets
     // Request all your desired datasets first
     // Load county and region polygons
@@ -212,15 +207,15 @@
       ];
       // create variable to name loop data bind to GeoJSON
       const bindName = loCroptype;
-      MedData.forEach(function (x) {
+      MedData.forEach(function(x) {
         bindName.push(x)
       })
       console.log(bindName)
       // loop bindData and send bindName to name crops
-      bindData.forEach(function (bindDatum, x) {
+      bindData.forEach(function(bindDatum, x) {
         // loop through the county features
-        countiesJson.features.forEach(function (feature) {
-          bindDatum.forEach(function (row, i) {
+        countiesJson.features.forEach(function(feature) {
+          bindDatum.forEach(function(row, i) {
             // if the county name and CSV name match
             if (row.COUNTY == feature.properties.name) {
               // create a new property for the csv data in the json and assign the data
@@ -237,49 +232,52 @@
 
     function addLegends() {
 
-      console.log(nutValmap1 +" : addLegends")
-      var legend = L.control({ position: 'topleft' });
-        if(nutValmap1 == "P"){
-      console.log(nutValmap1+" :legends")
-            legend.onAdd = function (map01) {
+      console.log(nutValmap1 + " : addLegends")
+      var legend = L.control({
+        position: 'topleft'
+      });
+      if (nutValmap1 == "P") {
+        console.log(nutValmap1 + " :legends")
+        legend.onAdd = function(map01) {
 
-        var div = L.DomUtil.create('map-01', 'legend'),
-          grades = [0, 5, 7, 27, 60, 80],
-          labels = [];
+          var div = L.DomUtil.create('map-01', 'legend'),
+            legVal = [0, 5, 7, 27, 60, 80],
+            labels = [];
 
-        // loop through our density intervals and generate a label with a colored square for each interval
-        for (var i = 0; i < grades.length; i++) {
-          div.innerHTML +=
-            '<i style="background:' + getColorP(grades[i] + 1) + '"></i> ' +
-            grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
-        }
+          // loop through our nutrient value intervals and generate a label with a colored square for each interval
+          for (var i = 0; i < legVal.length; i++) {
+            div.innerHTML +=
+              '<i style="background:' + getColorP(legVal[i] + 1) + '"></i> ' +
+              legVal[i] + (legVal[i + 1] ? '&ndash;' + legVal[i + 1] + '<br>' : '+');
+          }
 
-        return div;
-      };
+          return div;
+        };
 
-      legend.addTo(map01);
-    } else {
+        legend.addTo(map01);
+      } else {
 
-      legend.onAdd = function (map01) {
+        legend.onAdd = function(map01) {
 
-        var div = L.DomUtil.create('map-01', 'legend'),
-          grades = [0, 100, 190, 300, 420],
-          labels = [];
+          var div = L.DomUtil.create('map-01', 'legend'),
+            legVal = [0, 100, 190, 300, 420],
+            labels = [];
 
-        // loop through our density intervals and generate a label with a colored square for each interval
-        for (var i = 0; i < grades.length; i++) {
-          div.innerHTML +=
-            '<i style="background:' + getColorK(grades[i] + 1) + '"></i> ' +
-            grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
-        }
+          // loop through our nutrient value intervals and generate a label with a colored square for each interval
+          for (var i = 0; i < legVal.length; i++) {
+            div.innerHTML +=
+              '<i style="background:' + getColorK(legVal[i] + 1) + '"></i> ' +
+              legVal[i] + (legVal[i + 1] ? '&ndash;' + legVal[i + 1] + '<br>' : '+');
+          }
 
-        return div;
-      };
+          return div;
+        };
 
-      legend.addTo(map01);
+        legend.addTo(map01);
+      }
+      // legend.addTo(map01);
     }
-    // legend.addTo(map01);
-    }
+
     function drawMaps(countyData) {
       // function will be called once and create L.geoJson objects from data
 
@@ -307,18 +305,19 @@
 
     function addListeners() {
       // select the HTML UI elements and extract value attribute
-      d3.selectAll('input').on('change', function () {
+      d3.selectAll('input').on('change', function() {
         console.log(this.value) // this will be either P or K
         nutValmap1 = this.value // reassign value
         // you then need to refresh/redraw the map with that value
         // such as by calling a refreshMap function
-        styleMaps(addLegends());
-        ;
+        styleMaps();
+        addLegends();
       })
-      d3.selectAll('select').on('change', function(){
+      d3.selectAll('select').on('change', function() {
         console.log(this.value) // get value from dropdown crop type
         cropval = this.value // crop type
-        styleMaps(addLegends());
+        styleMaps();
+        addLegends();
 
       })
     }
@@ -330,28 +329,28 @@
     function getColorP(d) {
       return d > 80 ? '#980043' :
         d >= 60 ? '#dd1c77' :
-          d >= 27 ? '#df65b0' :
-            d >= 7 ? '#d7b5d8' :
-              d >= 5 ? '#f1eef6' :
-                d = 0 ? '#edf8fb' :
-                  '#edf8fb';
+        d >= 27 ? '#df65b0' :
+        d >= 7 ? '#d7b5d8' :
+        d >= 5 ? '#f1eef6' :
+        d = 0 ? '#edf8fb' :
+        '#edf8fb';
     }
     // color for Potassium
     function getColorK(d) {
       return d > 420 ? '#2B4F4F ' :
         d >= 420 ? '#4A6565' :
-          d >= 300 ? '#606F6F' :
-            d >= 190 ? '#818989 ' :
-              d >= 100 ? '#A7B0B0' :
-                d = 0 ? '#D3DADA' :
-                  '#D3DADA';
+        d >= 300 ? '#606F6F' :
+        d >= 190 ? '#818989 ' :
+        d >= 100 ? '#A7B0B0' :
+        d = 0 ? '#D3DADA' :
+        '#D3DADA';
     }
     // style color map for median data Start
     function style(feature) {
 
       if (nutValmap1 == 'P') {
-var currentPropName = nutValmap1 + "_med" + yearValMap1;
-          return {
+        var currentPropName = nutValmap1 + "_med" + yearValMap1;
+        return {
           fillColor: getColorP(feature.properties[cropval][currentPropName]),
           weight: 1,
           opacity: 1,
@@ -372,7 +371,6 @@ var currentPropName = nutValmap1 + "_med" + yearValMap1;
         };
       }
     }; // Median data color sytle END
-
   </script>
 </body>
 
