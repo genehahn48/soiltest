@@ -228,7 +228,7 @@
 
       drawMaps(countiesJson);
       addListeners();
-      addLegends("map01");
+      // addLegends();
     }; // END dataReady
 
 
@@ -238,10 +238,9 @@
       nutVal = nutValmap1 // general variable for styling
       // assign value to variable declared above
       map01LGeoJson = L.geoJson(countyData).addTo(map01);
-      // addLegends()
+      addLegendP("map01")
       // L.geoJson(countyData).addTo(map02);
       map03LGeoJson = L.geoJson(countyData).addTo(map03);
-          // addLegends()
       // L.geoJson(countyData, {
       //   style: style
       // }).addTo(map03);
@@ -254,145 +253,194 @@
       styleMaps(map03LGeoJson, nutVal, yearVal);
     }
 
-    function addLegends(map) {
-
-console.log(map+": inside addLegends")
-      console.log(nutValmap1 + " : addLegends")
+    function addLegendP(map) {
       var legend = L.control({
         position: 'topleft'
       });
-      if (nutValmap1 == "P") {
-        console.log(nutValmap1 + " :legends")
-        legend.onAdd = function(map) {
+        map01.removeControl(legend);
+      legend.onAdd = function(map) {
 
-          var div = L.DomUtil.create(map.valueOf(), 'legend'),
-            legVal = [0, 5, 7, 27, 60, 80],
-            labels = [];
+        var div = L.DomUtil.create('map', 'legend'),
+          legVal = [0, 5, 7, 27, 60, 80],
+          labels = [];
 
-          // loop through our nutrient value intervals and generate a label with a colored square for each interval
-          for (var i = 0; i < legVal.length; i++) {
-            div.innerHTML +=
-              '<i style="background:' + getColorP(legVal[i] + 1) + '"></i> ' +
-              legVal[i] + (legVal[i + 1] ? '&ndash;' + legVal[i + 1] + '<br>' : '+');
-          }
+        // loop through our nutrient value intervals and generate a label with a colored square for each interval
+        for (var i = 0; i < legVal.length; i++) {
+          div.innerHTML +=
+            '<i style="background:' + getColorP(legVal[i] + 1) + '"></i> ' +
+            legVal[i] + (legVal[i + 1] ? '&ndash;' + legVal[i + 1] + '<br>' : '+');
+        }
 
-          return div;
-        };
-console.log(map.valueOf())
-        legend.addTo(map.valueOf());
-      } else {
+        return div;
+      };
+      // console.log(typeof map+" : addLegend after return")
+      //         legend.addTo(valueOf(map));
+      legend.addTo(map01);
 
+      var legend3 = L.control({
+        position: 'topleft'
+      });
+      legend3.onAdd = function(map) {
+
+        var div = L.DomUtil.create('map', 'legend'),
+          legVal = [0, 5, 7, 27, 60, 80],
+          labels = [];
+
+        // loop through our nutrient value intervals and generate a label with a colored square for each interval
+        for (var i = 0; i < legVal.length; i++) {
+          div.innerHTML +=
+            '<i style="background:' + getColorP(legVal[i] + 1) + '"></i> ' +
+            legVal[i] + (legVal[i + 1] ? '&ndash;' + legVal[i + 1] + '<br>' : '+');
+        }
+
+        return div;
+      };
+      // console.log(typeof map+" : addLegend after return")
+      //         legend.addTo(valueOf(map));
+      legend3.addTo(map03);
+}
+      function addLegendK(map) {
+        var legend = L.control({
+          position: 'topleft'
+        });
+map01.removeControl(legend);
         legend.onAdd = function(map01) {
 
-          var div = L.DomUtil.create('map-01', 'legend'),
-            legVal = [0, 100, 190, 300, 420],
-            labels = [];
+            var div = L.DomUtil.create('map-01', 'legend'),
+              legVal = [0, 100, 190, 300, 420],
+              labels = [];
 
-          // loop through our nutrient value intervals and generate a label with a colored square for each interval
-          for (var i = 0; i < legVal.length; i++) {
-            div.innerHTML +=
-              '<i style="background:' + getColorK(legVal[i] + 1) + '"></i> ' +
-              legVal[i] + (legVal[i + 1] ? '&ndash;' + legVal[i + 1] + '<br>' : '+');
-          }
+            // loop through our nutrient value intervals and generate a label with a colored square for each interval
+            for (var i = 0; i < legVal.length; i++) {
+              div.innerHTML +=
+                '<i style="background:' + getColorK(legVal[i] + 1) + '"></i> ' +
+                legVal[i] + (legVal[i + 1] ? '&ndash;' + legVal[i + 1] + '<br>' : '+');
+            }
 
-          return div;
+            return div;
+          };
+
+          legend.addTo(map01);
+          var legend3 = L.control({
+            position: 'topleft'
+          });
+
+          legend3.onAdd = function(map01) {
+
+              var div = L.DomUtil.create('map-03', 'legend'),
+                legVal = [0, 100, 190, 300, 420],
+                labels = [];
+
+              // loop through our nutrient value intervals and generate a label with a colored square for each interval
+              for (var i = 0; i < legVal.length; i++) {
+                div.innerHTML +=
+                  '<i style="background:' + getColorK(legVal[i] + 1) + '"></i> ' +
+                  legVal[i] + (legVal[i + 1] ? '&ndash;' + legVal[i + 1] + '<br>' : '+');
+              }
+
+              return div;
+            };
+
+            legend3.addTo(map03);
+                  }
+
+      function styleMaps(map, nutVal, yearVal) {
+        // function will be called multiple times, once within drawMaps
+        // and then multiple times triggered by the UI changes
+        console.log(nutVal + ": NUTVALUE STYLEAPS" + yearVal)
+        if (nutVal == "P") {
+          map.setStyle(styleP);
+        } else {
+          map.setStyle(styleK);
+        }
+      }
+
+      function addListeners() {
+        // select the HTML UI elements and extract value attribute
+        $('#map01-radios input').on('change', function() { //nutrient value change
+          nutVal = (this.value) //  nutVal P or K onchange
+          console.log(nutVal)
+if(nutVal == "P"){
+  addLegendP()
+}else{
+  addLegendK()
+}
+
+          styleMaps(map01LGeoJson, nutVal);
+          styleMaps(map03LGeoJson, nutVal);
+        });
+        $('#map01-dropdown').on('change', function(event, d) {
+          cropval = (this.value) // crop types from Agr1
+          console.log(cropval) // get value from dropdown crop type
+          styleMaps(map01LGeoJson, nutVal);
+        });
+        $('#map03-dropdown').on('change', function(event, d) {
+          cropval = (this.value) // crop types from Agr1
+          console.log(cropval) // get value from dropdown crop type
+          styleMaps(map03LGeoJson, nutVal, yearVal);
+        });
+        $('#yearMap1').on('change', function(event, d) {
+          yearVal = (this.value) // crop types from Agr1
+          console.log(yearVal) // get value from dropdown crop type
+          styleMaps(map01LGeoJson, nutVal, yearVal);
+        });
+        $('#yearMap3').on('change', function(event, d) {
+          yearVal = (this.value) // crop types from Agr1
+          console.log(yearVal) // get value from dropdown crop type
+          styleMaps(map03LGeoJson, nutVal, yearVal);
+        });
+      }
+
+
+      // immediate function to preserve global namespace
+      // color for Phosphorus
+      function getColorP(d) {
+        return d > 80 ? '#980043' :
+          d >= 60 ? '#dd1c77' :
+          d >= 27 ? '#df65b0' :
+          d >= 7 ? '#d7b5d8' :
+          d >= 5 ? '#f1eef6' :
+          d = 0 ? '#edf8fb' :
+          '#edf8fb';
+      }
+      // color for Potassium
+      function getColorK(d) {
+        return d > 420 ? '#2B4F4F ' :
+          d >= 420 ? '#4A6565' :
+          d >= 300 ? '#606F6F' :
+          d >= 190 ? '#818989 ' :
+          d >= 100 ? '#A7B0B0' :
+          d = 0 ? '#D3DADA' :
+          '#D3DADA';
+      }
+      // style color map for median data P and K Start
+      function styleP(feature) {
+        // console.log(cropval + " :SYTLE P Function" + yearVal);
+        var currentPropName = "P_med" + yearVal;
+        // console.log(feature.properties[cropval][currentPropName] + ": styleP getcolorP")
+        return {
+          fillColor: getColorP(feature.properties[cropval][currentPropName]),
+          weight: 1,
+          opacity: 1,
+          color: '#484C51 ',
+          solidline: '3',
+          fillOpacity: 0.8
         };
-
-        legend.addTo(map01);
       }
-      // legend.addTo(map01);
-    }
-    function styleMaps(map, nutVal, yearVal) {
-      // function will be called multiple times, once within drawMaps
-      // and then multiple times triggered by the UI changes
-      console.log(nutVal + ": NUTVALUE STYLEAPS" + yearVal)
-      if (nutVal == "P") {
-        map.setStyle(styleP);
-      } else {
-        map.setStyle(styleK);
-      }
-    }
 
-    function addListeners() {
-      // select the HTML UI elements and extract value attribute
-      $('#map01-radios input').on('change', function() { //nutrient value change
-        nutVal = (this.value) //  nutVal P or K onchange
-        console.log(nutVal)
-        styleMaps(map01LGeoJson, nutVal);
-        styleMaps(map03LGeoJson, nutVal);
-      });
-      $('#map01-dropdown').on('change', function(event, d) {
-        cropval = (this.value) // crop types from Agr1
-        console.log(cropval) // get value from dropdown crop type
-        styleMaps(map01LGeoJson, nutVal);
-      });
-      $('#map03-dropdown').on('change', function(event, d) {
-        cropval = (this.value) // crop types from Agr1
-        console.log(cropval) // get value from dropdown crop type
-        styleMaps(map03LGeoJson, nutVal, yearVal);
-      });
-      $('#yearMap1').on('change', function(event, d) {
-        yearVal = (this.value) // crop types from Agr1
-        console.log(yearVal) // get value from dropdown crop type
-        styleMaps(map01LGeoJson, nutVal, yearVal);
-      });
-      $('#yearMap3').on('change', function(event, d) {
-        yearVal = (this.value) // crop types from Agr1
-        console.log(yearVal) // get value from dropdown crop type
-        styleMaps(map03LGeoJson, nutVal, yearVal);
-      });
-    }
+      function styleK(feature) {
+        var currentPropName = "K_med" + yearVal;
+        console.log(cropval + " :SYTLE K Function" + yearVal);
+        return {
 
-
-    // immediate function to preserve global namespace
-    // color for Phosphorus
-    function getColorP(d) {
-      return d > 80 ? '#980043' :
-        d >= 60 ? '#dd1c77' :
-        d >= 27 ? '#df65b0' :
-        d >= 7 ? '#d7b5d8' :
-        d >= 5 ? '#f1eef6' :
-        d = 0 ? '#edf8fb' :
-        '#edf8fb';
-    }
-    // color for Potassium
-    function getColorK(d) {
-      return d > 420 ? '#2B4F4F ' :
-        d >= 420 ? '#4A6565' :
-        d >= 300 ? '#606F6F' :
-        d >= 190 ? '#818989 ' :
-        d >= 100 ? '#A7B0B0' :
-        d = 0 ? '#D3DADA' :
-        '#D3DADA';
-    }
-    // style color map for median data P and K Start
-    function styleP(feature) {
-      // console.log(cropval + " :SYTLE P Function" + yearVal);
-      var currentPropName = "P_med" + yearVal;
-      // console.log(feature.properties[cropval][currentPropName] + ": styleP getcolorP")
-      return {
-        fillColor: getColorP(feature.properties[cropval][currentPropName]),
-        weight: 1,
-        opacity: 1,
-        color: '#484C51 ',
-        solidline: '3',
-        fillOpacity: 0.8
-      };
-    }
-
-    function styleK(feature) {
-      var currentPropName = "K_med" + yearVal;
-      console.log(cropval + " :SYTLE K Function" + yearVal);
-      return {
-
-        fillColor: getColorK(feature.properties[cropval][currentPropName]),
-        weight: .5,
-        opacity: 1,
-        color: '#484C51  ',
-        solidline: '3',
-        fillOpacity: 0.8
-      };
-    } // END P and K style
+          fillColor: getColorK(feature.properties[cropval][currentPropName]),
+          weight: .5,
+          opacity: 1,
+          color: '#484C51  ',
+          solidline: '3',
+          fillOpacity: 0.8
+        };
+      } // END P and K style
   </script>
 </body>
 
