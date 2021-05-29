@@ -214,13 +214,21 @@
       console.log(bindName)
       // loop bindData and send bindName to name crops
       bindData.forEach(function(bindDatum, x) {
+        // console.log(bindDatum[x]+" :binData"+x)
         // loop through the county features
         countiesJson.features.forEach(function(feature) {
           bindDatum.forEach(function(row, i) {
             // if the county name and CSV name match
             if (row.COUNTY == feature.properties.name) {
+              console.log(row.COUNTY+": rowCOUNTY")
+              console.log(row)
+              console.log(feature.properties.name)
               // create a new property for the csv data in the json and assign the data
               feature.properties[bindName[x]] = row;
+
+              console.log(feature.properties[bindName[x]])
+            }else{
+
             }
           })
         })
