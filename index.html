@@ -361,7 +361,7 @@
       console.log(nutVal + ": NUTVALUE STYLEMAPS" + year)
 
       if (nutVal == "P") {
-        map.setStyle(styleP(styleP,year));
+        map.setStyle(styleP);
       } else {
         map.setStyle(styleK);
       }
@@ -428,11 +428,11 @@
         '#D3DADA';
     }
     // style color map for median data P and K Start
-    function styleP(feature, year) {
-      console.log(year+": styleP function")
-      // console.log(cropval + " :SYTLE P Function" + yearVal);
-      var currentPropName = "P_med" + year;
-      // console.log(feature.properties[cropval][currentPropName] + ": styleP getcolorP")
+    function styleP(feature) {
+      console.log(yearVal+": styleP function")
+      console.log(cropval + " :SYTLE P Function" + yearVal);
+      var currentPropName = "P_med" + yearVal;
+      console.log(feature.properties[cropval][currentPropName] + ": styleP getcolorP")
       return {
         fillColor: getColorP(feature.properties[cropval][currentPropName]),
         weight: 1,
