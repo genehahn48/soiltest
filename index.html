@@ -21,7 +21,7 @@
       <form name="map01">
         <label for="yearMap1">Year</label>
         <input type="range" min=1990 max=2019 step=1 id="yearMap1" value=2010>
-        <output name="selected_yearMap1" id="selected_year1" value=> </output>
+        <output name="selected_yearMap1" id="selected_year1"> 2010</output>
         <div id="map01-radios">
           <input type="radio" id="map01-p" name="chemMap01" value="P" checked>
           <label for="P">Phosphorus</label>
@@ -63,8 +63,8 @@
   <div class="map-3 blue">
     <form name="map03">
       <label for="yearMap3">Year</label>
-      <input type="range" min=1990 max=2019 step=1 id="yearMap3" value=2010>
-      <output name="selected_yearMap3" id="selected_year3">2010</output>
+      <input type="range" min=1990 max=2019 step=1 id="yearMap3" value=1990>
+      <output name="selected_yearMap3" id="selected_year3">1990</output>
 
       <select id="map03-dropdown" name="dropdown" class="dropdown">
         <option value="alfalfaMedData">Alfalfa</option>
@@ -137,9 +137,10 @@
     const MedData = ["alfalfaMedData", "canolaMedData", "coolseasonMedData", "cornMedData", "smallgrainsMedData", "sorghumMedData", "soyMedData", "tobaccoMedData", "warmseasonMedData"];
     // set initial variables that change with selection options
     let nutValmap1 = "P";
+    let nutVal = "P";
     let yearVal = $('#yearMap1').val(); //jquery yearVal from slider
     let yearVal3 = $('#yearMap3').val(); //jquery yearVal from slider
-    console.log(yearVal3)
+    console.log(yearVal + yearVal3);
     // variables for leaflet maps Start map variables
     const map01 = L.map('map-01').setView([37.8, -85.65], 7);
     const map02 = L.map('map-02').setView([37.8, -85.65], 7);
@@ -211,7 +212,7 @@
       MedData.forEach(function(x) {
         bindName.push(x)
       })
-      console.log(alfalfa)
+      // console.log(alfalfa)
       // loop bindData and send bindName to name crops
       bindData.forEach(function(bindDatum, x) {
         // console.log(bindDatum[x]+" :binData"+x)
@@ -220,9 +221,9 @@
           bindDatum.forEach(function(row, i) {
             // if the county name and CSV name match
             // if (row.COUNTY == feature.properties.name) {
-            if (feature.properties.name == row.COUNTY) {
+            if (row.COUNTY == feature.properties.name) {
               // console.log(row.COUNTY+": rowCOUNTY")
-              console.log(row)
+              // console.log(row)
               // console.log(feature.properties.name)
               // create a new property for the csv data in the json and assign the data
               feature.properties[bindName[x]] = row;
@@ -233,16 +234,17 @@
         })
       });
 
-      drawMaps(countiesJson);
+      drawMaps(countiesJson,yearVal,yearVal3);
       addListeners();
       // addLegends();
     }; // END dataReady
 
 
 
-    function drawMaps(countyData) {
+    function drawMaps(countyData,yearVal,yearVal3) {
       // function will be called once and create L.geoJson objects from data
-      nutVal = nutValmap1 // general variable for styling
+      // var nutVal = nutValmap1 // general variable for styling
+console.log(yearVal + yearVal3+" : drawMaps")
       // assign value to variable declared above
       map01LGeoJson = L.geoJson(countyData).addTo(map01);
       addLegendP("map01")
@@ -253,18 +255,18 @@
       // }).addTo(map03);
 
       // L.geoJson(data[1]).addTo(map04);
-
+      console.log(yearVal+yearVal3+": drawmap year")
       // call the styleMaps() function to apply visual representation
       styleMaps(map01LGeoJson, nutVal, yearVal);
 
-      styleMaps(map03LGeoJson, nutVal, yearVal);
+      styleMaps(map03LGeoJson, nutVal, yearVal3);
     }
 
     function addLegendP(map) {
       var legend = L.control({
         position: 'topleft'
       });
-        map01.removeControl(legend);
+        // map01.removeControl(legend);
       legend.onAdd = function(map) {
 
         var div = L.DomUtil.create('map', 'legend'),
@@ -310,7 +312,7 @@
         var legend = L.control({
           position: 'topleft'
         });
-map01.removeControl(legend);
+// map01.removeControl(legend);
         legend.onAdd = function(map01) {
 
             var div = L.DomUtil.create('map-01', 'legend'),
@@ -351,12 +353,13 @@ map01.removeControl(legend);
             legend3.addTo(map03);
                   }
 
-      function styleMaps(map, nutVal, yearVal) {
+      function styleMaps(map, nutVal, year) {
         // function will be called multiple times, once within drawMaps
         // and then multiple times triggered by the UI changes
-        console.log(nutVal + ": NUTVALUE STYLEAPS" + yearVal)
-        if (nutVal == "P") {
-          map.setStyle(styleP);
+        console.log(nutVal + ": NUTVALUE STYLEMAPS" + year)
+
+          if (nutVal == "P") {
+          map.setStyle(styleP(styleP(year)));
         } else {
           map.setStyle(styleK);
         }
@@ -373,28 +376,30 @@ if(nutVal == "P"){
   addLegendK()
 }
 
-          styleMaps(map01LGeoJson, nutVal);
-          styleMaps(map03LGeoJson, nutVal);
+          styleMaps(map01LGeoJson, nutVal, yearVal);
+          styleMaps(map03LGeoJson, nutVal, yearVal3);
         });
         $('#map01-dropdown').on('change', function(event, d) {
           cropval = (this.value) // crop types from Agr1
           console.log(cropval) // get value from dropdown crop type
-          styleMaps(map01LGeoJson, nutVal);
+          styleMaps(map01LGeoJson, nutVal, yearVal);
         });
         $('#map03-dropdown').on('change', function(event, d) {
           cropval = (this.value) // crop types from Agr1
           console.log(cropval) // get value from dropdown crop type
-          styleMaps(map03LGeoJson, nutVal, yearVal);
+          styleMaps(map03LGeoJson, nutVal, yearVal3);
         });
         $('#yearMap1').on('change', function(event, d) {
           yearVal = (this.value) // crop types from Agr1
           console.log(yearVal) // get value from dropdown crop type
+          document.getElementById("selected_year1").innerHTML = yearVal; // display year for map1
           styleMaps(map01LGeoJson, nutVal, yearVal);
         });
         $('#yearMap3').on('change', function(event, d) {
-          yearVal = (this.value) // crop types from Agr1
-          console.log(yearVal) // get value from dropdown crop type
-          styleMaps(map03LGeoJson, nutVal, yearVal);
+          yearVal3 = (this.value) // crop types from Agr1
+          console.log(yearVal3) // get value from dropdown crop type
+          document.getElementById("selected_year3").innerHTML = yearVal3; // display year on slider for map3
+          styleMaps(map03LGeoJson, nutVal, yearVal3);
         });
       }
 
@@ -422,8 +427,9 @@ if(nutVal == "P"){
       }
       // style color map for median data P and K Start
       function styleP(feature) {
+        console.log(year)
         // console.log(cropval + " :SYTLE P Function" + yearVal);
-        var currentPropName = "P_med" + yearVal;
+        var currentPropName = "P_med" + year;
         // console.log(feature.properties[cropval][currentPropName] + ": styleP getcolorP")
         return {
           fillColor: getColorP(feature.properties[cropval][currentPropName]),
