@@ -165,7 +165,7 @@
     // some global variables here, perhaps, to reference the Leaflet GeoJSON layers
     // created within the drawMaps function
     let map01LGeoJson,
-      map03LGeoJson;
+        map03LGeoJson;
 
     // wait until they are ready and then send to dataReady function
     Promise.all([countiesJson, regionsJson, alfalfaLevel, canolaLevel, coolseasonLevel, cornLevel,
@@ -259,7 +259,7 @@
       console.log(yearVal + yearVal3 + ": drawmap year")
       // call the styleMaps() function to apply visual representation
 
-      styleMaps(map01LGeoJson, nutVal, yearVal);
+      styleMaps(map01LGeoJson, nutVal, yearVal3);
 
       styleMaps(map03LGeoJson, nutVal, yearVal3);
     }
@@ -359,11 +359,12 @@
     function styleMaps(map, nutVal, year) {
       // function will be called multiple times, once within drawMaps
       // and then multiple times triggered by the UI changes
-      styleYear = year;
-      console.log(styleYear + ": styleMAPS year");
+      year = year
       console.log(nutVal + ": NUTVALUE STYLEMAPS" + year)
 
       if (nutVal == "P") {
+          var currentPropName = "P_med" + year;
+          console.log(currentPropName)
         map.setStyle(styleP);
       } else {
         map.setStyle(styleK);
@@ -432,9 +433,9 @@
     }
     // style color map for median data P and K Start
     function styleP(feature) {
-      console.log(styleYear+": styleP function")
+      // console.log(yearVal+": styleP function")
       // console.log(cropval + " :SYTLE P Function" + yearVal);
-      var currentPropName = "P_med" + styleYear;
+      var currentPropName = "P_med" + yearVal;
       // console.log(feature.properties[cropval][currentPropName] + ": styleP getcolorP")
       return {
         fillColor: getColorP(feature.properties[cropval][currentPropName]),
@@ -447,7 +448,7 @@
     }
 
     function styleK(feature) {
-      var currentPropName = "K_med" + styleYear;
+      var currentPropName = "K_med" + yearVal;
       // console.log(cropval + " :SYTLE K Function" + yearVal);
       return {
 
