@@ -272,7 +272,7 @@
       legend.onAdd = function(map) {
 
         var div = L.DomUtil.create('map', 'legend'),
-          legVal = [0, 5, 7, 27, 60, 80],
+          legVal = [0, 1, 5, 7, 27, 60, 80],
           labels = [];
 
         // loop through our nutrient value intervals and generate a label with a colored square for each interval
@@ -294,7 +294,7 @@
       legend3.onAdd = function(map) {
 
         var div = L.DomUtil.create('map', 'legend'),
-          legVal = [0, 5, 7, 27, 60, 80],
+          legVal = [0, 1, 5, 7, 27, 60, 80],
           labels = [];
 
         // loop through our nutrient value intervals and generate a label with a colored square for each interval
@@ -319,7 +319,7 @@
       legend.onAdd = function(map01) {
 
         var div = L.DomUtil.create('map-01', 'legend'),
-          legVal = [0, 100, 190, 300, 420],
+          legVal = [0, 1, 100, 190, 300, 420],
           labels = [];
 
         // loop through our nutrient value intervals and generate a label with a colored square for each interval
@@ -340,7 +340,7 @@
       legend3.onAdd = function(map01) {
 
         var div = L.DomUtil.create('map-03', 'legend'),
-          legVal = [0, 100, 190, 300, 420],
+          legVal = [0, 1, 100, 190, 300, 420],
           labels = [];
 
         // loop through our nutrient value intervals and generate a label with a colored square for each interval
@@ -410,25 +410,25 @@
 
 
     // immediate function to preserve global namespace
-    // color for Phosphorus
+    // color for Phosphorus ['#ffffd4','#fee391','#fec44f','#fe9929','#d95f0e','#993404']
     function getColorP(d) {
-      return d > 80 ? '#980043' :
-        d >= 60 ? '#dd1c77' :
-        d >= 27 ? '#df65b0' :
-        d >= 7 ? '#d7b5d8' :
-        d >= 5 ? '#f1eef6' :
-        d = 0 ? '#edf8fb' :
-        '#edf8fb';
+      return d > 80 ? '#993404' :
+        d >= 60 ? '#d95f0e' :
+        d >= 27 ? '#fe9929' :
+        d >= 7 ? '#fec44f' :
+        d >= 5 ? '#fee391' :
+        d > 0 ? '#ffffd4' :
+        '#f5f5eb';
     }
     // color for Potassium
     function getColorK(d) {
-      return d > 420 ? '#2B4F4F ' :
-        d >= 420 ? '#4A6565' :
-        d >= 300 ? '#606F6F' :
-        d >= 190 ? '#818989 ' :
-        d >= 100 ? '#A7B0B0' :
-        d = 0 ? '#D3DADA' :
-        '#D3DADA';
+      return d > 420 ? '#4c394f' :
+        d >= 420 ? '#482652' :
+        d >= 300 ? '#724a7d' :
+        d >= 190 ? '#917898 ' :
+        d >= 100 ? '#9babcf' :
+        d > 0 ? '#d5ddef' :
+        '#f5f5eb';
     }
     // style color map for median data P and K Start
     function styleP(feature) {
