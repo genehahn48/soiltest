@@ -265,10 +265,11 @@
     }
 
     function addLegendP(map) {
+
       var legend = L.control({
         position: 'topleft'
       });
-      // map01.removeControl(legend);
+legend.remove()
       legend.onAdd = function(map) {
 
         var div = L.DomUtil.create('map', 'legend'),
@@ -315,7 +316,7 @@
       var legend = L.control({
         position: 'topleft'
       });
-      // map01.removeControl(legend);
+    legend.remove()
       legend.onAdd = function(map01) {
 
         var div = L.DomUtil.create('map-01', 'legend'),
