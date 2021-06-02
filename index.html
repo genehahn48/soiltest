@@ -79,6 +79,7 @@
       </select>
     </form>
     <div id="map-03"></div>
+    <div id="legend3"></div>
   </div>
   <div class="map-4 green">
     <div id="map-04" class="green">Map #4</div>
@@ -101,8 +102,8 @@
 
   <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
 
-    <script>
-      // Global variables for Soil test datasets
+  <script>
+    // Global variables for Soil test datasets
     // Request all your desired datasets first
     // Load county and region polygons
     const countiesJson = d3.json('project-data/ky-farm-ac.geojson');
@@ -140,7 +141,10 @@
     let nutVal = "P";
     let yearVal = $('#yearMap1').val(); //jquery yearVal from slider
     let yearVal3 = $('#yearMap3').val(); //jquery yearVal from slider
-    console.log(yearVal + yearVal3);
+    // legend variables
+    // var legend,
+    //   legend3;
+
     // variables for leaflet maps Start map variables
     const map01 = L.map('map-01').setView([37.8, -85.65], 7);
     const map02 = L.map('map-02').setView([37.8, -85.65], 7);
@@ -269,7 +273,7 @@
       var legend = L.control({
         position: 'topleft'
       });
-legend.remove()
+
       legend.onAdd = function(map) {
 
         var div = L.DomUtil.create('map', 'legend'),
@@ -285,8 +289,6 @@ legend.remove()
 
         return div;
       };
-      // console.log(typeof map+" : addLegend after return")
-      //         legend.addTo(valueOf(map));
       legend.addTo(map01);
 
       var legend3 = L.control({
@@ -316,7 +318,7 @@ legend.remove()
       var legend = L.control({
         position: 'topleft'
       });
-    legend.remove()
+
       legend.onAdd = function(map01) {
 
         var div = L.DomUtil.create('map-01', 'legend'),
@@ -379,6 +381,7 @@ legend.remove()
         if (nutVal == "P") {
           addLegendP()
         } else {
+
           addLegendK()
         }
 
@@ -388,6 +391,7 @@ legend.remove()
       $('#map01-dropdown').on('change', function(event, d) {
         cropval = (this.value) // crop types from Agr1
         console.log(cropval) // get value from dropdown crop type
+
         styleMaps(map01LGeoJson, nutVal, yearVal);
       });
       $('#map03-dropdown').on('change', function(event, d) {
@@ -433,7 +437,7 @@ legend.remove()
     }
     // style color map for median data P and K Start
     function styleP(feature) {
-      console.log(styleYear+": styleP function")
+      console.log(styleYear + ": styleP function")
       // console.log(cropval + " :SYTLE P Function" + yearVal);
       var currentPropName = "P_med" + styleYear;
       // console.log(feature.properties[cropval][currentPropName] + ": styleP getcolorP")
