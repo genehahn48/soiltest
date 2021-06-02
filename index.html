@@ -101,8 +101,8 @@
 
   <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
 
-  <script>
-    // Global variables for Soil test datasets
+    <script>
+      // Global variables for Soil test datasets
     // Request all your desired datasets first
     // Load county and region polygons
     const countiesJson = d3.json('project-data/ky-farm-ac.geojson');
@@ -234,7 +234,7 @@
           })
         })
       });
-    
+
       drawMaps(countiesJson, yearVal, yearVal3);
       addListeners();
       // addLegends();
