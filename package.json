@@ -1,5 +1,22 @@
 {
   "dependencies": {
     "d3": "^6.7.0"
-  }
+  },
+  "name": "soiltest",
+  "description": "Masters project for New Maps Plus program at the University of Kentucky.",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/genehahn48/soiltest.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/genehahn48/soiltest/issues"
+  },
+  "homepage": "https://github.com/genehahn48/soiltest#readme"
 }
