@@ -161,13 +161,6 @@
       const hMap1 = $("#map-01").height();
       const widthForLegend = 100;
 
-      //Define color for map and legend
-      // const colorbrewer = {
-      //   YlOrRd: {
-      //     9: ["#ffffcc", "#ffeda0", "#fed976", "#feb24c", "#fd8d3c", "#fc4e2a", "#e31a1c", "#bd0026", "#800026"]
-      //   }
-      // };
-
       // some global variables here, perhaps, to reference the Leaflet GeoJSON layers
       // created within the drawMaps function
       let map01LGeoJson,
@@ -221,18 +214,14 @@
         MedData.forEach(function(x) {
           bindName.push(x)
         })
-        // console.log(alfalfa)
         // loop bindData and send bindName to name crops
         bindData.forEach(function(bindDatum, x) {
-          // console.log(bindDatum[x]+" :binData"+x)
           // loop through the county features
           countiesJson.features.forEach(function(feature) {
             bindDatum.forEach(function(row, i) {
               // if the county name and CSV name match
               // if (row.COUNTY == feature.properties.name) {
               if (row.COUNTY == feature.properties.name) {
-                // console.log(row.COUNTY+": rowCOUNTY")
-                // console.log(row)
                 // console.log(feature.properties.name)
                 // create a new property for the csv data in the json and assign the data
                 feature.properties[bindName[x]] = row;
@@ -246,52 +235,38 @@
         drawMaps(countiesJson, yearVal, yearVal3);
         addListeners();
         addLegendP();
+        console.log(countiesJson);
+        countSamples(countiesJson);
       }; // END dataReady
-
-
 
       function drawMaps(countyData, yearVal, yearVal3) {
         // function will be called once and create L.geoJson objects from data
-        // var nutVal = nutValmap1 // general variable for styling
-        console.log(yearVal + yearVal3 + " : drawMaps")
         // assign value to variable declared above
         map01LGeoJson = L.geoJson(countyData).addTo(map01);
-        // addLegendP();
-        console.log(countyData);
         // L.geoJson(countyData).addTo(map02);
         map03LGeoJson = L.geoJson(countyData).addTo(map03);
 
-
-        // L.geoJson(data[1]).addTo(map04);
-        console.log(yearVal + yearVal3 + ": drawmap year")
         // call the styleMaps() function to apply visual representation
         styleMaps(map01LGeoJson, nutVal, yearVal);
         styleMaps(map03LGeoJson, nutVal, yearVal3);
-        console.log(map03LGeoJson)
       }
 
-
       function addLegendP(map) {
-
         legend = L.control({
           position: 'topleft'
         });
         legend.onAdd = function(map) {
-
           var div = L.DomUtil.create('map', 'legend'),
             legVal = [0, 1, 5, 7, 27, 60, 80],
             labels = [];
-
           // loop through our nutrient value intervals and generate a label with a colored square for each interval
           for (var i = 0; i < legVal.length; i++) {
             div.innerHTML +=
               '<i style="background:' + getColorP(legVal[i] + 1) + '"></i> ' +
               legVal[i] + (legVal[i + 1] ? '&ndash;' + legVal[i + 1] + '<br>' : '+');
           }
-          console.log(div)
           return div;
         };
-        legend.remove(map01);
         legend.addTo(map01);
 
         legend3 = L.control({
@@ -309,14 +284,9 @@
               '<i style="background:' + getColorP(legVal[i] + 1) + '"></i> ' +
               legVal[i] + (legVal[i + 1] ? '&ndash;' + legVal[i + 1] + '<br>' : '+');
           }
-
           return div;
         };
-        // console.log(typeof map+" : addLegend after return")
-        //         legend.addTo(valueOf(map));
-        legend3.remove(map03);
         legend3.addTo(map03);
-        // legend3.remove(map03);
       }
 
       function addLegendK(map) {
@@ -325,33 +295,26 @@
         });
 
         legend.onAdd = function(map01) {
-
           var div = L.DomUtil.create('map-01', 'legend'),
             legVal = [0, 1, 100, 190, 300, 420],
             labels = [];
-
           // loop through our nutrient value intervals and generate a label with a colored square for each interval
           for (var i = 0; i < legVal.length; i++) {
             div.innerHTML +=
               '<i style="background:' + getColorK(legVal[i] + 1) + '"></i> ' +
               legVal[i] + (legVal[i + 1] ? '&ndash;' + legVal[i + 1] + '<br>' : '+');
           }
-
           return div;
         };
-        legend.remove(map01);
         legend.addTo(map01);
 
         legend3 = L.control({
           position: 'topleft'
         });
-
         legend3.onAdd = function(map01) {
-
           var div = L.DomUtil.create('map-03', 'legend'),
             legVal = [0, 1, 100, 190, 300, 420],
             labels = [];
-
           // loop through our nutrient value intervals and generate a label with a colored square for each interval
           for (var i = 0; i < legVal.length; i++) {
             div.innerHTML +=
@@ -361,17 +324,15 @@
 
           return div;
         };
-
         legend3.addTo(map03);
-
       }
 
       function styleMaps(map, nutVal, year) {
         // function will be called multiple times, once within drawMaps
         // and then multiple times triggered by the UI changes
         styleYear = year;
-        console.log(map + ":" + styleYear + ": styleMAPS year");
-        console.log(nutVal + ": NUTVALUE STYLEMAPS" + year)
+        // console.log(map + ":" + styleYear + ": styleMAPS year");
+        // console.log(nutVal + ": NUTVALUE STYLEMAPS" + year)
 
         if (nutVal == "P") {
           map.setStyle(styleP);
@@ -384,7 +345,6 @@
         // select the HTML UI elements and extract value attribute
         $('#map01-radios input').on('change', function() { //nutrient value change
           nutVal = (this.value) //  nutVal P or K onchange
-          console.log(nutVal)
           if (nutVal == "P") {
             legend.remove(map01);
             legend3.remove(map03);
@@ -401,32 +361,30 @@
         });
         $('#map01-dropdown').on('change', function(event, d) {
           cropval = (this.value) // crop types from Agr1
-          console.log(cropval) // get value from dropdown crop type
+          // get value from dropdown crop type
 
           styleMaps(map01LGeoJson, nutVal, yearVal);
         });
         $('#map03-dropdown').on('change', function(event, d) {
           cropval = (this.value) // crop types from Agr1
-          console.log(cropval) // get value from dropdown crop type
+          // get value from dropdown crop type
           styleMaps(map03LGeoJson, nutVal, yearVal3);
         });
         $('#yearMap1').on('change', function(event, d) {
           yearVal = (this.value) // crop types from Agr1
-          console.log(yearVal) // get value from dropdown crop type
+
           document.getElementById("selected_year1").innerHTML = yearVal; // display year for map1
           styleMaps(map01LGeoJson, nutVal, yearVal);
         });
         $('#yearMap3').on('change', function(event, d) {
           yearVal3 = (this.value) // crop types from Agr1
-          console.log(yearVal3) // get value from dropdown crop type
+
           document.getElementById("selected_year3").innerHTML = yearVal3; // display year on slider for map3
           styleMaps(map03LGeoJson, nutVal, yearVal3);
         });
       }
-
-
-      // immediate function to preserve global namespace
-      // color for Phosphorus ['#ffffd4','#fee391','#fec44f','#fe9929','#d95f0e','#993404']
+      // create colors for styling maps
+      // color for Phosphorus
       function getColorP(d) {
         return d > 80 ? '#993404' :
           d >= 60 ? '#d95f0e' :
@@ -448,8 +406,6 @@
       }
       // style color map for median data P and K Start
       function styleP(feature) {
-        console.log(styleYear + ": styleP function")
-        // console.log(cropval + " :SYTLE P Function" + yearVal);
         var currentPropName = "P_med" + styleYear;
         // console.log(feature.properties[cropval][currentPropName] + ": styleP getcolorP")
         return {
@@ -475,6 +431,20 @@
           fillOpacity: 0.8
         };
       } // END P and K style
+
+      function countSamples(data) {
+        console.log(data)
+        // console.log(nutVal)
+        // console.log(yearVal + ": " + yearVal3)
+        console.log(cropval)
+        var curPropName = nutVal + "_count_" + yearVal;
+        console.log(curPropName)
+        // data.forEach(feature => console.log(feature));
+        // feature.forEach(function(feature, i) {
+        //   console.log(feature[i][properties][cropval][ccurPropName])
+        //
+        // })
+      }
     </script>
   </body>
 
