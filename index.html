@@ -235,8 +235,9 @@
         drawMaps(countiesJson, yearVal, yearVal3);
         addListeners();
         addLegendP();
-        console.log(countiesJson);
+        // console.log(countiesJson);
         countSamples(countiesJson);
+
       }; // END dataReady
 
       function drawMaps(countyData, yearVal, yearVal3) {
@@ -433,17 +434,25 @@
       } // END P and K style
 
       function countSamples(data) {
-        console.log(data)
-        // console.log(nutVal)
-        // console.log(yearVal + ": " + yearVal3)
-        console.log(cropval)
+        // console.log(data);
+        // // console.log(nutVal)
+        // // console.log(yearVal + ": " + yearVal3)
+        console.log(cropval);
         var curPropName = nutVal + "_count_" + yearVal;
-        console.log(curPropName)
-        // data.forEach(feature => console.log(feature));
-        // feature.forEach(function(feature, i) {
-        //   console.log(feature[i][properties][cropval][ccurPropName])
-        //
-        // })
+        // console.log(curPropName);
+        var countTotal = 0;
+
+        console.log(data);
+        console.log(data.feature[23].properties[cropval][curPropName][23]);
+        data.features.forEach(function(feature) {
+          // console.log(parseInt(feature.properties[cropval][curPropName]));
+          var x = parseInt(feature.properties[cropval][curPropName]);
+          var countTotal = x + countTotal;
+          console.log(x)
+          return countTotal
+
+        })
+        console.log(count)
       }
     </script>
   </body>
