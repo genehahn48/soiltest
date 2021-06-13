@@ -27,12 +27,13 @@ form{
 }
 footer {
   text-align: left;
-  padding: 8px 15px;
+  padding:20px;
   background-color: #80a8c2;
   color: black;
+
 }
 #map-01, #map-02, #map-03, #map-04 {
-  height: 300px;
+  height: 250px;
   width: 100%;
    font-family: "Times New Roman", Times, serif;
 

@@ -76,7 +76,7 @@
         <option value="tobaccoMedData">Tobacco</option>
         <option value="warmseasonMedData">Warm Season Grass</option>
       </select>
-</form>
+    </form>
     <!-- <div style="display: flex;"> -->
     <div id="map-03"></div>
     <div id="legend3"></div>
@@ -96,6 +96,7 @@
     <div id="legend4"></div>
     <div id="map-04"></div>
   </div>
+  <div></div>
   </div>
 
   <footer>
@@ -159,12 +160,13 @@
     console.log(catMap2);
     console.log(catMap4);
     // variables for leaflet maps Start map variables
-    const map01 = L.map('map-01').setView([37.8, -85.65], 7);
-    const map02 = L.map('map-02').setView([37.8, -85.65], 7);
-    const map03 = L.map('map-03').setView([37.8, -85.65], 7);
-    const map04 = L.map('map-04').setView([37.8, -85.65], 7);
+    const map01 = L.map('map-01').setView([37.8, -85.65], 6);
+    const map02 = L.map('map-02').setView([37.8, -85.65], 6);
+    const map03 = L.map('map-03').setView([37.8, -85.65], 6);
+    const map04 = L.map('map-04').setView([37.8, -85.65], 6);
     // object select variable
-    let cropval = "alfalfaMedData"
+    let cropval = "alfalfaMedData",
+      cropvalCat = "";
 
     // get width and height of maps with jQuery
     const wMap1 = $("#map-01").width();
@@ -255,17 +257,19 @@
     function drawMaps(countyData, yearVal, yearVal3) {
       // function will be called once and create L.geoJson objects from data
       // assign value to variable declared above
-      map01LGeoJson = L.geoJson(countyData).addTo(map01);
+      map01LGeoJson = L.geoJson(countyData,{
+          onEachFeature: onEachFeature
+        }).addTo(map01);
       map02LGeoJson = L.geoJson(countyData).addTo(map02);
       map03LGeoJson = L.geoJson(countyData).addTo(map03);
       map04LGeoJson = L.geoJson(countyData).addTo(map04);
-
-      // call the styleMaps() function to apply visual representation
-      styleMaps(map01LGeoJson, nutVal, yearVal);
-      styleMaps(map03LGeoJson, nutVal, yearVal3);
-      styleMapsCat(map02LGeoJson, nutVal, yearVal);
-      styleMapsCat(map04LGeoJson, nutVal, yearVal3);
       console.log(countyData)
+      // call the styleMaps() function to apply visual representation
+    styleMaps(map01LGeoJson, nutVal, yearVal);
+      styleMaps(map03LGeoJson, nutVal, yearVal3);
+      // styleMapsCat(map02LGeoJson, nutVal, yearVal, catMap2);
+      // styleMapsCat(map04LGeoJson, nutVal, yearVal3, catMap4);
+
 
     }
 
@@ -436,7 +440,7 @@
         opacity: 1,
         color: '#484C51 ',
         solidline: '3',
-        fillOpacity: 0.8
+        fillOpacity: 1
       };
     }
 
@@ -453,10 +457,55 @@
         fillOpacity: 0.8
       };
     } // END P and K style
+    function getColorCat(d, catMap) {
+      return d > 80 ? '#993404' :
+        d >= 60 ? '#d95f0e' :
+        d >= 27 ? '#fe9929' :
+        d >= 7 ? '#fec44f' :
+        d >= 5 ? '#fee391' :
+        d > 0 ? '#ffffd4' :
+        '#dad6d2';
+    }
 
-    function styleMapsCat(map, nutVal, year) { //start styleMapCat
+    // function styleMapsCat(map, nutVal, year, catMap) { //start styleMapCat
+    //   styleYearCat = year;
+    //   // var cropvalCat = cropval.replaceAll("MedData", "");
+    //   console.log(catMap)
+    //   // var currPropName = nutVal + "_" + styleYearCat + "_" + catMap;
+    //   // console.log(currPropName);
+    //   if (nutVal == "P"){
+    //     map.setStyle(styleCatP(catMap));
+    //   } else{
+    //     map.setStyle(styleCatK());
+    //   }
+    //     } // end styleMapCat
+    //   function styleCatP(feature) {
+    //     console.log(catMap)
+    //     var cropvalCat = cropval.replaceAll("MedData", "");
+    //     console.log(cropvalCat + ": Cat"+catMap)
+    //     var currPropName = nutVal + "_" + styleYearCat + "_" + catMap;
+    //     console.log(currPropName);
+    //       console.log(feature.properties[cropvalCat][currPropName] + ": styleP getcolorP")
+    //     return {
+    //       fillColor: getColorP(feature.properties[cropval][currentPropName]),
+    //       weight: 1,
+    //       opacity: 1,
+    //       color: '#484C51 ',
+    //       solidline: '3',
+    //       fillOpacity: 0.8
+    //     };
+    //   }
+      // return {
+      //
+      //   fillColor: getColorCat(feature.properties[cropval][currPropName]),
+      //   weight: .5,
+      //   opacity: 1,
+      //   color: '#484C51  ',
+      //   solidline: '3',
+      //   fillOpacity: 0.8
+      // };
 
-    } // end styleMapCat
+
     function countSamples(data, year) {
       var curPropName = nutVal + "_count_" + year;
       var countCrop = 0;
@@ -500,6 +549,38 @@
       })
       return totalCount
     }
+    function highlightFeature(e) {
+    var layer = e.target;
+
+    layer.setStyle({
+        weight: 3,
+        color: 'red',
+        fillOpacity: 0.7
+    });
+
+    if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+        layer.bringToFront();
+    }
+}
+function zoomToFeature(e) {
+    map01.fitBounds(e.target.getBounds());
+}
+function onEachFeature(feature, layer) {
+    layer.on({
+        mouseover: highlightFeature,
+        mouseout: resetHighlight,
+        click: zoomToFeature
+    });
+}
+function resetHighlight(e) {
+    // map01.resetStyle(e.target);
+    var layer = e.target;
+    layer.setStyle({
+        weight: 1,
+        color: '#484C51 ',
+        fillOpacity: 1
+    });
+}
   </script>
 </body>
 
