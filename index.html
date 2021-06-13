@@ -263,10 +263,12 @@
       }).addTo(map01);
       map02LGeoJson = L.geoJson(countyData).addTo(map02);
       map03LGeoJson = L.geoJson(countyData,{
-        onEachFeature: onEachFeature,
-        onEachFeature: function(feature, layer){
-          var tooltip = '<b>County: </b>'+layer.feature.properties.co_name +
-          '<br> <b> Region: </b>' + layer.feature.properties[cropval];
+            onEachFeature: function(feature, layer){
+          var countyName = layer.feature.properties.co_name;
+          var farmland =layer.feature.properties.aland_ac;
+          var nutCount = layer.feature.properties[cropval];
+          var tooltip = 'County: <b>'+ countyName +
+          '</b> <br>Farm Ac:' + farmland;
           layer.bindTooltip(tooltip);
         },
       }).addTo(map03);
