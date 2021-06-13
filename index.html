@@ -47,7 +47,7 @@
     <!-- </div> -->
   </div>
   <div class="map-2">
-    <form name="map02">Select Agr-1 category from dropdown
+    <form name="map02">Select Agr-1 category from dropdown <br>
       <select id="map02-dropdown" name="dropdown2" class="dropdown">
         <option value="VH">Very High</option>
         <option value="H">High</option>
@@ -76,7 +76,7 @@
         <option value="tobaccoMedData">Tobacco</option>
         <option value="warmseasonMedData">Warm Season Grass</option>
       </select>
-    </form>
+</form>
     <!-- <div style="display: flex;"> -->
     <div id="map-03"></div>
     <div id="legend3"></div>
@@ -84,7 +84,7 @@
   </div>
 
   <div class="map-4">
-    <form name="map04">Select Agr-1 category from dropdown
+    <form name="map04">Select Agr-1 category from dropdown <br> Median value for the category
       <select id="map04-dropdown" name="dropdown4" class="dropdown">
         <option value="VH">Very High</option>
         <option value="H">High</option>
@@ -265,6 +265,8 @@
       styleMaps(map03LGeoJson, nutVal, yearVal3);
       styleMapsCat(map02LGeoJson, nutVal, yearVal);
       styleMapsCat(map04LGeoJson, nutVal, yearVal3);
+      console.log(countyData)
+
     }
 
     function addLegendP(map) {
@@ -412,7 +414,7 @@
         d >= 7 ? '#fec44f' :
         d >= 5 ? '#fee391' :
         d > 0 ? '#ffffd4' :
-        '#f5f5eb';
+        '#dad6d2';
     }
     // color for Potassium
     function getColorK(d) {
@@ -422,7 +424,7 @@
         d >= 190 ? '#917898 ' :
         d >= 100 ? '#9babcf' :
         d > 0 ? '#d5ddef' :
-        '#f5f5eb';
+        ' #c2c2c2';
     }
     // style color map for median data P and K Start
     function styleP(feature) {
@@ -452,7 +454,7 @@
       };
     } // END P and K style
 
-    function styleMapsCat(map04LGeoJson, nutVal, yearVal) { //start styleMapCat
+    function styleMapsCat(map, nutVal, year) { //start styleMapCat
 
     } // end styleMapCat
     function countSamples(data, year) {
