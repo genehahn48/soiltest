@@ -371,12 +371,12 @@
           legend.remove(map01);
           legend3.remove(map03);
           addLegendP();
-          console.log(countSamples(countiesJson, yearVal)+": Map1");
+          console.log(countSamples(countiesJson, yearVal)+": Map1 :croptype:"+cropval);
         } else {
           legend.remove(map01);
           legend3.remove(map03);
           addLegendK()
-          console.log(countSamples(countiesJson, yearVal3)+": Map3");
+          console.log(countSamples(countiesJson, yearVal)+": Map1 :croptype "+cropval);
         }
 
         styleMaps(map01LGeoJson, nutVal, yearVal);
@@ -386,27 +386,27 @@
         cropval = (this.value) // crop types from Agr1
         // get value from dropdown crop type
         styleMaps(map01LGeoJson, nutVal, yearVal);
-        console.log(countSamples(countiesJson, yearVal)+": Map1");
+        console.log(countSamples(countiesJson, yearVal)+": Map1 : croptype: "+cropval);
       });
       $('#map03-dropdown').on('change', function(event, d) {
         cropval = (this.value) // crop types from Agr1
         // get value from dropdown crop type
         styleMaps(map03LGeoJson, nutVal, yearVal3);
-        console.log(countSamples(countiesJson, yearVal3)+": Map3");
+        console.log(countSamples(countiesJson, yearVal3)+": Map3 : croptype:"+cropval);
       });
       $('#yearMap1').on('change', function(event, d) {
         yearVal = (this.value) // crop types from Agr1
 
         document.getElementById("selected_year1").innerHTML = yearVal; // display year for map1
         styleMaps(map01LGeoJson, nutVal, yearVal);
-        console.log(countSamples(countiesJson, yearVal)+": Map1");
+        console.log(countSamples(countiesJson, yearVal)+": Map1 :croptype"+cropval);
       });
       $('#yearMap3').on('change', function(event, d) {
         yearVal3 = (this.value) // crop types from Agr1
 
         document.getElementById("selected_year3").innerHTML = yearVal3; // display year on slider for map3
         styleMaps(map03LGeoJson, nutVal, yearVal3);
-        console.log(countSamples(countiesJson, yearVal3)+": Map3");
+        console.log(countSamples(countiesJson, yearVal3)+": Map3 : croptype"+cropval);
       });
     }
     // create colors for styling maps
@@ -552,7 +552,7 @@
             // end counting functions
 // start mouseover functions
     function highlightFeature(e) {
-      console.log(e)
+      // console.log(e)
       var layer = e.target;
 
       layer.setStyle({
