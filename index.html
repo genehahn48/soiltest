@@ -16,7 +16,7 @@
     <h1><center>University of Kentucky's Soil testing Lab Data</center></h1>
     <h2>Please select a nutrient (P or K) and the crop type you are interested in viewing the median values for. Map 3 will allow compare median values across different years or crop types.There was a total of 889,912 samples processed through the lab in 29 years. </h2>
   </header>
-  <div class="grid-container">
+  <div
     <div class="map-1">
       <form name="map01">
         <label for="yearMap1">Year</label>
@@ -46,19 +46,7 @@
     <div id="map-01"></div>
     <!-- </div> -->
   </div>
-  <div class="map-2">
-    <form name="map02">Select Agr-1 category from dropdown <br>
-      <select id="map02-dropdown" name="dropdown2" class="dropdown">
-        <option value="VH">Very High</option>
-        <option value="H">High</option>
-        <option value="M" selected>Medium</option>
-        <option value="L">Low</option>
-        <option value="VL">Very Low</option>
-      </select>
-    </form>
-    <div id="legend2"></div>
-    <div id="map-02"></div>
-  </div>
+
   <div class="map-3">
     <form name="map03">
       <label for="yearMap3">Year</label>
@@ -80,23 +68,9 @@
     <!-- <div style="display: flex;"> -->
     <div id="map-03"></div>
     <div id="legend3"></div>
-    <!-- </div> -->
+
   </div>
 
-  <div class="map-4">
-    <form name="map04">Select Agr-1 category from dropdown <br> Median value for the category
-      <select id="map04-dropdown" name="dropdown4" class="dropdown">
-        <option value="VH">Very High</option>
-        <option value="H">High</option>
-        <option value="M">Medium</option>
-        <option value="L" selected>Low</option>
-        <option value="VL">Very Low</option>
-      </select>
-    </form>
-    <div id="legend4"></div>
-    <div id="map-04"></div>
-  </div>
-  <div></div>
   </div>
 
   <footer>
@@ -153,35 +127,35 @@
     let nutValmap1 = "P", // map01 nutrient value
       nutVal = "P", // set nurtient value for all maps will change on listener
       yearVal = $('#yearMap1').val(), //jquery yearVal from slider
-      yearVal3 = $('#yearMap3').val(), //jquery yearVal from slider
-      catMap2 = $('#map02-dropdown').val(),
-      catMap4 = $('#map04-dropdown').val();
+      yearVal3 = $('#yearMap3').val(); //jquery yearVal from slider
+      // catMap2 = $('#map02-dropdown').val(),
+      // catMap4 = $('#map04-dropdown').val();
 
     // variables for leaflet maps Start map variables
     const map01 = L.map('map-01').setView([37.8, -85.65], 6);
-    const map02 = L.map('map-02').setView([37.8, -85.65], 6);
     const map03 = L.map('map-03').setView([37.8, -85.65], 6);
-    const map04 = L.map('map-04').setView([37.8, -85.65], 6);
+    // const map02 = L.map('map-02').setView([37.8, -85.65], 6);
+    // const map04 = L.map('map-04').setView([37.8, -85.65], 6);
     // object select variable
     let cropval = "alfalfaMedData",
       cropvalCat = "";
 
     // get width and height of maps with jQuery
-    const wMap1 = $("#map-01").width();
-    const hMap1 = $("#map-01").height();
-    const widthForLegend = 100;
+    // const wMap1 = $("#map-01").width();
+    // const hMap1 = $("#map-01").height();
+    // const widthForLegend = 100;
 
     // some global variables here, perhaps, to reference the Leaflet GeoJSON layers
     // created within the drawMaps function
     let map01LGeoJson,
-      map02LGeoJson,
-      map03LGeoJson,
-      map04LGeoJson;
+      map02LGeoJson;
+      // map03LGeoJson,
+      // map04LGeoJson;
     // legend variables addLegend P and K function
     let legend,
-      legend2,
-      legend3,
-      legend4;
+      legend2;
+      // legend3,
+      // legend4;
     // wait until they are ready and then send to dataReady function
     Promise.all([countiesJson, regionsJson, alfalfaLevel, canolaLevel, coolseasonLevel, cornLevel,
       smallgrainsLevel, sorghumLevel, soyLevel, tobaccoLevel,
@@ -258,15 +232,15 @@
       map01LGeoJson = L.geoJson(countyData, {
         onEachFeature: onEachFeature,
       }).addTo(map01);
-      map02LGeoJson = L.geoJson(countyData).addTo(map02);
+      // map02LGeoJson = L.geoJson(countyData).addTo(map02);
       map03LGeoJson = L.geoJson(countyData, {
         onEachFeature: onEachFeature,
       }).addTo(map03);
-      map04LGeoJson = L.geoJson(countyData).addTo(map04);
+      // map04LGeoJson = L.geoJson(countyData).addTo(map04);
       // call the styleMaps() function to apply visual representation
       styleMaps(map01LGeoJson, nutVal, yearVal, countyData);
       styleMaps(map03LGeoJson, nutVal, yearVal3, countyData);
-      styleMapsCat(map02LGeoJson, nutVal, yearVal, catMap2);
+      // styleMapsCat(map02LGeoJson, nutVal, yearVal, catMap2);
       // styleMapsCat(map04LGeoJson, nutVal, yearVal3, catMap4);
     }
 
