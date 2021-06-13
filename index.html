@@ -257,17 +257,17 @@
     function drawMaps(countyData, yearVal, yearVal3) {
       // function will be called once and create L.geoJson objects from data
       // assign value to variable declared above
-      map01LGeoJson = L.geoJson(countyData,{
-          onEachFeature: onEachFeature
-        }).addTo(map01);
+      map01LGeoJson = L.geoJson(countyData, {
+        onEachFeature: onEachFeature,
+      }).addTo(map01);
       map02LGeoJson = L.geoJson(countyData).addTo(map02);
       map03LGeoJson = L.geoJson(countyData).addTo(map03);
       map04LGeoJson = L.geoJson(countyData).addTo(map04);
       console.log(countyData)
       // call the styleMaps() function to apply visual representation
-    styleMaps(map01LGeoJson, nutVal, yearVal);
+      styleMaps(map01LGeoJson, nutVal, yearVal);
       styleMaps(map03LGeoJson, nutVal, yearVal3);
-      // styleMapsCat(map02LGeoJson, nutVal, yearVal, catMap2);
+      styleMapsCat(map02LGeoJson, nutVal, yearVal, catMap2);
       // styleMapsCat(map04LGeoJson, nutVal, yearVal3, catMap4);
 
 
@@ -371,12 +371,12 @@
           legend.remove(map01);
           legend3.remove(map03);
           addLegendP();
-          console.log(countSamples(countiesJson, yearVal));
+          console.log(countSamples(countiesJson, yearVal)+": Map1");
         } else {
           legend.remove(map01);
           legend3.remove(map03);
           addLegendK()
-          console.log(countSamples(countiesJson, yearVal3));
+          console.log(countSamples(countiesJson, yearVal3)+": Map3");
         }
 
         styleMaps(map01LGeoJson, nutVal, yearVal);
@@ -386,27 +386,27 @@
         cropval = (this.value) // crop types from Agr1
         // get value from dropdown crop type
         styleMaps(map01LGeoJson, nutVal, yearVal);
-        console.log(countSamples(countiesJson, yearVal));
+        console.log(countSamples(countiesJson, yearVal)+": Map1");
       });
       $('#map03-dropdown').on('change', function(event, d) {
         cropval = (this.value) // crop types from Agr1
         // get value from dropdown crop type
         styleMaps(map03LGeoJson, nutVal, yearVal3);
-        console.log(countSamples(countiesJson, yearVal3));
+        console.log(countSamples(countiesJson, yearVal3)+": Map3");
       });
       $('#yearMap1').on('change', function(event, d) {
         yearVal = (this.value) // crop types from Agr1
 
         document.getElementById("selected_year1").innerHTML = yearVal; // display year for map1
         styleMaps(map01LGeoJson, nutVal, yearVal);
-        console.log(countSamples(countiesJson, yearVal));
+        console.log(countSamples(countiesJson, yearVal)+": Map1");
       });
       $('#yearMap3').on('change', function(event, d) {
         yearVal3 = (this.value) // crop types from Agr1
 
         document.getElementById("selected_year3").innerHTML = yearVal3; // display year on slider for map3
         styleMaps(map03LGeoJson, nutVal, yearVal3);
-        console.log(countSamples(countiesJson, yearVal3));
+        console.log(countSamples(countiesJson, yearVal3)+": Map3");
       });
     }
     // create colors for styling maps
@@ -466,46 +466,46 @@
         d > 0 ? '#ffffd4' :
         '#dad6d2';
     }
-
-    // function styleMapsCat(map, nutVal, year, catMap) { //start styleMapCat
-    //   styleYearCat = year;
-    //   // var cropvalCat = cropval.replaceAll("MedData", "");
-    //   console.log(catMap)
-    //   // var currPropName = nutVal + "_" + styleYearCat + "_" + catMap;
-    //   // console.log(currPropName);
-    //   if (nutVal == "P"){
-    //     map.setStyle(styleCatP(catMap));
-    //   } else{
-    //     map.setStyle(styleCatK());
-    //   }
-    //     } // end styleMapCat
-    //   function styleCatP(feature) {
-    //     console.log(catMap)
-    //     var cropvalCat = cropval.replaceAll("MedData", "");
-    //     console.log(cropvalCat + ": Cat"+catMap)
-    //     var currPropName = nutVal + "_" + styleYearCat + "_" + catMap;
-    //     console.log(currPropName);
-    //       console.log(feature.properties[cropvalCat][currPropName] + ": styleP getcolorP")
-    //     return {
-    //       fillColor: getColorP(feature.properties[cropval][currentPropName]),
-    //       weight: 1,
-    //       opacity: 1,
-    //       color: '#484C51 ',
-    //       solidline: '3',
-    //       fillOpacity: 0.8
-    //     };
-    //   }
-      // return {
-      //
-      //   fillColor: getColorCat(feature.properties[cropval][currPropName]),
-      //   weight: .5,
-      //   opacity: 1,
-      //   color: '#484C51  ',
-      //   solidline: '3',
-      //   fillOpacity: 0.8
-      // };
-
-
+ // start styling map category
+    function styleMapsCat(map, nutVal, year, catMap) { //start styleMapCat
+      styleYearCat = year;
+      var cropvalCat = cropval.replaceAll("MedData", "");
+      console.log(catMap)
+      var currPropName = nutVal + "_" + styleYearCat + "_" + catMap;
+      console.log(currPropName);
+      if (nutVal == "P" && catMap == "M"){
+        // map.setStyle(styleCatP(catMap));
+      } else{
+        map.setStyle(styleCatK());
+      }
+        } // end styleMapCat
+      function styleCatP(feature) {
+        console.log(catMap)
+        var cropvalCat = cropval.replaceAll("MedData", "");
+        console.log(cropvalCat + ": Cat"+catMap)
+        var currPropName = nutVal + "_" + styleYearCat + "_" + catMap;
+        console.log(currPropName);
+          console.log(feature.properties[cropvalCat][currPropName] + ": styleP getcolorP")
+        return {
+          fillColor: getColorP(feature.properties[cropval][currentPropName]),
+          weight: 1,
+          opacity: 1,
+          color: '#484C51 ',
+          solidline: '3',
+          fillOpacity: 0.8
+        };
+      }
+    // return {
+    //
+    //   fillColor: getColorCat(feature.properties[cropval][currPropName]),
+    //   weight: .5,
+    //   opacity: 1,
+    //   color: '#484C51  ',
+    //   solidline: '3',
+    //   fillOpacity: 0.8
+    // };
+          // end styling map category
+    // start counting functions
     function countSamples(data, year) {
       var curPropName = nutVal + "_count_" + year;
       var countCrop = 0;
@@ -549,38 +549,45 @@
       })
       return totalCount
     }
+            // end counting functions
+// start mouseover functions
     function highlightFeature(e) {
-    var layer = e.target;
+      console.log(e)
+      var layer = e.target;
 
-    layer.setStyle({
+      layer.setStyle({
         weight: 3,
         color: 'red',
         fillOpacity: 0.7
-    });
+      });
 
-    if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+      if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
         layer.bringToFront();
+      }
     }
-}
-function zoomToFeature(e) {
-    map01.fitBounds(e.target.getBounds());
-}
-function onEachFeature(feature, layer) {
-    layer.on({
+
+    function zoomToFeature(e) {
+      map01.fitBounds(e.target.getBounds());
+    }
+
+    function onEachFeature(feature, layer) {
+      layer.on({
         mouseover: highlightFeature,
         mouseout: resetHighlight,
         click: zoomToFeature
-    });
-}
-function resetHighlight(e) {
-    // map01.resetStyle(e.target);
-    var layer = e.target;
-    layer.setStyle({
+      });
+    }
+
+    function resetHighlight(e) {
+      // map01.resetStyle(e.target);
+      var layer = e.target;
+      layer.setStyle({
         weight: 1,
         color: '#484C51 ',
         fillOpacity: 1
-    });
-}
+      });
+    }
+          // end mouseover functions
   </script>
 </body>
 
