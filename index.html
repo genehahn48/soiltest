@@ -258,20 +258,14 @@
       // function will be called once and create L.geoJson objects from data
       // assign value to variable declared above
       console.log(cropval);
+      console.log(nutVal+":nutVal : cropname:"+cropval+" : yearVal: "+yearVal+": yeaVal3:"+yearVal3);
       map01LGeoJson = L.geoJson(countyData, {
         onEachFeature: onEachFeature,
       }).addTo(map01);
       map02LGeoJson = L.geoJson(countyData).addTo(map02);
       map03LGeoJson = L.geoJson(countyData,{
-            onEachFeature: function(feature, layer){
-          var countyName = layer.feature.properties.co_name;
-          var farmland =layer.feature.properties.aland_ac;
-          var nutCount = layer.feature.properties[cropval];
-          var tooltip = 'County: <b>'+ countyName +
-          '</b> <br>Farm Ac:' + farmland;
-          layer.bindTooltip(tooltip);
-        },
-      }).addTo(map03);
+          onEachFeature: onEachFeature,
+            }).addTo(map03);
       map04LGeoJson = L.geoJson(countyData).addTo(map04);
       console.log(map03LGeoJson)
       // call the styleMaps() function to apply visual representation
@@ -363,13 +357,37 @@
       // function will be called multiple times, once within drawMaps
       // and then multiple times triggered by the UI changes
       styleYear = year;
-      // console.log(map + ":" + styleYear + ": styleMAPS year");
-      // console.log(nutVal + ": NUTVALUE STYLEMAPS" + year)
+      console.log(map + ":" + styleYear + ": styleMAPS year");
+      console.log(nutVal + ": NUTVALUE STYLEMAPS" + year)
 
       if (nutVal == "P") {
         map.setStyle(styleP);
+        map.eachLayer(function(layer){
+            var layProp=layer.feature.properties
+            var countyName = layer.feature.properties.co_name;
+            var farmland =layer.feature.properties.aland_ac;
+            var selNutyear = nutVal+"_count_"+styleYear;
+            var selMedVal = nutVal+"_med"+styleYear;
+            var nutCount = layer.feature.properties[cropval];
+            var tooltip = 'County: <b>'+ countyName +
+            '</b> <br>Farm Ac:' + farmland + '<br>Samples: '+layProp[cropval][selNutyear]+
+            '<br> Median :'+ layProp[cropval][selMedVal];
+            layer.bindTooltip(tooltip);
+        })
       } else {
         map.setStyle(styleK);
+        map.eachLayer(function(layer){
+            var layProp=layer.feature.properties
+            var countyName = layer.feature.properties.co_name;
+            var farmland =layer.feature.properties.aland_ac;
+            var selNutyear = nutVal+"_count_"+styleYear;
+            var selMedVal = nutVal+"_med"+styleYear;
+            var nutCount = layer.feature.properties[cropval];
+            var tooltip = 'County: <b>'+ countyName +
+            '</b> <br>Farm Ac:' + farmland + '<br>Samples: '+layProp[cropval][selNutyear]+
+            '<br> Median :'+ layProp[cropval][selMedVal];
+            layer.bindTooltip(tooltip);
+        })
       }
     }
 
