@@ -264,8 +264,8 @@
       }).addTo(map03);
       map04LGeoJson = L.geoJson(countyData).addTo(map04);
       // call the styleMaps() function to apply visual representation
-      styleMaps(map01LGeoJson, nutVal, yearVal);
-      styleMaps(map03LGeoJson, nutVal, yearVal3);
+      styleMaps(map01LGeoJson, nutVal, yearVal, countyData);
+      styleMaps(map03LGeoJson, nutVal, yearVal3, countyData);
       styleMapsCat(map02LGeoJson, nutVal, yearVal, catMap2);
       // styleMapsCat(map04LGeoJson, nutVal, yearVal3, catMap4);
     }
@@ -345,12 +345,16 @@
       };
       legend3.addTo(map03);
     }
-
-    function styleMaps(map, nutVal, year) {
+// start styleMaps
+    function styleMaps(map, nutVal, year, countyData) {
       // function will be called multiple times, once within drawMaps
       // and then multiple times triggered by the UI changes
       styleYear = year;
+      console.log(countyData);
       if (nutVal == "P") {
+        var countCrop = countSamples(countyData, styleYear);
+        var allCrop = countYearTotal(countyData, styleYear);
+        console.log(countCrop+": total : "+allCrop);
         map.setStyle(styleP);
         map.eachLayer(function(layer) {
           var layProp = layer.feature.properties
@@ -361,7 +365,7 @@
           var nutCount = layer.feature.properties[cropval];
           var tooltip = 'County: <b>' + countyName +
             '</b> <br>Farm Ac:' + farmland + '<br>Samples: ' + layProp[cropval][selNutyear] +
-            '<br> Median :' + layProp[cropval][selMedVal];
+            '<br> Median :' + layProp[cropval][selMedVal] + '<br>Count: '+countCrop+'<br>Yr Tot: '+allCrop;
           layer.bindTooltip(tooltip);
         })
       } else {
@@ -397,33 +401,33 @@
           console.log(countSamples(countiesJson, yearVal) + ": Map1 :croptype " + cropval);
         }
 
-        styleMaps(map01LGeoJson, nutVal, yearVal);
-        styleMaps(map03LGeoJson, nutVal, yearVal3);
+        styleMaps(map01LGeoJson, nutVal, yearVal,countiesJson);
+        styleMaps(map03LGeoJson, nutVal, yearVal3,countiesJson);
       });
       $('#map01-dropdown').on('change', function(event, d) {
         cropval = (this.value) // crop types from Agr1
         // get value from dropdown crop type
-        styleMaps(map01LGeoJson, nutVal, yearVal);
+        styleMaps(map01LGeoJson, nutVal, yearVal,countiesJson);
         console.log(countSamples(countiesJson, yearVal) + ": Map1 : croptype: " + cropval);
       });
       $('#map03-dropdown').on('change', function(event, d) {
         cropval = (this.value) // crop types from Agr1
         // get value from dropdown crop type
-        styleMaps(map03LGeoJson, nutVal, yearVal3);
+        styleMaps(map03LGeoJson, nutVal, yearVal3,countiesJson);
         console.log(countSamples(countiesJson, yearVal3) + ": Map3 : croptype:" + cropval);
       });
       $('#yearMap1').on('change', function(event, d) {
         yearVal = (this.value) // crop types from Agr1
 
         document.getElementById("selected_year1").innerHTML = yearVal; // display year for map1
-        styleMaps(map01LGeoJson, nutVal, yearVal);
+        styleMaps(map01LGeoJson, nutVal, yearVal,countiesJson);
         console.log(countSamples(countiesJson, yearVal) + ": Map1 :croptype" + cropval);
       });
       $('#yearMap3').on('change', function(event, d) {
         yearVal3 = (this.value) // crop types from Agr1
 
         document.getElementById("selected_year3").innerHTML = yearVal3; // display year on slider for map3
-        styleMaps(map03LGeoJson, nutVal, yearVal3);
+        styleMaps(map03LGeoJson, nutVal, yearVal3,countiesJson);
         console.log(countSamples(countiesJson, yearVal3) + ": Map3 : croptype" + cropval);
       });
     }
@@ -525,13 +529,16 @@
     function countSamples(data, year) {
       var curPropName = nutVal + "_count_" + year;
       var countCrop = 0;
-      data.features.forEach(function(feature) {
+      data.features.forEach(function(feature,x) {
         countCrop += parseInt(feature.properties[cropval][curPropName]);
+// var y = x+1
+// console.log(y)
       })
-      return countCrop
+      return         countCrop
     }
 
     function countYearTotal(data, year) {
+console.log(year);
       var countTotalyear = 0;
       MedData.forEach(function(x) {
         var curPropName = nutVal + "_count_" + year;
