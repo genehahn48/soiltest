@@ -257,20 +257,21 @@
     function drawMaps(countyData, yearVal, yearVal3) {
       // function will be called once and create L.geoJson objects from data
       // assign value to variable declared above
+      console.log(cropval);
       map01LGeoJson = L.geoJson(countyData, {
         onEachFeature: onEachFeature,
       }).addTo(map01);
       map02LGeoJson = L.geoJson(countyData).addTo(map02);
       map03LGeoJson = L.geoJson(countyData,{
         onEachFeature: onEachFeature,
-        // onEachFeature: function(feature, layer){
-        //   var tooltip = '<b>County: </b>'+feature.properties[co_name] +
-        //   '<br> <b> Region: </b>' + feature.properties[region];
-        //   layer.bindTooltip(tooltip);
-        // },
+        onEachFeature: function(feature, layer){
+          var tooltip = '<b>County: </b>'+layer.feature.properties.co_name +
+          '<br> <b> Region: </b>' + layer.feature.properties[cropval];
+          layer.bindTooltip(tooltip);
+        },
       }).addTo(map03);
       map04LGeoJson = L.geoJson(countyData).addTo(map04);
-      console.log(countyData)
+      console.log(map03LGeoJson)
       // call the styleMaps() function to apply visual representation
       styleMaps(map01LGeoJson, nutVal, yearVal);
       styleMaps(map03LGeoJson, nutVal, yearVal3);
