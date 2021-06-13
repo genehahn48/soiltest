@@ -263,6 +263,11 @@
       map02LGeoJson = L.geoJson(countyData).addTo(map02);
       map03LGeoJson = L.geoJson(countyData,{
         onEachFeature: onEachFeature,
+        // onEachFeature: function(feature, layer){
+        //   var tooltip = '<b>County: </b>'+feature.properties[co_name] +
+        //   '<br> <b> Region: </b>' + feature.properties[region];
+        //   layer.bindTooltip(tooltip);
+        // },
       }).addTo(map03);
       map04LGeoJson = L.geoJson(countyData).addTo(map04);
       console.log(countyData)
