@@ -564,7 +564,6 @@
     function highlightFeature(e) {
       // console.log(e)
       var layer = e.target;
-
       layer.setStyle({
         weight: 3,
         color: 'red',
@@ -576,15 +575,11 @@
       }
     }
 
-    // function zoomToFeature(e) {
-    //   map01.fitBounds(e.target.getBounds());
-    // }
-
     function onEachFeature(feature, layer) {
       layer.on({
         mouseover: highlightFeature,
         mouseout: resetHighlight,
-        // click: zoomToFeature
+
       });
     }
 
