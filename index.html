@@ -261,7 +261,9 @@
         onEachFeature: onEachFeature,
       }).addTo(map01);
       map02LGeoJson = L.geoJson(countyData).addTo(map02);
-      map03LGeoJson = L.geoJson(countyData).addTo(map03);
+      map03LGeoJson = L.geoJson(countyData,{
+        onEachFeature: onEachFeature,
+      }).addTo(map03);
       map04LGeoJson = L.geoJson(countyData).addTo(map04);
       console.log(countyData)
       // call the styleMaps() function to apply visual representation
@@ -566,15 +568,15 @@
       }
     }
 
-    function zoomToFeature(e) {
-      map01.fitBounds(e.target.getBounds());
-    }
+    // function zoomToFeature(e) {
+    //   map01.fitBounds(e.target.getBounds());
+    // }
 
     function onEachFeature(feature, layer) {
       layer.on({
         mouseover: highlightFeature,
         mouseout: resetHighlight,
-        click: zoomToFeature
+        // click: zoomToFeature
       });
     }
 
