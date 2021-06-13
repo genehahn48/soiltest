@@ -13,8 +13,8 @@
 
 <body>
   <header>
-    <h1>University of Kentucky's Soil testing Labs Data</h1>
-    <h2>Please select a nutrient (P or K) and the crop type you are interested in viewing the median values for. Map 3 will allow compare median values across different years or crop types. </h2>
+    <h1><center>University of Kentucky's Soil testing Lab Data</center></h1>
+    <h2>Please select a nutrient (P or K) and the crop type you are interested in viewing the median values for. Map 3 will allow compare median values across different years or crop types.There was a total of 889,912 samples processed through the lab in 29 years. </h2>
   </header>
   <div class="grid-container">
     <div class="map-1">
@@ -157,8 +157,6 @@
       catMap2 = $('#map02-dropdown').val(),
       catMap4 = $('#map04-dropdown').val();
 
-    console.log(catMap2);
-    console.log(catMap4);
     // variables for leaflet maps Start map variables
     const map01 = L.map('map-01').setView([37.8, -85.65], 6);
     const map02 = L.map('map-02').setView([37.8, -85.65], 6);
@@ -257,24 +255,19 @@
     function drawMaps(countyData, yearVal, yearVal3) {
       // function will be called once and create L.geoJson objects from data
       // assign value to variable declared above
-      console.log(cropval);
-      console.log(nutVal+":nutVal : cropname:"+cropval+" : yearVal: "+yearVal+": yeaVal3:"+yearVal3);
       map01LGeoJson = L.geoJson(countyData, {
         onEachFeature: onEachFeature,
       }).addTo(map01);
       map02LGeoJson = L.geoJson(countyData).addTo(map02);
-      map03LGeoJson = L.geoJson(countyData,{
-          onEachFeature: onEachFeature,
-            }).addTo(map03);
+      map03LGeoJson = L.geoJson(countyData, {
+        onEachFeature: onEachFeature,
+      }).addTo(map03);
       map04LGeoJson = L.geoJson(countyData).addTo(map04);
-      console.log(map03LGeoJson)
       // call the styleMaps() function to apply visual representation
       styleMaps(map01LGeoJson, nutVal, yearVal);
       styleMaps(map03LGeoJson, nutVal, yearVal3);
       styleMapsCat(map02LGeoJson, nutVal, yearVal, catMap2);
       // styleMapsCat(map04LGeoJson, nutVal, yearVal3, catMap4);
-
-
     }
 
     function addLegendP(map) {
@@ -357,36 +350,33 @@
       // function will be called multiple times, once within drawMaps
       // and then multiple times triggered by the UI changes
       styleYear = year;
-      console.log(map + ":" + styleYear + ": styleMAPS year");
-      console.log(nutVal + ": NUTVALUE STYLEMAPS" + year)
-
       if (nutVal == "P") {
         map.setStyle(styleP);
-        map.eachLayer(function(layer){
-            var layProp=layer.feature.properties
-            var countyName = layer.feature.properties.co_name;
-            var farmland =layer.feature.properties.aland_ac;
-            var selNutyear = nutVal+"_count_"+styleYear;
-            var selMedVal = nutVal+"_med"+styleYear;
-            var nutCount = layer.feature.properties[cropval];
-            var tooltip = 'County: <b>'+ countyName +
-            '</b> <br>Farm Ac:' + farmland + '<br>Samples: '+layProp[cropval][selNutyear]+
-            '<br> Median :'+ layProp[cropval][selMedVal];
-            layer.bindTooltip(tooltip);
+        map.eachLayer(function(layer) {
+          var layProp = layer.feature.properties
+          var countyName = layer.feature.properties.co_name;
+          var farmland = layer.feature.properties.aland_ac;
+          var selNutyear = nutVal + "_count_" + styleYear;
+          var selMedVal = nutVal + "_med" + styleYear;
+          var nutCount = layer.feature.properties[cropval];
+          var tooltip = 'County: <b>' + countyName +
+            '</b> <br>Farm Ac:' + farmland + '<br>Samples: ' + layProp[cropval][selNutyear] +
+            '<br> Median :' + layProp[cropval][selMedVal];
+          layer.bindTooltip(tooltip);
         })
       } else {
         map.setStyle(styleK);
-        map.eachLayer(function(layer){
-            var layProp=layer.feature.properties
-            var countyName = layer.feature.properties.co_name;
-            var farmland =layer.feature.properties.aland_ac;
-            var selNutyear = nutVal+"_count_"+styleYear;
-            var selMedVal = nutVal+"_med"+styleYear;
-            var nutCount = layer.feature.properties[cropval];
-            var tooltip = 'County: <b>'+ countyName +
-            '</b> <br>Farm Ac:' + farmland + '<br>Samples: '+layProp[cropval][selNutyear]+
-            '<br> Median :'+ layProp[cropval][selMedVal];
-            layer.bindTooltip(tooltip);
+        map.eachLayer(function(layer) {
+          var layProp = layer.feature.properties
+          var countyName = layer.feature.properties.co_name;
+          var farmland = layer.feature.properties.aland_ac;
+          var selNutyear = nutVal + "_count_" + styleYear;
+          var selMedVal = nutVal + "_med" + styleYear;
+          var nutCount = layer.feature.properties[cropval];
+          var tooltip = 'County: <b>' + countyName +
+            '</b> <br>Farm Ac:' + farmland + '<br>Samples: ' + layProp[cropval][selNutyear] +
+            '<br> Median :' + layProp[cropval][selMedVal];
+          layer.bindTooltip(tooltip);
         })
       }
     }
@@ -399,12 +389,12 @@
           legend.remove(map01);
           legend3.remove(map03);
           addLegendP();
-          console.log(countSamples(countiesJson, yearVal)+": Map1 :croptype:"+cropval);
+          console.log(countSamples(countiesJson, yearVal) + ": Map1 :croptype:" + cropval);
         } else {
           legend.remove(map01);
           legend3.remove(map03);
           addLegendK()
-          console.log(countSamples(countiesJson, yearVal)+": Map1 :croptype "+cropval);
+          console.log(countSamples(countiesJson, yearVal) + ": Map1 :croptype " + cropval);
         }
 
         styleMaps(map01LGeoJson, nutVal, yearVal);
@@ -414,27 +404,27 @@
         cropval = (this.value) // crop types from Agr1
         // get value from dropdown crop type
         styleMaps(map01LGeoJson, nutVal, yearVal);
-        console.log(countSamples(countiesJson, yearVal)+": Map1 : croptype: "+cropval);
+        console.log(countSamples(countiesJson, yearVal) + ": Map1 : croptype: " + cropval);
       });
       $('#map03-dropdown').on('change', function(event, d) {
         cropval = (this.value) // crop types from Agr1
         // get value from dropdown crop type
         styleMaps(map03LGeoJson, nutVal, yearVal3);
-        console.log(countSamples(countiesJson, yearVal3)+": Map3 : croptype:"+cropval);
+        console.log(countSamples(countiesJson, yearVal3) + ": Map3 : croptype:" + cropval);
       });
       $('#yearMap1').on('change', function(event, d) {
         yearVal = (this.value) // crop types from Agr1
 
         document.getElementById("selected_year1").innerHTML = yearVal; // display year for map1
         styleMaps(map01LGeoJson, nutVal, yearVal);
-        console.log(countSamples(countiesJson, yearVal)+": Map1 :croptype"+cropval);
+        console.log(countSamples(countiesJson, yearVal) + ": Map1 :croptype" + cropval);
       });
       $('#yearMap3').on('change', function(event, d) {
         yearVal3 = (this.value) // crop types from Agr1
 
         document.getElementById("selected_year3").innerHTML = yearVal3; // display year on slider for map3
         styleMaps(map03LGeoJson, nutVal, yearVal3);
-        console.log(countSamples(countiesJson, yearVal3)+": Map3 : croptype"+cropval);
+        console.log(countSamples(countiesJson, yearVal3) + ": Map3 : croptype" + cropval);
       });
     }
     // create colors for styling maps
@@ -494,35 +484,33 @@
         d > 0 ? '#ffffd4' :
         '#dad6d2';
     }
- // start styling map category
+    // start styling map category
     function styleMapsCat(map, nutVal, year, catMap) { //start styleMapCat
       styleYearCat = year;
       var cropvalCat = cropval.replaceAll("MedData", "");
-      console.log(catMap)
       var currPropName = nutVal + "_" + styleYearCat + "_" + catMap;
-      console.log(currPropName);
-      if (nutVal == "P" && catMap == "M"){
+      if (nutVal == "P" && catMap == "M") {
         // map.setStyle(styleCatP(catMap));
-      } else{
+      } else {
         map.setStyle(styleCatK());
       }
-        } // end styleMapCat
-      function styleCatP(feature) {
-        console.log(catMap)
-        var cropvalCat = cropval.replaceAll("MedData", "");
-        console.log(cropvalCat + ": Cat"+catMap)
-        var currPropName = nutVal + "_" + styleYearCat + "_" + catMap;
-        console.log(currPropName);
-          console.log(feature.properties[cropvalCat][currPropName] + ": styleP getcolorP")
-        return {
-          fillColor: getColorP(feature.properties[cropval][currentPropName]),
-          weight: 1,
-          opacity: 1,
-          color: '#484C51 ',
-          solidline: '3',
-          fillOpacity: 0.8
-        };
-      }
+    } // end styleMapCat
+    function styleCatP(feature) {
+      console.log(catMap)
+      var cropvalCat = cropval.replaceAll("MedData", "");
+      console.log(cropvalCat + ": Cat" + catMap)
+      var currPropName = nutVal + "_" + styleYearCat + "_" + catMap;
+      console.log(currPropName);
+      console.log(feature.properties[cropvalCat][currPropName] + ": styleP getcolorP")
+      return {
+        fillColor: getColorP(feature.properties[cropval][currentPropName]),
+        weight: 1,
+        opacity: 1,
+        color: '#484C51 ',
+        solidline: '3',
+        fillOpacity: 0.8
+      };
+    }
     // return {
     //
     //   fillColor: getColorCat(feature.properties[cropval][currPropName]),
@@ -532,7 +520,7 @@
     //   solidline: '3',
     //   fillOpacity: 0.8
     // };
-          // end styling map category
+    // end styling map category
     // start counting functions
     function countSamples(data, year) {
       var curPropName = nutVal + "_count_" + year;
@@ -577,8 +565,8 @@
       })
       return totalCount
     }
-            // end counting functions
-// start mouseover functions
+    // end counting functions
+    // start mouseover functions
     function highlightFeature(e) {
       // console.log(e)
       var layer = e.target;
@@ -610,7 +598,7 @@
         fillOpacity: 1
       });
     }
-          // end mouseover functions
+    // end mouseover functions
   </script>
 </body>
 
