@@ -27,14 +27,13 @@ h2 {
 }
 #right-col {
   float: right;
-  width: 35%;
+  width: 36%;
 }
-#right-col {
+#clear:after {
   content: '';
   display: table;
   clear: both;
 }
-
 form {
   width: 100%;
   height: 45px;
@@ -44,7 +43,11 @@ form {
 #map-03 {
   height: 250px;
 }
-
+.ui-info {
+  height: 250px;
+  background: white;
+  padding: 8px 12px;
+}
 .ui {
   right: 2px;
   height: 230px;
@@ -57,14 +60,6 @@ form {
 .label {
   position: relative;
   left: 20px;
-}
-
-.footer {
-  background-color: lightblue;
-  padding-top: 20px;
-  padding-right: 10px;
-  padding-bottom: 0px;
-  padding-left: 10px;
 }
 
 .leaflet-control-zoom {
@@ -150,6 +145,6 @@ footer {
   padding: 20px;
   background-color: #a5cdcf;
   color: black;
-  border: 2px solid #555;
   border-radius: 10px;
+  margin-top: 18px;
 }
