@@ -16,8 +16,11 @@
     <h1>
       <center>University of Kentucky's Soil testing Lab Data</center>
     </h1>
-    <h2><center>Please select a nutrient (P or K) and the crop type you are interested in viewing the median values for.
-      <br>Map 3 will allow you to compare median values across different years or croptypes.</center></h2>
+    <h2>
+      <center>Please select a nutrient (P or K) and the crop type you are interested in viewing the median values for.
+        <br>Map 3 will allow you to compare median values across different years or croptypes.
+      </center>
+    </h2>
   </header>
   <div>
     <div <div class="map-1">
@@ -47,7 +50,9 @@
     <!-- <div style="display: flex;"> -->
 
     <div id="legend"> </div>
-    <div id="info1" class="info"><center>Map 1 Information<center></div>
+    <div id="info1" class="info">
+      <center>Map 1 Information<center>
+    </div>
     <div id="map-01"></div>
 
   </div>
@@ -72,21 +77,24 @@
     </form>
     <!-- <div style="display: flex;"> -->
     <div id="legend3"></div>
-    <div id="info3" class="info"><center>Map 2 Information<center></div>
-      <div id="map-03"> </div>
+    <div id="info3" class="info">
+      <center>Map 2 Information<center>
+    </div>
+    <div id="map-03"> </div>
 
 
   </div>
   </div>
-
 
   <footer>
-        <p align='justify' >The map uses data from the University of Kentucky Soil Testing Lab. There are 29 years of data representing 889,912 samples with an average of
-         30,700 sample tested annually. The <a href = 'https://mccracken.ca.uky.edu/files/agr1_lime_and_nutrient_recommendations_2020_2021.pdf'>
-           AGR-1 Lime and Nutrient Recommendations </a>was used to select croptypes and to bracket the ranges for the categories for each crop.
-         The median value for phosphorus(P) and potassium(K) was calculated for each county and croptype. The ranges across croptypes varied some
-       so the legend is using simpified scale for all croptypes (visit AGR-1 link above for details).   </p>
-        <p><center>Map design by Gene Hahn for master's in Digital Mapping at the Univeristy of Kentucky.</center></p>
+    <p align='justify'>The map uses data from the University of Kentucky Soil Testing Lab. There are 29 years of data representing 889,912 samples with an average of
+      30,700 sample tested annually. The <a href='https://mccracken.ca.uky.edu/files/agr1_lime_and_nutrient_recommendations_2020_2021.pdf'>
+        AGR-1 Lime and Nutrient Recommendations </a>was used to select croptypes and to bracket the ranges for the categories for each crop.
+      The median value for phosphorus(P) and potassium(K) was calculated for each county and croptype. The ranges across croptypes varied some
+      so the legend is using simpified scale for all croptypes (visit AGR-1 link above for details). </p>
+    <p>
+      <center>Map design by Gene Hahn for master's in Digital Mapping at the Univeristy of Kentucky.</center>
+    </p>
   </footer>
 
   <!-- load D3 library -->
@@ -157,7 +165,11 @@
     // legend variables addLegend P and K function
     let legend,
       legend2;
-
+    // variables for information boxes
+    var info1,
+      info3;
+    info1 = L.control();
+    info3 = L.control();
     // wait until they are ready and then send to dataReady function
     Promise.all([countiesJson, regionsJson, alfalfaLevel, canolaLevel, coolseasonLevel, cornLevel,
       smallgrainsLevel, sorghumLevel, soyLevel, tobaccoLevel,
@@ -243,6 +255,19 @@
       styleMaps(map01LGeoJson, nutVal, yearVal, countyData);
       styleMaps(map03LGeoJson, nutVal, yearVal3, countyData);
     }
+
+    info1.onAdd = function (map01) {
+        this._div = L.DomUtil.create('div', '#info1'); // create a div with a class "info"
+        this.update();
+        return this._div;
+    };
+
+    // method that we will use to update the control based on feature properties passed
+    info1.update = function (props) {
+      // console.log(props)
+        this._div.innerHTML = '<h4>US Population Density</h4>';
+    };
+    info1.addTo(map01);
 
     function addLegendP(map) {
       legend = L.control({
@@ -342,6 +367,8 @@
             '<br> Median :' + layProp[cropval][selMedVal] + '<br>Count: ' + countCrop + '<br>Yr Tot: ' + allCrop;
           layer.bindTooltip(tooltip);
         })
+
+
       } else {
         var countCrop = countSamples(countyData, styleYear);
         var allCrop = countYearTotal(countyData, styleYear);
@@ -526,14 +553,23 @@
       if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
         layer.bringToFront();
       }
+      info1.update(layer.feature.properties);
+      // info3.update(layer.feature.properties);
     }
 
     function onEachFeature(feature, layer) {
       layer.on({
         mouseover: highlightFeature,
         mouseout: resetHighlight,
-
+        click: clickInfo1
       });
+    }
+
+    function clickInfo1(e) {
+      // map.fitBounds(e.target.getBounds());
+      var layer = e.target;
+      console.log(layer.feature.properties)
+      info1.update(layer.feature.properties);
     }
 
     function resetHighlight(e) {
@@ -544,6 +580,8 @@
         color: '#484C51 ',
         fillOpacity: 1
       });
+      info1.update();
+      // info3.update();
     }
     // end mouseover functions
   </script>
