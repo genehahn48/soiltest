@@ -257,7 +257,7 @@
     }
 
     info1.onAdd = function (map01) {
-        this._div = L.DomUtil.create('div', '#info1'); // create a div with a class "info"
+        this._div = L.DomUtil.get('info1'); // create a div with a class "info"
         this.update();
         return this._div;
     };
@@ -267,7 +267,7 @@
       // console.log(props)
         this._div.innerHTML = '<h4>US Population Density</h4>';
     };
-    info1.addTo(map01);
+    info1.addTo(info1);
 
     function addLegendP(map) {
       legend = L.control({
