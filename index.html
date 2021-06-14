@@ -5,7 +5,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Soil test map</title>
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+    crossorigin="" />
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <style>
@@ -14,16 +16,16 @@
 <body>
   <header>
     <h1>
-      <center>University of Kentucky's Soil testing Lab Data</center>
+      University of Kentucky's Soil testing Lab Data
     </h1>
     <h2>
-      <center>Please select a nutrient (P or K) and the crop type you are interested in viewing the median values for.
-        <br>Map 3 will allow you to compare median values across different years or croptypes.
-      </center>
+      Please select a nutrient (P or K) and the crop type you are interested in viewing the median values for.
+      <br>Map 3 will allow you to compare median values across different years or croptypes.
+
     </h2>
   </header>
   <div>
-    <div <div class="map-1">
+    <div class="map-1">
       <form name="map01">
         <label for="yearMap1">Year</label>
         <input type="range" min=1990 max=2019 step=1 id="yearMap1" value=2010>
@@ -51,7 +53,7 @@
 
     <div id="legend"> </div>
     <div id="info1" class="info">
-      <center>Map 1 Information<center>
+      Map 1 Information
     </div>
     <div id="map-01"></div>
 
@@ -78,7 +80,7 @@
     <!-- <div style="display: flex;"> -->
     <div id="legend3"></div>
     <div id="info3" class="info">
-      <center>Map 2 Information<center>
+      Map 2 Information
     </div>
     <div id="map-03"> </div>
 
@@ -87,13 +89,17 @@
   </div>
 
   <footer>
-    <p align='justify'>The map uses data from the University of Kentucky Soil Testing Lab. There are 29 years of data representing 889,912 samples with an average of
-      30,700 sample tested annually. The <a href='https://mccracken.ca.uky.edu/files/agr1_lime_and_nutrient_recommendations_2020_2021.pdf'>
-        AGR-1 Lime and Nutrient Recommendations </a>was used to select croptypes and to bracket the ranges for the categories for each crop.
-      The median value for phosphorus(P) and potassium(K) was calculated for each county and croptype. The ranges across croptypes varied some
+    <p>The map uses data from the University of Kentucky Soil Testing Lab. There are 29 years of data
+      representing 889,912 samples with an average of
+      30,700 sample tested annually. The <a
+        href='https://mccracken.ca.uky.edu/files/agr1_lime_and_nutrient_recommendations_2020_2021.pdf'>
+        AGR-1 Lime and Nutrient Recommendations </a>was used to select croptypes and to bracket the ranges for the
+      categories for each crop.
+      The median value for phosphorus(P) and potassium(K) was calculated for each county and croptype. The ranges across
+      croptypes varied some
       so the legend is using simpified scale for all croptypes (visit AGR-1 link above for details). </p>
     <p>
-      <center>Map design by Gene Hahn for master's in Digital Mapping at the Univeristy of Kentucky.</center>
+      Map design by Gene Hahn for master's in Digital Mapping at the Univeristy of Kentucky.
     </p>
   </footer>
 
@@ -102,11 +108,14 @@
   <!-- load D3 color  -->
   <script src="https://d3js.org/d3-color.v1.min.js"></script>
   <!-- load jQuery library -->
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
   <!-- load TopoJSON -->
   <script src="https://unpkg.com/topojson@3"></script>
 
-  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+    crossorigin=""></script>
 
   <script>
     // Global variables for Soil test datasets
@@ -213,14 +222,14 @@
       ];
       // create variable to name loop data bind to GeoJSON
       const bindName = loCroptype;
-      MedData.forEach(function(x) {
+      MedData.forEach(function (x) {
         bindName.push(x)
       })
       // loop bindData and send bindName to name crops
-      bindData.forEach(function(bindDatum, x) {
+      bindData.forEach(function (bindDatum, x) {
         // loop through the county features
-        countiesJson.features.forEach(function(feature) {
-          bindDatum.forEach(function(row, i) {
+        countiesJson.features.forEach(function (feature) {
+          bindDatum.forEach(function (row, i) {
             // if the county name and CSV name match
             // if (row.COUNTY == feature.properties.name) {
             if (row.COUNTY == feature.properties.name) {
@@ -256,14 +265,14 @@
       styleMaps(map03LGeoJson, nutVal, yearVal3, countyData);
     }
     // information
-    info1.onAdd = function(map01) {
+    info1.onAdd = function (map01) {
       this._div = L.DomUtil.get('info1'); // create a div with a class "info"
       this.update();
       return this._div;
     };
 
     // method that we will use to update the control based on feature properties passed
-    info1.update = function(props) {
+    info1.update = function (props) {
 
       this._div.innerHTML = '<h4><center>Map1 Information</center></h4>';
       console.log(props + "info1 update")
@@ -274,7 +283,7 @@
       legend = L.control({
         position: 'topleft'
       });
-      legend.onAdd = function(map) {
+      legend.onAdd = function (map) {
         var div = L.DomUtil.create('map', 'legend'),
           legVal = [0, 1, 5, 7, 27, 60, 80],
           labels = [];
@@ -291,7 +300,7 @@
       legend3 = L.control({
         position: 'topleft'
       });
-      legend3.onAdd = function(map) {
+      legend3.onAdd = function (map) {
 
         var div = L.DomUtil.create('map', 'legend'),
           legVal = [0, 1, 5, 7, 27, 60, 80],
@@ -313,7 +322,7 @@
         position: 'topleft'
       });
 
-      legend.onAdd = function(map01) {
+      legend.onAdd = function (map01) {
         var div = L.DomUtil.create('map-01', 'legend'),
           legVal = [0, 1, 100, 190, 300, 420],
           labels = [];
@@ -330,7 +339,7 @@
       legend3 = L.control({
         position: 'topleft'
       });
-      legend3.onAdd = function(map01) {
+      legend3.onAdd = function (map01) {
         var div = L.DomUtil.create('map-03', 'legend'),
           legVal = [0, 1, 100, 190, 300, 420],
           labels = [];
@@ -356,7 +365,7 @@
         var allCrop = countYearTotal(countyData, styleYear);
         console.log(countCrop + ": total : " + allCrop);
         map.setStyle(styleP);
-        map.eachLayer(function(layer) {
+        map.eachLayer(function (layer) {
           var layProp = layer.feature.properties
           var countyName = layer.feature.properties.co_name;
           var farmland = layer.feature.properties.aland_ac;
@@ -375,7 +384,7 @@
         var countCrop = countSamples(countyData, styleYear);
         var allCrop = countYearTotal(countyData, styleYear);
         map.setStyle(styleK);
-        map.eachLayer(function(layer) {
+        map.eachLayer(function (layer) {
           var layProp = layer.feature.properties
           var countyName = layer.feature.properties.co_name;
           var farmland = layer.feature.properties.aland_ac;
@@ -392,7 +401,7 @@
 
     function addListeners(countiesJson, yearVal, yearVal3) {
       // select the HTML UI elements and extract value attribute
-      $('#map01-radios input').on('change', function() { //nutrient value change
+      $('#map01-radios input').on('change', function () { //nutrient value change
         nutVal = (this.value) //  nutVal P or K onchange
         if (nutVal == "P") {
           legend.remove(map01);
@@ -409,26 +418,26 @@
         styleMaps(map01LGeoJson, nutVal, yearVal, countiesJson);
         styleMaps(map03LGeoJson, nutVal, yearVal3, countiesJson);
       });
-      $('#map01-dropdown').on('change', function(event, d) {
+      $('#map01-dropdown').on('change', function (event, d) {
         cropval = (this.value) // crop types from Agr1
         // get value from dropdown crop type
         styleMaps(map01LGeoJson, nutVal, yearVal, countiesJson);
         console.log(countSamples(countiesJson, yearVal) + ": Map1 : croptype: " + cropval);
       });
-      $('#map03-dropdown').on('change', function(event, d) {
+      $('#map03-dropdown').on('change', function (event, d) {
         cropval = (this.value) // crop types from Agr1
         // get value from dropdown crop type
         styleMaps(map03LGeoJson, nutVal, yearVal3, countiesJson);
         console.log(countSamples(countiesJson, yearVal3) + ": Map3 : croptype:" + cropval);
       });
-      $('#yearMap1').on('change', function(event, d) {
+      $('#yearMap1').on('change', function (event, d) {
         yearVal = (this.value) // crop types from Agr1
 
         document.getElementById("selected_year1").innerHTML = yearVal; // display year for map1
         styleMaps(map01LGeoJson, nutVal, yearVal, countiesJson);
         console.log(countSamples(countiesJson, yearVal) + ": Map1 :croptype" + cropval);
       });
-      $('#yearMap3').on('change', function(event, d) {
+      $('#yearMap3').on('change', function (event, d) {
         yearVal3 = (this.value) // crop types from Agr1
 
         document.getElementById("selected_year3").innerHTML = yearVal3; // display year on slider for map3
@@ -441,21 +450,21 @@
     function getColorP(d) {
       return d > 80 ? '#993404' :
         d >= 60 ? '#d95f0e' :
-        d >= 27 ? '#fe9929' :
-        d >= 7 ? '#fec44f' :
-        d >= 5 ? '#fee391' :
-        d > 0 ? '#ffffd4' :
-        '#dad6d2';
+          d >= 27 ? '#fe9929' :
+            d >= 7 ? '#fec44f' :
+              d >= 5 ? '#fee391' :
+                d > 0 ? '#ffffd4' :
+                  '#dad6d2';
     }
     // color for Potassium
     function getColorK(d) {
       return d > 420 ? '#4c394f' :
         d >= 420 ? '#482652' :
-        d >= 300 ? '#724a7d' :
-        d >= 190 ? '#917898 ' :
-        d >= 100 ? '#9babcf' :
-        d > 0 ? '#d5ddef' :
-        ' #c2c2c2';
+          d >= 300 ? '#724a7d' :
+            d >= 190 ? '#917898 ' :
+              d >= 100 ? '#9babcf' :
+                d > 0 ? '#d5ddef' :
+                  ' #c2c2c2';
     }
     // style color map for median data P and K Start
     function styleP(feature) {
@@ -487,18 +496,18 @@
     function getColorCat(d, catMap) {
       return d > 80 ? '#993404' :
         d >= 60 ? '#d95f0e' :
-        d >= 27 ? '#fe9929' :
-        d >= 7 ? '#fec44f' :
-        d >= 5 ? '#fee391' :
-        d > 0 ? '#ffffd4' :
-        '#dad6d2';
+          d >= 27 ? '#fe9929' :
+            d >= 7 ? '#fec44f' :
+              d >= 5 ? '#fee391' :
+                d > 0 ? '#ffffd4' :
+                  '#dad6d2';
     }
 
     // start counting functions
     function countSamples(data, year) {
       var curPropName = nutVal + "_count_" + year;
       var countCrop = 0;
-      data.features.forEach(function(feature, x) {
+      data.features.forEach(function (feature, x) {
         countCrop += parseInt(feature.properties[cropval][curPropName]);
         // var y = x+1
         // console.log(y)
@@ -509,9 +518,9 @@
     function countYearTotal(data, year) {
       console.log(year);
       var countTotalyear = 0;
-      MedData.forEach(function(x) {
+      MedData.forEach(function (x) {
         var curPropName = nutVal + "_count_" + year;
-        data.features.forEach(function(feature) {
+        data.features.forEach(function (feature) {
           // console.log(parseInt(feature.properties[cropval][curPropName]));
           countTotalyear += parseInt(feature.properties[x][curPropName]);
         })
@@ -524,12 +533,12 @@
       var nut = ["P"]
       // console.log(data)
       // console.log(selYear)
-      nut.forEach(function(n) {
-        selYear.forEach(function(y) {
-          MedData.forEach(function(x) {
+      nut.forEach(function (n) {
+        selYear.forEach(function (y) {
+          MedData.forEach(function (x) {
             var curPropName = [n] + "_count_" + [y];
             // console.log([x]+": "+curPropName)
-            data.features.forEach(function(feature) {
+            data.features.forEach(function (feature) {
               // console.log(curPropName);
               // console.log(parseInt(feature.properties[x][curPropName]));
               totalCount += parseInt(feature.properties[x][curPropName]);
