@@ -30,6 +30,7 @@
   <div id="right-col">
     <div class='ui-info' id="map-01-info">
       <h3>info will be here</h3>
+      <div class='info'></div>
     </div>
     <div class='ui-info' id="map-03-info">
       <h3>info will be here</h3>
@@ -245,11 +246,11 @@
       // function will be called once and create L.geoJson objects from data
       // assign value to variable declared above
       map01LGeoJson = L.geoJson(countyData, {
-        onEachFeature: onEachFeature,
+        // onEachFeature: onEachFeature,
       }).addTo(map01);
 
       map03LGeoJson = L.geoJson(countyData, {
-        onEachFeature: onEachFeature,
+        // onEachFeature: onEachFeature,
       }).addTo(map03);
 
       // call the styleMaps() function to apply visual representation
@@ -393,6 +394,23 @@
           layer.bindTooltip(tooltip);
         })
       }
+      var info01Output = $('#map-01-info');
+
+      map01LGeoJson.eachLayer(function (layer) {
+        layer.on('click', function () {
+          var layProp = layer.feature.properties
+          var countyName = layer.feature.properties.co_name;
+          var farmland = layer.feature.properties.aland_ac;
+          var selNutyear = nutVal + "_count_" + styleYear;
+          var selMedVal = nutVal + "_med" + styleYear;
+          var nutCount = layer.feature.properties[cropval];
+          var tooltip = 'County: <b>' + countyName +
+            '</b> <br>Farm Ac:' + farmland + '<br>Samples: ' + layProp[cropval][selNutyear] +
+            '<br> Median :' + layProp[cropval][selMedVal] + '<br>Count: ' + countCrop + '<br>Yr Tot: ' + allCrop;
+          info01Output.html(tooltip)
+        })
+      })
+
     }
 
     function addListeners(countiesJson, yearVal, yearVal3) {
