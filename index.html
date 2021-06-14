@@ -163,11 +163,11 @@
     // some global variables here, perhaps, to reference the Leaflet GeoJSON layers
     // created within the drawMaps function
     let map01LGeoJson,
-      map02LGeoJson;
+      map03LGeoJson;
 
     // legend variables addLegend P and K function
     let legend,
-      legend2;
+      legend3;
     // variables for information boxes
     var info1,
       info3;
@@ -299,7 +299,7 @@
       });
       legend3.onAdd = function (map) {
 
-        var div = L.DomUtil.create('map', 'legend'),
+        var div = L.DomUtil.create('map', 'legend3'),
           legVal = [0, 1, 5, 7, 27, 60, 80],
           labels = [];
 
@@ -337,7 +337,7 @@
         position: 'topleft'
       });
       legend3.onAdd = function (map01) {
-        var div = L.DomUtil.create('map-03', 'legend'),
+        var div = L.DomUtil.create('map-03', 'legend3'),
           legVal = [0, 1, 100, 190, 300, 420],
           labels = [];
         // loop through our nutrient value intervals and generate a label with a colored square for each interval
