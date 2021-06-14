@@ -21,68 +21,50 @@
     <h2>
       Please select a nutrient (P or K) and the crop type you are interested in viewing the median values for.
       <br>Map 3 will allow you to compare median values across different years or croptypes.
+
     </h2>
   </header>
-  <div id="left-col">
+  <div>
+    <div class="map-1">
+      <form name="map01">
+        <label for="yearMap1">Year</label>
+        <input type="range" min=1990 max=2019 step=1 id="yearMap1" value=2010>
+        <output name="selected_yearMap1" id="selected_year1"> 2010</output>
+        <div id="map01-radios">
+          <input type="radio" id="map01-p" name="chemMap01" value="P" checked>
+          <label for="P">Phosphorus</label>
+          <input type="radio" id="map01-k" name="chemMap01" value="K">
+          <label for="K">Potassium</label>
+
+          <select id="map01-dropdown" name="dropdown" class="dropdown">
+            <option value="alfalfaMedData">Alfalfa</option>
+            <option value="canolaMedData">Canola</option>
+            <option value="coolseasonMedData">Cool Season Grass</option>
+            <option value="cornMedData">Corn</option>
+            <option value="smallgrainsMedData">Small Grains</option>
+            <option value="sorghumMedData">Sorghum</option>
+            <option value="soyMedData">SoyBeans</option>
+            <option value="tobaccoMedData">Tobacco</option>
+            <option value="warmseasonMedData">Warm Season Grass</option>
+          </select>
+      </form>
+    </div>
+    <!-- <div style="display: flex;"> -->
+
+    <div id="legend"> </div>
+    <div id="info1" class="info">
+      Map 1 Information
+    </div>
     <div id="map-01"></div>
-    <div id="map-03"></div>
-  </div>
-  <div id="right-col">
-    <div id="map-01-info">
-      <h3>info will be here</h3>
-    </div>
-    <div id="map-03-info">
-      <h3>info will be here</h3>
-    </div>
+
   </div>
 
-  <!-- <footer>
-    <p>The map uses data from the University of Kentucky Soil Testing Lab. There are 29 years of data
-      representing 889,912 samples with an average of
-      30,700 sample tested annually. The <a
-        href='https://mccracken.ca.uky.edu/files/agr1_lime_and_nutrient_recommendations_2020_2021.pdf'>
-        AGR-1 Lime and Nutrient Recommendations </a>was used to select croptypes and to bracket the ranges for the
-      categories for each crop.
-      The median value for phosphorus(P) and potassium(K) was calculated for each county and croptype. The ranges
-      across
-      croptypes varied some
-      so the legend is using simpified scale for all croptypes (visit AGR-1 link above for details). </p>
-    <p>
-      Map design by Gene Hahn for master's in Digital Mapping at the Univeristy of Kentucky.
-    </p>
-  </footer> -->
-
-  <div id="legend"> </div>
-  <div id="legend3"></div>
-  <div id="map-01-ui">
-    <form name="map01">
-      <label for="yearMap1">Year</label>
-      <input type="range" min=1990 max=2019 step=1 id="yearMap1" value=2010>
-      <output name="selected_yearMap1" id="selected_year1"> 2010</output>
-      <div id="map01-radios">
-        <input type="radio" id="map01-p" name="chemMap01" value="P" checked>
-        <label for="P">Phosphorus</label>
-        <input type="radio" id="map01-k" name="chemMap01" value="K">
-        <label for="K">Potassium</label>
-
-        <select id="map01-dropdown" name="dropdown" class="dropdown">
-          <option value="alfalfaMedData">Alfalfa</option>
-          <option value="canolaMedData">Canola</option>
-          <option value="coolseasonMedData">Cool Season Grass</option>
-          <option value="cornMedData">Corn</option>
-          <option value="smallgrainsMedData">Small Grains</option>
-          <option value="sorghumMedData">Sorghum</option>
-          <option value="soyMedData">SoyBeans</option>
-          <option value="tobaccoMedData">Tobacco</option>
-          <option value="warmseasonMedData">Warm Season Grass</option>
-        </select>
-    </form>
-  </div>
-  <div id="map-03-ui">
+  <div class="map-3">
     <form name="map03">
       <label for="yearMap3">Year</label>
       <input type="range" min=1990 max=2019 step=1 id="yearMap3" value=1990>
       <output name="selected_yearMap3" id="selected_year3">1990</output>
+
       <select id="map03-dropdown" name="dropdown" class="dropdown">
         <option value="alfalfaMedData">Alfalfa</option>
         <option value="canolaMedData">Canola</option>
@@ -95,7 +77,32 @@
         <option value="warmseasonMedData">Warm Season Grass</option>
       </select>
     </form>
+    <!-- <div style="display: flex;"> -->
+    <div id="legend3"></div>
+    <div id="info3" class="info">
+      Map 2 Information
+    </div>
+    <div id="map-03"> </div>
+
+
   </div>
+  </div>
+
+  <footer>
+    <p>The map uses data from the University of Kentucky Soil Testing Lab. There are 29 years of data
+      representing 889,912 samples with an average of
+      30,700 sample tested annually. The <a
+        href='https://mccracken.ca.uky.edu/files/agr1_lime_and_nutrient_recommendations_2020_2021.pdf'>
+        AGR-1 Lime and Nutrient Recommendations </a>was used to select croptypes and to bracket the ranges for the
+      categories for each crop.
+      The median value for phosphorus(P) and potassium(K) was calculated for each county and croptype. The ranges across
+      croptypes varied some
+      so the legend is using simpified scale for all croptypes (visit AGR-1 link above for details). </p>
+    <p>
+      Map design by Gene Hahn for master's in Digital Mapping at the Univeristy of Kentucky.
+    </p>
+  </footer>
+
   <!-- load D3 library -->
   <script src="https://d3js.org/d3.v6.min.js"></script>
   <!-- load D3 color  -->
@@ -170,7 +177,8 @@
     // variables for information boxes
     var info1,
       info3;
-    addUIs()
+    info1 = L.control();
+    info3 = L.control();
     // wait until they are ready and then send to dataReady function
     Promise.all([countiesJson, regionsJson, alfalfaLevel, canolaLevel, coolseasonLevel, cornLevel,
       smallgrainsLevel, sorghumLevel, soyLevel, tobaccoLevel,
@@ -256,27 +264,23 @@
       styleMaps(map01LGeoJson, nutVal, yearVal, countyData);
       styleMaps(map03LGeoJson, nutVal, yearVal3, countyData);
     }
+    // information
+    info1.onAdd = function (map01) {
+      this._div = L.DomUtil.get('info1'); // create a div with a class "info"
+      this.update();
+      return this._div;
+    };
 
-    function addUIs() {
-      var ui1 = L.control({
-        position: 'topright'
-      });
-      ui1.onAdd = function (map01) {
-        return L.DomUtil.get('map-01-ui');
-      };
-      ui1.addTo(map01);
+    // method that we will use to update the control based on feature properties passed
+    info1.update = function (props) {
 
-      var ui3 = L.control({
-        position: 'topright'
-      });
-      ui3.onAdd = function (map01) {
-        return L.DomUtil.get('map-03-ui');
-      };
-      ui3.addTo(map03);
-    }
-
-    function addLegendP() {
-      var legend = L.control({
+      this._div.innerHTML = '<h4><center>Map1 Information</center></h4>';
+      console.log(props + "info1 update")
+    };
+    info1.addTo(info1);
+    // information
+    function addLegendP(map) {
+      legend = L.control({
         position: 'topleft'
       });
       legend.onAdd = function (map) {
@@ -293,7 +297,7 @@
       };
       legend.addTo(map01);
 
-      var legend3 = L.control({
+      legend3 = L.control({
         position: 'topleft'
       });
       legend3.onAdd = function (map) {
