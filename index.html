@@ -255,20 +255,21 @@
       styleMaps(map01LGeoJson, nutVal, yearVal, countyData);
       styleMaps(map03LGeoJson, nutVal, yearVal3, countyData);
     }
-
-    info1.onAdd = function (map01) {
-        this._div = L.DomUtil.get('info1'); // create a div with a class "info"
-        this.update();
-        return this._div;
+    // information
+    info1.onAdd = function(map01) {
+      this._div = L.DomUtil.get('info1'); // create a div with a class "info"
+      this.update();
+      return this._div;
     };
 
     // method that we will use to update the control based on feature properties passed
-    info1.update = function (props) {
-      // console.log(props)
-        this._div.innerHTML = '<h4>US Population Density</h4>';
+    info1.update = function(props) {
+
+      this._div.innerHTML = '<h4><center>Map1 Information</center></h4>';
+      console.log(props + "info1 update")
     };
     info1.addTo(info1);
-
+    // information
     function addLegendP(map) {
       legend = L.control({
         position: 'topleft'
@@ -367,6 +368,7 @@
             '<br> Median :' + layProp[cropval][selMedVal] + '<br>Count: ' + countCrop + '<br>Yr Tot: ' + allCrop;
           layer.bindTooltip(tooltip);
         })
+
 
 
       } else {
@@ -553,7 +555,7 @@
       if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
         layer.bringToFront();
       }
-      info1.update(layer.feature.properties);
+      // info1.update(layer.feature.properties);
       // info3.update(layer.feature.properties);
     }
 
@@ -580,7 +582,7 @@
         color: '#484C51 ',
         fillOpacity: 1
       });
-      info1.update();
+      // info1.update();
       // info3.update();
     }
     // end mouseover functions
