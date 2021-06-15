@@ -45,8 +45,10 @@ form {
 }
 .ui-info {
   height: 250px;
-  background: white;
+  background:#a2d6d3;
   padding: 8px 12px;
+  border-style: solid;
+  border-color: #6f8685;
 }
 .ui {
   right: 2px;
