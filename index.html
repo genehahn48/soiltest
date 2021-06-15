@@ -276,12 +276,12 @@
       ui3.addTo(map03);
     }
 
-    function addLegendP() {
+    function addLegendP(map) {
       legend = L.control({
         position: 'topleft'
       });
-      legend.onAdd = function (map01) {
-        var div = L.DomUtil.create('map01', 'legend'),
+      legend.onAdd = function (map) {
+        var div = L.DomUtil.create('map', 'legend'),
           legVal = [0, 1, 5, 7, 27, 60, 80],
           labels = [];
         // loop through our nutrient value intervals and generate a label with a colored square for each interval
@@ -294,12 +294,12 @@
       };
       legend.addTo(map01);
 
-       legend3 = L.control({
+      legend3 = L.control({
         position: 'topleft'
       });
-      legend3.onAdd = function (map03) {
+      legend3.onAdd = function (map) {
 
-        var div = L.DomUtil.create('map03', 'legend3'),
+        var div = L.DomUtil.create('map', 'legend'),
           legVal = [0, 1, 5, 7, 27, 60, 80],
           labels = [];
 
@@ -314,7 +314,7 @@
       legend3.addTo(map03);
     }
 
-    function addLegendK() {
+    function addLegendK(map) {
       legend = L.control({
         position: 'topleft'
       });
@@ -336,8 +336,8 @@
       legend3 = L.control({
         position: 'topleft'
       });
-      legend3.onAdd = function (map03) {
-        var div = L.DomUtil.create('map-03', 'legend3'),
+      legend3.onAdd = function (map01) {
+        var div = L.DomUtil.create('map-03', 'legend'),
           legVal = [0, 1, 100, 190, 300, 420],
           labels = [];
         // loop through our nutrient value intervals and generate a label with a colored square for each interval
