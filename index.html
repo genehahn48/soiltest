@@ -169,8 +169,8 @@
     let legend,
       legend3;
     // variables for information boxes
-    var info1,
-      info3;
+    // var info1,
+    //   info3;
     addUIs()
     // wait until they are ready and then send to dataReady function
     Promise.all([countiesJson, regionsJson, alfalfaLevel, canolaLevel, coolseasonLevel, cornLevel,
@@ -280,8 +280,8 @@
       legend = L.control({
         position: 'topleft'
       });
-      legend.onAdd = function (map) {
-        var div = L.DomUtil.create('map', 'legend'),
+      legend.onAdd = function (map01) {
+        var div = L.DomUtil.create('map01', 'legend'),
           legVal = [0, 1, 5, 7, 27, 60, 80],
           labels = [];
         // loop through our nutrient value intervals and generate a label with a colored square for each interval
@@ -297,9 +297,9 @@
        legend3 = L.control({
         position: 'topleft'
       });
-      legend3.onAdd = function (map) {
+      legend3.onAdd = function (map03) {
 
-        var div = L.DomUtil.create('map', 'legend3'),
+        var div = L.DomUtil.create('map03', 'legend3'),
           legVal = [0, 1, 5, 7, 27, 60, 80],
           labels = [];
 
@@ -314,7 +314,7 @@
       legend3.addTo(map03);
     }
 
-    function addLegendK(map) {
+    function addLegendK() {
       legend = L.control({
         position: 'topleft'
       });
@@ -336,7 +336,7 @@
       legend3 = L.control({
         position: 'topleft'
       });
-      legend3.onAdd = function (map01) {
+      legend3.onAdd = function (map03) {
         var div = L.DomUtil.create('map-03', 'legend3'),
           legVal = [0, 1, 100, 190, 300, 420],
           labels = [];
@@ -586,7 +586,7 @@
       layer.on({
         mouseover: highlightFeature,
         mouseout: resetHighlight,
-        click: clickInfo1
+        // click: clickInfo1
       });
     }
 
@@ -594,7 +594,7 @@
       // map.fitBounds(e.target.getBounds());
       var layer = e.target;
       console.log(layer.feature.properties)
-      info1.update(layer.feature.properties);
+      // info1.update(layer.feature.properties);
     }
 
     function resetHighlight(e) {
