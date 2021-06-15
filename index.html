@@ -410,7 +410,22 @@
           info01Output.html(tooltip)
         })
       })
+      var info03Output = $('#map-03-info');
 
+      map03LGeoJson.eachLayer(function (layer) {
+        layer.on('click', function () {
+          var layProp = layer.feature.properties
+          var countyName = layer.feature.properties.co_name;
+          var farmland = layer.feature.properties.aland_ac;
+          var selNutyear = nutVal + "_count_" + styleYear;
+          var selMedVal = nutVal + "_med" + styleYear;
+          var nutCount = layer.feature.properties[cropval];
+          var tooltip = 'County: <b>' + countyName +
+            '</b> <br>Farm Ac:' + farmland + '<br>Samples: ' + layProp[cropval][selNutyear] +
+            '<br> Median :' + layProp[cropval][selMedVal] + '<br>Count: ' + countCrop + '<br>Yr Tot: ' + allCrop;
+          info03Output.html(tooltip)
+        })
+      })
     }
 
     function addListeners(countiesJson, yearVal, yearVal3) {
