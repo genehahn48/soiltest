@@ -246,11 +246,11 @@
       // function will be called once and create L.geoJson objects from data
       // assign value to variable declared above
       map01LGeoJson = L.geoJson(countyData, {
-        // onEachFeature: onEachFeature,
+        onEachFeature: onEachFeature,
       }).addTo(map01);
 
       map03LGeoJson = L.geoJson(countyData, {
-        // onEachFeature: onEachFeature,
+        onEachFeature: onEachFeature,
       }).addTo(map03);
 
       // call the styleMaps() function to apply visual representation
@@ -277,7 +277,7 @@
     }
 
     function addLegendP() {
-      var legend = L.control({
+      legend = L.control({
         position: 'topleft'
       });
       legend.onAdd = function (map) {
@@ -294,7 +294,7 @@
       };
       legend.addTo(map01);
 
-      var legend3 = L.control({
+       legend3 = L.control({
         position: 'topleft'
       });
       legend3.onAdd = function (map) {
