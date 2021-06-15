@@ -505,14 +505,14 @@
         styleMaps(map03LGeoJson, nutVal, yearVal3, countiesJson);
         console.log(countSamples(countiesJson, yearVal3) + ": Map3 : croptype:" + cropval);
       });
-      $('#yearMap1').on('input', function(event, d) {
+      $('#yearMap1').on('change', function(event, d) {
         yearVal = (this.value) // crop types from Agr1
 
         document.getElementById("selected_year1").innerHTML = yearVal; // display year for map1
         styleMaps(map01LGeoJson, nutVal, yearVal, countiesJson);
         console.log(countSamples(countiesJson, yearVal) + ": Map1 :croptype" + cropval);
       });
-      $('#yearMap3').on('input', function(event, d) {
+      $('#yearMap3').on('change', function(event, d) {
         yearVal3 = (this.value) // crop types from Agr1
 
         document.getElementById("selected_year3").innerHTML = yearVal3; // display year on slider for map3
