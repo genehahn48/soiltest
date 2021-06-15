@@ -43,17 +43,12 @@ footer {
   width: 80%;
   font-family: 'Times New Roman', Times, serif;
 }
-
-#info1 {
-  right: 2px;
-  width: 18%;
-  height: 230px;
-  padding: 6px 8px;
-  font: 14px/18px Times, Times, serif;
-  background: rgba(146, 230, 230, 0.8);
-  /* box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); */
-  border-radius: 5px;
-  position: absolute;
+.ui-info {
+  height: 250px;
+  background:#a2d6d3;
+  padding: 8px 12px;
+  border-style: solid;
+  border-color: #6f8685;
 }
 
 #info3 {
