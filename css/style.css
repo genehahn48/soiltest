@@ -46,12 +46,12 @@ form {
 .ui-info {
   height: 250px;
   background:#a2d6d3;
-  padding: 8px 12px;
+  padding: 16px 20px;
   border-style: solid;
   border-color: #6f8685;
 }
 .ui {
-  right: 2px;
+  right: 10px;
   height: 230px;
   padding: 6px 8px;
   font: 14px/18px Times, Times, serif;

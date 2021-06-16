@@ -56,7 +56,7 @@
     <form name="map01">
       <label for="yearMap1">Year</label>
       <input type="range" min=1990 max=2019 step=1 id="yearMap1" value=2010>
-      <output name="selected_yearMap1" id="selected_year1"> 2010</output>
+      <output name="selected_yearMap1" id="selected_year1">2010</output>
       <div id="map01-radios">
         <input type="radio" id="map01-p" name="chemMap01" value="P" checked>
         <label for="P">Phosphorus</label>
@@ -391,24 +391,27 @@
 
       map01LGeoJson.eachLayer(function(layer) {
         layer.on('click', function() {
+          console.log($('#selected_year1').val() + ': ' + $('#map01-dropdown').val())
           var layProp = layer.feature.properties,
             countyName = layer.feature.properties.co_name,
             farmland = layer.feature.properties.farm_ac,
-            selNutyear = nutVal + "_count_" + styleYear,
-            selMedVal = nutVal + "_med" + styleYear,
-            nutCount = layer.feature.properties[cropval],
-            cropType = cropval.replace('MedData', ''),
-            cropTypeUp = cropType.toUpperCase(),
-            vhc = selNutyear + '_VH',
+            selNutyear = nutVal + "_count_" + $('#selected_year1').val(),
+            selMedVal = nutVal + "_med" + $('#selected_year1').val(),
+            cropvalMap1 = $('#map01-dropdown').val(),
+            nutCount = layer.feature.properties[cropvalMap1],
+            cropType = cropvalMap1.replace('MedData', ''),
+            cropTypeUp = cropType.toUpperCase();
+          console.log(selNutyear);
+          var vhc = selNutyear + '_VH',
             hc = selNutyear + '_H',
             mc = selNutyear + '_M',
             lc = selNutyear + '_L',
             vlc = selNutyear + '_VL',
-            vhmed = nutVal + '_' + styleYear + '_VH',
-            hmed = nutVal + '_' + styleYear + '_H',
-            mmed = nutVal + '_' + styleYear  + '_M',
-            lmed = nutVal + '_' + styleYear  + '_L',
-            vlmed = nutVal + '_' + styleYear + '_VL',
+            vhmed = nutVal + '_' + $('#selected_year1').val() + '_VH',
+            hmed = nutVal + '_' + $('#selected_year1').val() + '_H',
+            mmed = nutVal + '_' + $('#selected_year1').val() + '_M',
+            lmed = nutVal + '_' + $('#selected_year1').val() + '_L',
+            vlmed = nutVal + '_' + $('#selected_year1').val() + '_VL',
             vh = layProp[cropType][vhc],
             h = layProp[cropType][hc],
             m = layProp[cropType][mc],
@@ -422,8 +425,8 @@
 
           var tooltip = 'County : <b>' + countyName + '</b><br>Croptype : ' + cropTypeUp + '<br>FarmAc : ' +
             farmland + ':   Percent :  ' + layProp.farm_prec + '<br>Samples : ' + layProp[cropval][selNutyear] +
-            ' : Countcropselected : ' + countCrop + '<br>YearlyTotal : ' + allCrop + '<br> Median :' + layProp[cropval][selMedVal] +
-            ' : Nutrient :' + nutVal + '<br>VeryHigh :' + vh + ': Median :' + vhMed + '<br>High :' + h + ': Median :'+ hMed + '<br>Medium :' + m +
+            ' : Countcropselected : ' + countCrop + '<br>Yr: '+ $('#selected_year1').val()+'  YearlyTotal : ' + allCrop + '<br> Median :' + layProp[cropval][selMedVal] +
+            ' : Nutrient :' + nutVal + '<br>VeryHigh :' + vh + ': Median :' + vhMed + '<br>High :' + h + ': Median :' + hMed + '<br>Medium :' + m +
             ': Median : ' + mMed + '<br>Low :' + l + ' : Median:' + lMed + '<br>VeryLow :' + vl + ' : Median :' + vlMed;
           info01Output.html(tooltip)
         })
@@ -432,24 +435,27 @@
 
       map03LGeoJson.eachLayer(function(layer) {
         layer.on('click', function() {
+          console.log($('#selected_year3').val() + ': ' + $('#map03-dropdown').val())
           var layProp = layer.feature.properties,
             countyName = layer.feature.properties.co_name,
             farmland = layer.feature.properties.farm_ac,
-            selNutyear = nutVal + "_count_" + styleYear,
-            selMedVal = nutVal + "_med" + styleYear,
-            nutCount = layer.feature.properties[cropval],
-            cropType = cropval.replace('MedData', ''),
-            cropTypeUp = cropType.toUpperCase(),
-            vhc = selNutyear + '_VH',
+            selNutyear = nutVal + "_count_" + $('#selected_year3').val(),
+            selMedVal = nutVal + "_med" + $('#selected_year3').val(),
+            cropvalMap3 = $('#map03-dropdown').val(),
+            nutCount = layer.feature.properties[cropvalMap3],
+            cropType = cropvalMap3.replace('MedData', ''),
+            cropTypeUp = cropType.toUpperCase();
+          console.log(selNutyear);
+          var vhc = selNutyear + '_VH',
             hc = selNutyear + '_H',
             mc = selNutyear + '_M',
             lc = selNutyear + '_L',
             vlc = selNutyear + '_VL',
-            vhmed = nutVal + '_' + styleYear + '_VH',
-            hmed = nutVal + '_' + styleYear + '_H',
-            mmed = nutVal + '_' + styleYear  + '_M',
-            lmed = nutVal + '_' + styleYear  + '_L',
-            vlmed = nutVal + '_' + styleYear + '_VL',
+            vhmed = nutVal + '_' + $('#selected_year3').val() + '_VH',
+            hmed = nutVal + '_' + $('#selected_year3').val() + '_H',
+            mmed = nutVal + '_' + $('#selected_year3').val() + '_M',
+            lmed = nutVal + '_' + $('#selected_year3').val() + '_L',
+            vlmed = nutVal + '_' + $('#selected_year3').val() + '_VL',
             vh = layProp[cropType][vhc],
             h = layProp[cropType][hc],
             m = layProp[cropType][mc],
@@ -463,8 +469,8 @@
 
           var tooltip = 'County : <b>' + countyName + '</b><br>Croptype : ' + cropTypeUp + '<br>FarmAc : ' +
             farmland + ':   Percent :  ' + layProp.farm_prec + '<br>Samples : ' + layProp[cropval][selNutyear] +
-            ' : Countcropselected : ' + countCrop + '<br>YearlyTotal : ' + allCrop + '<br> Median :' + layProp[cropval][selMedVal] +
-            ' : Nutrient :' + nutVal + '<br>VeryHigh :' + vh + ': Median :' + vhMed + '<br>High :' + h + ': Median :'+ hMed + '<br>Medium :' + m +
+            ' : Countcropselected : ' + countCrop + '<br>Yr: '+ $('#selected_year3').val()+'  YearlyTotal : ' + allCrop + '<br> Median :' + layProp[cropval][selMedVal] +
+            ' : Nutrient :' + nutVal + '<br>VeryHigh :' + vh + ': Median :' + vhMed + '<br>High :' + h + ': Median :' + hMed + '<br>Medium :' + m +
             ': Median : ' + mMed + '<br>Low :' + l + ' : Median:' + lMed + '<br>VeryLow :' + vl + ' : Median :' + vlMed;
           info03Output.html(tooltip)
         })
