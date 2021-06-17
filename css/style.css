@@ -22,24 +22,29 @@ h2 {
   font-weight: normal;
 }
 
+#left-col {
+  float: left;
+  width: 60%;
+}
+
+#right-col {
+  float: right;
+  width: 36%;
+}
+
+#clear:after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
 form {
   width: 100%;
   height: 45px;
 }
 
-footer {
-  text-align: left;
-  padding: 20px;
-  background-color: #a5cdcf;
-  color: black;
-  border: 2px solid #555;
-  border-radius: 10px;
-}
-
-#map-01, #map-02, #map-03, #map-04 {
+#map-01, #map-03 {
   height: 250px;
-  width: 80%;
-  font-family: 'Times New Roman', Times, serif;
 }
 
 .ui-info {
@@ -56,22 +61,12 @@ footer {
   padding: 6px 8px;
   font: 14px/18px Times, Times, serif;
   background: rgba(146, 230, 230, 0.8);
-  /* box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); */
-  border-radius: 5px;
-  position: absolute;
+  border-radius: 3px;
 }
 
 .label {
   position: relative;
   left: 20px;
-}
-
-.footer {
-  background-color: lightblue;
-  padding-top: 20px;
-  padding-right: 10px;
-  padding-bottom: 0px;
-  padding-left: 10px;
 }
 
 .leaflet-control-zoom {
@@ -160,6 +155,10 @@ footer {
   background: #5fb6ba;
 }
 
-input {
-  margin: 0 0 18px;
+footer {
+  padding: 20px;
+  background-color: #a5cdcf;
+  color: black;
+  border-radius: 10px;
+  margin-top: 18px;
 }
