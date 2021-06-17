@@ -1,4 +1,5 @@
 /* CSS styles Soil Test Map */
+
 body {
   background: #d1eff0;
   font-family: sans-serif;
@@ -21,47 +22,56 @@ h2 {
   font-weight: normal;
 }
 
-#left-col {
-  float: left;
-  width: 60%;
-}
-#right-col {
-  float: right;
-  width: 36%;
-}
-#clear:after {
-  content: '';
-  display: table;
-  clear: both;
-}
 form {
   width: 100%;
   height: 45px;
 }
 
-#map-01,
-#map-03 {
-  height: 250px;
+footer {
+  text-align: left;
+  padding: 20px;
+  background-color: #a5cdcf;
+  color: black;
+  border: 2px solid #555;
+  border-radius: 10px;
 }
+
+#map-01, #map-02, #map-03, #map-04 {
+  height: 250px;
+  width: 80%;
+  font-family: 'Times New Roman', Times, serif;
+}
+
 .ui-info {
   height: 250px;
-  background:#a2d6d3;
+  background: #a2d6d3;
   padding: 16px 20px;
   border-style: solid;
   border-color: #6f8685;
 }
+
 .ui {
   right: 10px;
   height: 230px;
   padding: 6px 8px;
   font: 14px/18px Times, Times, serif;
   background: rgba(146, 230, 230, 0.8);
-  border-radius: 3px;
+  /* box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); */
+  border-radius: 5px;
+  position: absolute;
 }
 
 .label {
   position: relative;
   left: 20px;
+}
+
+.footer {
+  background-color: lightblue;
+  padding-top: 20px;
+  padding-right: 10px;
+  padding-bottom: 0px;
+  padding-left: 10px;
 }
 
 .leaflet-control-zoom {
@@ -94,18 +104,20 @@ form {
 }
 
 /* Dropdown button on hover & focus */
-.dropbtn:hover,
-.dropbtn:focus {
+
+.dropbtn:hover, .dropbtn:focus {
   background-color: #1e6061;
 }
 
 /* The container <div> - needed to position the dropdown content */
+
 .dropdown {
   position: relative;
   display: inline-block;
 }
 
 /* Dropdown Content (Hidden by Default) */
+
 .dropdown-content {
   display: none;
   position: relative;
@@ -115,6 +127,7 @@ form {
 }
 
 /* Links inside the dropdown */
+
 .dropdown-content a {
   color: black;
   padding: 6px 6px;
@@ -123,30 +136,30 @@ form {
 }
 
 /* Change color of dropdown links on hover */
+
 .dropdown-content option:hover {
   background-color: #f1f1f1;
 }
 
 /* information box */
+
 .info h4 {
   margin: 0 0 5px;
   color: #777;
 }
 
 /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+
 .show {
   display: block;
 }
 
 /* Leaflet css */
+
 .leaflet-container {
   background: #5fb6ba;
 }
 
-footer {
-  padding: 20px;
-  background-color: #a5cdcf;
-  color: black;
-  border-radius: 10px;
-  margin-top: 18px;
+input {
+  margin: 0 0 18px;
 }
