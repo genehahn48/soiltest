@@ -36,18 +36,28 @@
   </div>
   <div id="clear"></div>
   <footer>
+    <h2>Map information</h2>
     <p>The map uses data from the University of Kentucky Soil Testing Lab. There are 29 years of data
       representing 889,912 samples with an average of
       30,700 sample tested annually. The <a href='https://mccracken.ca.uky.edu/files/agr1_lime_and_nutrient_recommendations_2020_2021.pdf'>
         AGR-1 Lime and Nutrient Recommendations </a>was used to select croptypes and to bracket the ranges for the
-      categories for each crop.
-      The median value for phosphorus(P) and potassium(K) was calculated for each county and croptype. The ranges
-      across
-      croptypes ied some
-      so the legend is using simpified scale for all croptypes (visit AGR-1 link above for details). </p>
+      categories for each crop. The median value for phosphorus(P) and potassium(K) was calculated for each county and croptype. The ranges
+      across croptypes are simpified so one legend scale could be used for all croptypes (visit AGR-1 link above for details). </p>
+<h2>About the designer</h2>
     <p>
-      Map design by Gene Hahn for master's in Digital Mapping at the Univeristy of Kentucky.
+      Map design by Gene Hahn for master's in Digital Mapping at the Univeristy of Kentucky and published in June of 2021. Please visit my
+      <a href='https://github.com/genehahn48'>GitHub profile </a>
+      and visit the repository for <a href='https://github.com/genehahn48/soiltest'> soiltest </a>
+       for more information about this map.
     </p>
+    <h4>Meta data</h4>
+    <p>Soil testing data from Dr. Frank Sikora at the University of Kentucky's <a href='http://www.rs.uky.edu/soil/'>Soil Testing Lab</a>.
+    <br><a href='https://mccracken.ca.uky.edu/files/agr1_lime_and_nutrient_recommendations_2020_2021.pdf'>
+      AGR-1 Lime and Nutrient Recommendations </a>for croptypes and categories. <br>
+      County, State, and Regions boundaries data from <a href ='https://www.uky.edu/KGS/gis/bounds.htm'>Kentucky Geological Survey</a> website.
+    <br>Farmland acreage data from United States Department og Agriculture <a href='https://www.nass.usda.gov/Data_and_Statistics/index.php' >
+      National Agricultural Statistics</a>. </p>
+
   </footer>
 
   <div id="legend"> </div>
@@ -423,8 +433,8 @@
             vlMed = layProp[cropType][vlmed];
 
             var tooltip = 'County : <b>' + countyName + '</b><br>Croptype : ' + cropTypeUp + '<br>FarmAc : ' +
-            farmland + ':   Percent :  ' + layProp.farm_prec + '<br>Samples : ' + layProp[cropval][selNutyear] +
-            ' : Count for selected crop : ' + countCrop + '<br>Yr: ' + $('#selected_year1').val() + '  Yearly Total : ' + allCrop + '<br> Median :' + layProp[cropval][selMedVal] +
+            farmland + ' :   Percent :  ' + layProp.farm_prec + '<br>Samples : ' + layProp[cropval][selNutyear] +
+            ' : Count for selected crop : ' + countCrop + '<br>Yr: ' + $('#selected_year1').val() + ' Yearly Total : ' + allCrop + '<br> Median :' + layProp[cropval][selMedVal] +
             ' : Nutrient :' + nutVal + '<br>Very High :' + vh + ': Median :' + vhMed + '<br>High :' + h + ': Median :' + hMed + '<br>Medium :' + m +
             ': Median : ' + mMed + '<br>Low :' + l + ' : Median:' + lMed + '<br>Very Low :' + vl + ' : Median :' + vlMed;
           info01Output.html(tooltip)
