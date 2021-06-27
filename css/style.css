@@ -23,17 +23,21 @@ h2 {
 
 #left-col {
   float: left;
+  padding-left: 15px;
   width: 60%;
 }
+
 #right-col {
   float: right;
   width: 36%;
 }
+
 #clear:after {
   content: '';
   display: table;
   clear: both;
 }
+
 form {
   width: 100%;
   height: 45px;
@@ -43,13 +47,23 @@ form {
 #map-03 {
   height: 250px;
 }
+
+#map-01{
+  background: #5fb6ba;
+}
+
+#map-03{
+  background: #6dbcbf;
+}
+
 .ui-info {
   height: 250px;
-  background:#a2d6d3;
-  padding: 16px 20px;
+  background: #a2d6d3;
+  padding: 20px 20px;
   border-style: solid;
   border-color: #6f8685;
 }
+
 .ui {
   right: 10px;
   height: 230px;
@@ -139,9 +153,9 @@ form {
 }
 
 /* Leaflet css */
-.leaflet-container {
+/* .leaflet-container {
   background: #5fb6ba;
-}
+} */
 
 footer {
   padding: 20px;

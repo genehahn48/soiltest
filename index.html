@@ -162,8 +162,16 @@
     // legend iables addLegend P and K function
     let legend,
       legend3;
-    // iables for information boxes
 
+    // disable map dragging
+    $(yearMap1).mousedown(function() {
+      map01.dragging.disable();
+    });
+    $(yearMap3).mousedown(function() {
+      map03.dragging.disable();
+    });
+
+    // iables for information boxes
     addUIs()
     // wait until they are ready and then send to dataReady function
     Promise.all([countiesJson, regionsJson, alfalfaLevel, canolaLevel, coolseasonLevel, cornLevel,
@@ -423,11 +431,11 @@
             lMed = layProp[cropType][lmed],
             vlMed = layProp[cropType][vlmed];
 
-          var tooltip = 'County : <b>' + countyName + '</b><br>Croptype : ' + cropTypeUp + '<br>FarmAc : ' +
+            var tooltip = 'County : <b>' + countyName + '</b><br>Croptype : ' + cropTypeUp + '<br>FarmAc : ' +
             farmland + ':   Percent :  ' + layProp.farm_prec + '<br>Samples : ' + layProp[cropval][selNutyear] +
-            ' : Countcropselected : ' + countCrop + '<br>Yr: ' + $('#selected_year1').val() + '  YearlyTotal : ' + allCrop + '<br> Median :' + layProp[cropval][selMedVal] +
-            ' : Nutrient :' + nutVal + '<br>VeryHigh :' + vh + ': Median :' + vhMed + '<br>High :' + h + ': Median :' + hMed + '<br>Medium :' + m +
-            ': Median : ' + mMed + '<br>Low :' + l + ' : Median:' + lMed + '<br>VeryLow :' + vl + ' : Median :' + vlMed;
+            ' : Count for selected crop : ' + countCrop + '<br>Yr: ' + $('#selected_year1').val() + '  Yearly Total : ' + allCrop + '<br> Median :' + layProp[cropval][selMedVal] +
+            ' : Nutrient :' + nutVal + '<br>Very High :' + vh + ': Median :' + vhMed + '<br>High :' + h + ': Median :' + hMed + '<br>Medium :' + m +
+            ': Median : ' + mMed + '<br>Low :' + l + ' : Median:' + lMed + '<br>Very Low :' + vl + ' : Median :' + vlMed;
           info01Output.html(tooltip)
         })
       })
@@ -469,9 +477,9 @@
 
           var tooltip = 'County : <b>' + countyName + '</b><br>Croptype : ' + cropTypeUp + '<br>FarmAc : ' +
             farmland + ':   Percent :  ' + layProp.farm_prec + '<br>Samples : ' + layProp[cropval][selNutyear] +
-            ' : Countcropselected : ' + countCrop + '<br>Yr: ' + $('#selected_year3').val() + '  YearlyTotal : ' + allCrop + '<br> Median :' + layProp[cropval][selMedVal] +
-            ' : Nutrient :' + nutVal + '<br>VeryHigh :' + vh + ': Median :' + vhMed + '<br>High :' + h + ': Median :' + hMed + '<br>Medium :' + m +
-            ': Median : ' + mMed + '<br>Low :' + l + ' : Median:' + lMed + '<br>VeryLow :' + vl + ' : Median :' + vlMed;
+            ' : Count for selected crop: ' + countCrop + '<br>Yr: ' + $('#selected_year3').val() + '  YearlyTotal : ' + allCrop + '<br> Median :' + layProp[cropval][selMedVal] +
+            ' : Nutrient :' + nutVal + '<br>Very High :' + vh + ': Median :' + vhMed + '<br>High :' + h + ': Median :' + hMed + '<br>Medium :' + m +
+            ': Median : ' + mMed + '<br>Low :' + l + ' : Median:' + lMed + '<br>Very Low :' + vl + ' : Median :' + vlMed;
           info03Output.html(tooltip)
         })
       })
