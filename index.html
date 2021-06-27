@@ -1,63 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Soil test map</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
-    <link rel="stylesheet" href="css/style.css" />
-  </head>
-  <style>
-  </style>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Soil test map</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<style>
+</style>
 
-  <body>
-    <header>
-      <h1>
+<body>
+  <header>
+    <h1>
       University of Kentucky's Soil testing Lab Data
     </h1>
-      <h2>
+    <h2>
       Please select a nutrient (P or K) and the crop type you are interested in viewing the median values for.
       <br>Map 3 will allow you to compare median values across different years or croptypes.
     </h2>
-    </header>
-    <div id="left-col">
-      <div id="map-01"></div>
-      <div id="map-03"></div>
+  </header>
+  <div id="left-col">
+    <div id="map-01"></div>
+    <div id="map-03"></div>
+  </div>
+  <div id="right-col">
+    <div class='ui-info' id="map-01-info">
+      <h3>Click county for more information</h3>
+      <div class='info'></div>
     </div>
-    <div id="right-col">
-      <div class='ui-info' id="map-01-info">
-        <h3>Click county for more information</h3>
-        <div class='info'></div>
-      </div>
-      <div class='ui-info' id="map-03-info">
-        <h3>Click county for more information</h3>
-      </div>
+    <div class='ui-info' id="map-03-info">
+      <h3>Click county for more information</h3>
     </div>
-    <div id="clear"></div>
-    <footer>
-      <p>The map uses data from the University of Kentucky Soil Testing Lab. There are 29 years of data representing 889,912 samples with an average of 30,700 sample tested annually. The <a href='https://mccracken.ca.uky.edu/files/agr1_lime_and_nutrient_recommendations_2020_2021.pdf'>
-        AGR-1 Lime and Nutrient Recommendations </a>was used to select croptypes and to bracket the ranges for the categories for each crop. The median value for phosphorus(P) and potassium(K) was calculated for each county and croptype. The ranges across
-        croptypes ied some so the legend is using simpified scale for all croptypes (visit AGR-1 link above for details). </p>
-      <p>
-        Map design by Gene Hahn for master's in Digital Mapping at the Univeristy of Kentucky.
-      </p>
-    </footer>
+  </div>
+  <div id="clear"></div>
+  <footer>
+    <p>The map uses data from the University of Kentucky Soil Testing Lab. There are 29 years of data
+      representing 889,912 samples with an average of
+      30,700 sample tested annually. The <a href='https://mccracken.ca.uky.edu/files/agr1_lime_and_nutrient_recommendations_2020_2021.pdf'>
+        AGR-1 Lime and Nutrient Recommendations </a>was used to select croptypes and to bracket the ranges for the
+      categories for each crop.
+      The median value for phosphorus(P) and potassium(K) was calculated for each county and croptype. The ranges
+      across
+      croptypes ied some
+      so the legend is using simpified scale for all croptypes (visit AGR-1 link above for details). </p>
+    <p>
+      Map design by Gene Hahn for master's in Digital Mapping at the Univeristy of Kentucky.
+    </p>
+  </footer>
 
-    <div id="legend"> </div>
-    <div id="legend3"></div>
-    <div id="map-01-ui">
-      <form name="map01">
-        <label for="yearMap1">Year</label>
-        <input type="range" min=1990 max=2019 step=1 id="yearMap1" value=2010>
-        <output name="selected_yearMap1" id="selected_year1">2010</output>
-        <div id="map01-radios">
-          <input type="radio" id="map01-p" name="chemMap01" value="P" checked>
-          <label for="P">Phosphorus</label>
-          <input type="radio" id="map01-k" name="chemMap01" value="K">
-          <label for="K">Potassium</label>
+  <div id="legend"> </div>
+  <div id="legend3"></div>
+  <div id="map-01-ui">
+    <form name="map01">
+      <label for="yearMap1">Year</label>
+      <input type="range" min=1990 max=2019 step=1 id="yearMap1" value=2010>
+      <output name="selected_yearMap1" id="selected_year1">2010</output>
+      <div id="map01-radios">
+        <input type="radio" id="map01-p" name="chemMap01" value="P" checked>
+        <label for="P">Phosphorus</label>
+        <input type="radio" id="map01-k" name="chemMap01" value="K">
+        <label for="K">Potassium</label>
 
-          <select id="map01-dropdown" name="dropdown" class="dropdown">
+        <select id="map01-dropdown" name="dropdown" class="dropdown">
           <option value="alfalfaMedData">Alfalfa</option>
           <option value="canolaMedData">Canola</option>
           <option value="coolseasonMedData">Cool Season Grass</option>
@@ -68,14 +74,14 @@
           <option value="tobaccoMedData">Tobacco</option>
           <option value="warmseasonMedData">Warm Season Grass</option>
         </select>
-      </form>
-      </div>
-      <div id="map-03-ui">
-        <form name="map03">
-          <label for="yearMap3">Year</label>
-          <input type="range" min=1990 max=2019 step=1 id="yearMap3" value=1990>
-          <output name="selected_yearMap3" id="selected_year3">1990</output>
-          <select id="map03-dropdown" name="dropdown" class="dropdown">
+    </form>
+  </div>
+  <div id="map-03-ui">
+    <form name="map03">
+      <label for="yearMap3">Year</label>
+      <input type="range" min=1990 max=2019 step=1 id="yearMap3" value=1990>
+      <output name="selected_yearMap3" id="selected_year3">1990</output>
+      <select id="map03-dropdown" name="dropdown" class="dropdown">
         <option value="alfalfaMedData">Alfalfa</option>
         <option value="canolaMedData">Canola</option>
         <option value="coolseasonMedData">Cool Season Grass</option>
@@ -225,223 +231,121 @@
               // create a new property for the csv data in the json and assign the data
               feature.properties[bindName[x]] = row;
             }
-
-            return div;
-          };
-          legend3.addTo(map03);
-        }
-        // start styleMaps
-        function styleMaps(map, nutVal, year, countyData) {
-          // function will be called multiple times, once within drawMaps
-          // and then multiple times triggered by the UI changes
-          styleYear = year;
-          console.log(countyData);
-          if (nutVal == "P") {
-            countCrop = countSamples(countyData, styleYear);
-            allCrop = countYearTotal(countyData, styleYear);
-            console.log(countCrop + ": total : " + allCrop);
-            map.setStyle(styleP);
-            map.eachLayer(function(layer) {
-              layProp = layer.feature.properties
-              countyName = layer.feature.properties.co_name;
-              farmland = layer.feature.properties.farm_ac;
-              selNutyear = nutVal + "_count_" + styleYear;
-              selMedVal = nutVal + "_med" + styleYear;
-              nutCount = layer.feature.properties[cropval];
-              tooltip = 'County: <b>' + countyName +
-                '<br>Samples: ' + layProp[cropval][selNutyear] +
-                '<br> Median :' + layProp[cropval][selMedVal];
-              layer.bindTooltip(tooltip);
-            })
-
-
-
-          } else {
-            countCrop = countSamples(countyData, styleYear);
-            allCrop = countYearTotal(countyData, styleYear);
-            map.setStyle(styleK);
-            map.eachLayer(function(layer) {
-              layProp = layer.feature.properties
-              countyName = layer.feature.properties.co_name;
-              farmland = layer.feature.properties.farm_ac;
-              selNutyear = nutVal + "_count_" + styleYear;
-              selMedVal = nutVal + "_med" + styleYear;
-              nutCount = layer.feature.properties[cropval];
-              tooltip = 'County: <b>' + countyName +
-                '<br>Samples: ' + layProp[cropval][selNutyear] +
-                '<br> Median :' + layProp[cropval][selMedVal];
-              layer.bindTooltip(tooltip);
-            })
-          }
-          info01Output = $('#map-01-info');
-
-          map01LGeoJson.eachLayer(function(layer) {
-            layer.on('click', function() {
-              console.log($('#selected_year1').val() + ': ' + $('#map01-dropdown').val())
-              var layProp = layer.feature.properties,
-                countyName = layer.feature.properties.co_name,
-                farmland = layer.feature.properties.farm_ac,
-                selNutyear = nutVal + "_count_" + $('#selected_year1').val(),
-                selMedVal = nutVal + "_med" + $('#selected_year1').val(),
-                cropvalMap1 = $('#map01-dropdown').val(),
-                nutCount = layer.feature.properties[cropvalMap1],
-                cropType = cropvalMap1.replace('MedData', ''),
-                cropTypeUp = cropType.toUpperCase();
-              console.log(selNutyear);
-              var vhc = selNutyear + '_VH',
-                hc = selNutyear + '_H',
-                mc = selNutyear + '_M',
-                lc = selNutyear + '_L',
-                vlc = selNutyear + '_VL',
-                vhmed = nutVal + '_' + $('#selected_year1').val() + '_VH',
-                hmed = nutVal + '_' + $('#selected_year1').val() + '_H',
-                mmed = nutVal + '_' + $('#selected_year1').val() + '_M',
-                lmed = nutVal + '_' + $('#selected_year1').val() + '_L',
-                vlmed = nutVal + '_' + $('#selected_year1').val() + '_VL',
-                vh = layProp[cropType][vhc],
-                h = layProp[cropType][hc],
-                m = layProp[cropType][mc],
-                l = layProp[cropType][lc],
-                vl = layProp[cropType][vlc],
-                vhMed = layProp[cropType][vhmed],
-                hMed = layProp[cropType][hmed],
-                mMed = layProp[cropType][mmed],
-                lMed = layProp[cropType][lmed],
-                vlMed = layProp[cropType][vlmed];
-
-              var tooltip = 'County : <b>' + countyName + '</b><br>Croptype : ' + cropTypeUp + '<br>FarmAc : ' +
-                farmland + ':   Percent :  ' + layProp.farm_prec + '<br>Samples : ' + layProp[cropval][selNutyear] +
-                ' : Countcropselected : ' + countCrop + '<br>Yr: ' + $('#selected_year1').val() + '  YearlyTotal : ' + allCrop + '<br> Median :' + layProp[cropval][selMedVal] +
-                ' : Nutrient :' + nutVal + '<br>VeryHigh :' + vh + ': Median :' + vhMed + '<br>High :' + h + ': Median :' + hMed + '<br>Medium :' + m +
-                ': Median : ' + mMed + '<br>Low :' + l + ' : Median:' + lMed + '<br>VeryLow :' + vl + ' : Median :' + vlMed;
-              info01Output.html(tooltip)
-            })
           })
-          info03Output = $('#map-03-info');
+        })
+      });
+      drawMaps(countiesJson, yearVal, yearVal3);
+      addListeners(countiesJson, yearVal, yearVal3);
+      addLegendP();
+      // console.log(countiesJson);
+      console.log(countYearTotal(countiesJson, yearVal) + ": Total yearly count for all crops and selected nutrient");
+      console.log(countSamples(countiesJson, yearVal) + ": single crop total for the year and selected nutrient");
+      console.log(totalCount(countiesJson) + ": total count all years and crops");
+    }; // END dataReady
 
-          map03LGeoJson.eachLayer(function(layer) {
-            layer.on('click', function() {
-              console.log($('#selected_year3').val() + ': ' + $('#map03-dropdown').val())
-              var layProp = layer.feature.properties,
-                countyName = layer.feature.properties.co_name,
-                farmland = layer.feature.properties.farm_ac,
-                selNutyear = nutVal + "_count_" + $('#selected_year3').val(),
-                selMedVal = nutVal + "_med" + $('#selected_year3').val(),
-                cropvalMap3 = $('#map03-dropdown').val(),
-                nutCount = layer.feature.properties[cropvalMap3],
-                cropType = cropvalMap3.replace('MedData', ''),
-                cropTypeUp = cropType.toUpperCase();
-              console.log(selNutyear);
-              var vhc = selNutyear + '_VH',
-                hc = selNutyear + '_H',
-                mc = selNutyear + '_M',
-                lc = selNutyear + '_L',
-                vlc = selNutyear + '_VL',
-                vhmed = nutVal + '_' + $('#selected_year3').val() + '_VH',
-                hmed = nutVal + '_' + $('#selected_year3').val() + '_H',
-                mmed = nutVal + '_' + $('#selected_year3').val() + '_M',
-                lmed = nutVal + '_' + $('#selected_year3').val() + '_L',
-                vlmed = nutVal + '_' + $('#selected_year3').val() + '_VL',
-                vh = layProp[cropType][vhc],
-                h = layProp[cropType][hc],
-                m = layProp[cropType][mc],
-                l = layProp[cropType][lc],
-                vl = layProp[cropType][vlc],
-                vhMed = layProp[cropType][vhmed],
-                hMed = layProp[cropType][hmed],
-                mMed = layProp[cropType][mmed],
-                lMed = layProp[cropType][lmed],
-                vlMed = layProp[cropType][vlmed];
+    function drawMaps(countyData, yearVal, yearVal3) {
+      // function will be called once and create L.geoJson objects from data
+      // assign value to iable declared above
+      map01LGeoJson = L.geoJson(countyData, {
 
-              var tooltip = 'County : <b>' + countyName + '</b><br>Croptype : ' + cropTypeUp + '<br>FarmAc : ' +
-                farmland + ':   Percent :  ' + layProp.farm_prec + '<br>Samples : ' + layProp[cropval][selNutyear] +
-                ' : Countcropselected : ' + countCrop + '<br>Yr: ' + $('#selected_year3').val() + '  YearlyTotal : ' + allCrop + '<br> Median :' + layProp[cropval][selMedVal] +
-                ' : Nutrient :' + nutVal + '<br>VeryHigh :' + vh + ': Median :' + vhMed + '<br>High :' + h + ': Median :' + hMed + '<br>Medium :' + m +
-                ': Median : ' + mMed + '<br>Low :' + l + ' : Median:' + lMed + '<br>VeryLow :' + vl + ' : Median :' + vlMed;
-              info03Output.html(tooltip)
-            })
-          })
+      }).addTo(map01);
+
+      map03LGeoJson = L.geoJson(countyData, {
+
+      }).addTo(map03);
+
+      // call the styleMaps() function to apply visual representation
+      styleMaps(map01LGeoJson, nutVal, yearVal, countyData);
+      styleMaps(map03LGeoJson, nutVal, yearVal3, countyData);
+    }
+
+    function addUIs() {
+      ui1 = L.control({
+        position: 'topright'
+      });
+      ui1.onAdd = function(map01) {
+        return L.DomUtil.get('map-01-ui');
+      };
+      ui1.addTo(map01);
+
+      ui3 = L.control({
+        position: 'topright'
+      });
+      ui3.onAdd = function(map01) {
+        return L.DomUtil.get('map-03-ui');
+      };
+      ui3.addTo(map03);
+    }
+
+    function addLegendP(map) {
+      legend = L.control({
+        position: 'topleft'
+      });
+      legend.onAdd = function(map) {
+        div = L.DomUtil.create('map', 'legend'),
+          legVal = [0, 1, 5, 7, 27, 60, 80],
+          labels = [];
+        // loop through our nutrient value intervals and generate a label with a colored square for each interval
+        for (i = 0; i < legVal.length; i++) {
+          div.innerHTML +=
+            '<i style="background:' + getColorP(legVal[i] + 1) + '"></i> ' +
+            legVal[i] + (legVal[i + 1] ? '&ndash;' + legVal[i + 1] + '<br>' : '+');
         }
+        return div;
+      };
+      legend.addTo(map01);
 
-        function addListeners(countiesJson, yearVal, yearVal3) {
-          // select the HTML UI elements and extract value attribute
-          $('#map01-radios input').on('change', function() { //nutrient value change
-            nutVal = (this.value) //  nutVal P or K onchange
-            if (nutVal == "P") {
-              legend.remove(map01);
-              legend3.remove(map03);
-              addLegendP();
-              console.log(countSamples(countiesJson, yearVal, countiesJson) + ": Map1 :croptype:" + cropval);
-            } else {
-              legend.remove(map01);
-              legend3.remove(map03);
-              addLegendK()
-              console.log(countSamples(countiesJson, yearVal, countiesJson) + ": Map1 :croptype " + cropval);
-            }
+      legend3 = L.control({
+        position: 'topleft'
+      });
+      legend3.onAdd = function(map) {
 
-            styleMaps(map01LGeoJson, nutVal, yearVal, countiesJson);
-            styleMaps(map03LGeoJson, nutVal, yearVal3, countiesJson);
-          });
-          $('#map01-dropdown').on('change', function(event, d) {
-            cropval = (this.value) // crop types from Agr1
-            // get value from dropdown crop type
-            styleMaps(map01LGeoJson, nutVal, yearVal, countiesJson);
-            console.log(countSamples(countiesJson, yearVal) + ": Map1 : croptype: " + cropval);
-          });
-          $('#map03-dropdown').on('change', function(event, d) {
-            cropval = (this.value) // crop types from Agr1
-            // get value from dropdown crop type
-            styleMaps(map03LGeoJson, nutVal, yearVal3, countiesJson);
-            console.log(countSamples(countiesJson, yearVal3) + ": Map3 : croptype:" + cropval);
-          });
-          $('#yearMap1').on('input', function(event, d) {
-            yearVal = (this.value) // crop types from Agr1
+        div = L.DomUtil.create('map', 'legend'),
+          legVal = [0, 1, 5, 7, 27, 60, 80],
+          labels = [];
 
-            document.getElementById("selected_year1").innerHTML = yearVal; // display year for map1
-            styleMaps(map01LGeoJson, nutVal, yearVal, countiesJson);
-            console.log(countSamples(countiesJson, yearVal) + ": Map1 :croptype" + cropval);
-          });
-          $('#yearMap3').on('input', function(event, d) {
-            yearVal3 = (this.value) // crop types from Agr1
-
-            document.getElementById("selected_year3").innerHTML = yearVal3; // display year on slider for map3
-            styleMaps(map03LGeoJson, nutVal, yearVal3, countiesJson);
-            console.log(countSamples(countiesJson, yearVal3) + ": Map3 : croptype" + cropval);
-          });
+        // loop through our nutrient value intervals and generate a label with a colored square for each interval
+        for (i = 0; i < legVal.length; i++) {
+          div.innerHTML +=
+            '<i style="background:' + getColorP(legVal[i] + 1) + '"></i> ' +
+            legVal[i] + (legVal[i + 1] ? '&ndash;' + legVal[i + 1] + '<br>' : '+');
         }
-        // create colors for styling maps
-        // color for Phosphorus
-        function getColorP(d) {
-          return d > 80 ? '#993404' :
-            d >= 60 ? '#d95f0e' :
-            d >= 27 ? '#fe9929' :
-            d >= 7 ? '#fec44f' :
-            d >= 5 ? '#fee391' :
-            d > 0 ? '#ffffd4' :
-            '#dad6d2';
+        return div;
+      };
+      legend3.addTo(map03);
+    }
+
+    function addLegendK(map) {
+      legend = L.control({
+        position: 'topleft'
+      });
+
+      legend.onAdd = function(map01) {
+        div = L.DomUtil.create('map-01', 'legend'),
+          legVal = [0, 1, 100, 190, 300, 420],
+          labels = [];
+        // loop through our nutrient value intervals and generate a label with a colored square for each interval
+        for (i = 0; i < legVal.length; i++) {
+          div.innerHTML +=
+            '<i style="background:' + getColorK(legVal[i] + 1) + '"></i> ' +
+            legVal[i] + (legVal[i + 1] ? '&ndash;' + legVal[i + 1] + '<br>' : '+');
         }
-        // color for Potassium
-        function getColorK(d) {
-          return d > 420 ? '#4c394f' :
-            d >= 420 ? '#482652' :
-            d >= 300 ? '#724a7d' :
-            d >= 190 ? '#917898 ' :
-            d >= 100 ? '#9babcf' :
-            d > 0 ? '#d5ddef' :
-            ' #c2c2c2';
-        }
-        // style color map for median data P and K Start
-        function styleP(feature) {
-          currentPropName = "P_med" + styleYear;
-          // console.log(feature.properties[cropval][currentPropName] + ": styleP getcolorP")
-          return {
-            fillColor: getColorP(feature.properties[cropval][currentPropName]),
-            weight: 1,
-            opacity: 1,
-            color: '#484C51 ',
-            solidline: '3',
-            fillOpacity: 1
-          };
+        return div;
+      };
+      legend.addTo(map01);
+
+      legend3 = L.control({
+        position: 'topleft'
+      });
+      legend3.onAdd = function(map01) {
+        div = L.DomUtil.create('map-03', 'legend'),
+          legVal = [0, 1, 100, 190, 300, 420],
+          labels = [];
+        // loop through our nutrient value intervals and generate a label with a colored square for each interval
+        for (i = 0; i < legVal.length; i++) {
+          div.innerHTML +=
+            '<i style="background:' + getColorK(legVal[i] + 1) + '"></i> ' +
+            legVal[i] + (legVal[i + 1] ? '&ndash;' + legVal[i + 1] + '<br>' : '+');
         }
 
         return div;
@@ -597,87 +501,187 @@
           console.log(countSamples(countiesJson, yearVal, countiesJson) + ": Map1 :croptype " + cropval);
         }
 
-        function countYearTotal(data, year) {
-          console.log(year);
-          countTotalyear = 0;
+        styleMaps(map01LGeoJson, nutVal, yearVal, countiesJson);
+        styleMaps(map03LGeoJson, nutVal, yearVal3, countiesJson);
+      });
+      $('#map01-dropdown').on('change', function(event, d) {
+        cropval = (this.value) // crop types from Agr1
+        // get value from dropdown crop type
+        styleMaps(map01LGeoJson, nutVal, yearVal, countiesJson);
+        console.log(countSamples(countiesJson, yearVal) + ": Map1 : croptype: " + cropval);
+      });
+      $('#map03-dropdown').on('change', function(event, d) {
+        cropval = (this.value) // crop types from Agr1
+        // get value from dropdown crop type
+        styleMaps(map03LGeoJson, nutVal, yearVal3, countiesJson);
+        console.log(countSamples(countiesJson, yearVal3) + ": Map3 : croptype:" + cropval);
+      });
+      $('#yearMap1').on('input', function(event, d) {
+        yearVal = (this.value) // crop types from Agr1
+
+        document.getElementById("selected_year1").innerHTML = yearVal; // display year for map1
+        styleMaps(map01LGeoJson, nutVal, yearVal, countiesJson);
+        console.log(countSamples(countiesJson, yearVal) + ": Map1 :croptype" + cropval);
+      });
+      $('#yearMap3').on('input', function(event, d) {
+        yearVal3 = (this.value) // crop types from Agr1
+
+        document.getElementById("selected_year3").innerHTML = yearVal3; // display year on slider for map3
+        styleMaps(map03LGeoJson, nutVal, yearVal3, countiesJson);
+        console.log(countSamples(countiesJson, yearVal3) + ": Map3 : croptype" + cropval);
+      });
+    }
+    // create colors for styling maps
+    // color for Phosphorus
+    function getColorP(d) {
+      return d > 80 ? '#993404' :
+        d >= 60 ? '#d95f0e' :
+        d >= 27 ? '#fe9929' :
+        d >= 7 ? '#fec44f' :
+        d >= 5 ? '#fee391' :
+        d > 0 ? '#ffffd4' :
+        '#dad6d2';
+    }
+    // color for Potassium
+    function getColorK(d) {
+      return d > 420 ? '#4c394f' :
+        d >= 420 ? '#482652' :
+        d >= 300 ? '#724a7d' :
+        d >= 190 ? '#917898 ' :
+        d >= 100 ? '#9babcf' :
+        d > 0 ? '#d5ddef' :
+        ' #c2c2c2';
+    }
+    // style color map for median data P and K Start
+    function styleP(feature) {
+      currentPropName = "P_med" + styleYear;
+      // console.log(feature.properties[cropval][currentPropName] + ": styleP getcolorP")
+      return {
+        fillColor: getColorP(feature.properties[cropval][currentPropName]),
+        weight: 1,
+        opacity: 1,
+        color: '#484C51 ',
+        solidline: '3',
+        fillOpacity: 1
+      };
+    }
+
+    function styleK(feature) {
+      currentPropName = "K_med" + styleYear;
+      // console.log(cropval + " :SYTLE K Function" + yearVal);
+      return {
+
+        fillColor: getColorK(feature.properties[cropval][currentPropName]),
+        weight: .5,
+        opacity: 1,
+        color: '#484C51  ',
+        solidline: '3',
+        fillOpacity: 0.8
+      };
+    } // END P and K style
+    function getColorCat(d, catMap) {
+      return d > 80 ? '#993404' :
+        d >= 60 ? '#d95f0e' :
+        d >= 27 ? '#fe9929' :
+        d >= 7 ? '#fec44f' :
+        d >= 5 ? '#fee391' :
+        d > 0 ? '#ffffd4' :
+        '#dad6d2';
+    }
+
+    // start counting functions
+    function countSamples(data, year) {
+      curPropName = nutVal + "_count_" + year;
+      countCrop = 0;
+      data.features.forEach(function(feature, x) {
+        countCrop += parseInt(feature.properties[cropval][curPropName]);
+        //  y = x+1
+        // console.log(y)
+      })
+      return countCrop
+    }
+
+    function countYearTotal(data, year) {
+      console.log(year);
+      countTotalyear = 0;
+      MedData.forEach(function(x) {
+        curPropName = nutVal + "_count_" + year;
+        data.features.forEach(function(feature) {
+          // console.log(parseInt(feature.properties[cropval][curPropName]));
+          countTotalyear += parseInt(feature.properties[x][curPropName]);
+        })
+      })
+      return countTotalyear
+    }
+
+    function totalCount(data) {
+      totalCount = 0;
+      nut = ["P"]
+      // console.log(data)
+      // console.log(selYear)
+      nut.forEach(function(n) {
+        selYear.forEach(function(y) {
           MedData.forEach(function(x) {
-            curPropName = nutVal + "_count_" + year;
+            curPropName = [n] + "_count_" + [y];
+            // console.log([x]+": "+curPropName)
             data.features.forEach(function(feature) {
-              // console.log(parseInt(feature.properties[cropval][curPropName]));
-              countTotalyear += parseInt(feature.properties[x][curPropName]);
+              // console.log(curPropName);
+              // console.log(parseInt(feature.properties[x][curPropName]));
+              totalCount += parseInt(feature.properties[x][curPropName]);
+              // console.log(totalCount);
             })
+            // console.log(totalCount)
           })
-          return countTotalyear
-        }
+        })
+      })
+      return totalCount
+    }
+    // end counting functions
+    // start mouseover functions
+    function highlightFeature(e) {
+      // console.log(e)
+      layer = e.target;
+      layer.setStyle({
+        weight: 3,
+        color: 'red',
+        fillOpacity: 0.7
+      });
 
-        function totalCount(data) {
-          totalCount = 0;
-          nut = ["P"]
-          // console.log(data)
-          // console.log(selYear)
-          nut.forEach(function(n) {
-            selYear.forEach(function(y) {
-              MedData.forEach(function(x) {
-                curPropName = [n] + "_count_" + [y];
-                // console.log([x]+": "+curPropName)
-                data.features.forEach(function(feature) {
-                  // console.log(curPropName);
-                  // console.log(parseInt(feature.properties[x][curPropName]));
-                  totalCount += parseInt(feature.properties[x][curPropName]);
-                  // console.log(totalCount);
-                })
-                // console.log(totalCount)
-              })
-            })
-          })
-          return totalCount
-        }
-        // end counting functions
-        // start mouseover functions
-        function highlightFeature(e) {
-          // console.log(e)
-          layer = e.target;
-          layer.setStyle({
-            weight: 3,
-            color: 'red',
-            fillOpacity: 0.7
-          });
+      if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+        layer.bringToFront();
+      }
+      // info1.update(layer.feature.properties);
+      // info3.update(layer.feature.properties);
+    }
 
-          if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
-            layer.bringToFront();
-          }
-          // info1.update(layer.feature.properties);
-          // info3.update(layer.feature.properties);
-        }
+    function onEachFeature(feature, layer) {
+      layer.on({
+        mouseover: highlightFeature,
+        mouseout: resetHighlight,
+        // click: clickInfo1
+      });
+    }
 
-        function onEachFeature(feature, layer) {
-          layer.on({
-            mouseover: highlightFeature,
-            mouseout: resetHighlight,
-            // click: clickInfo1
-          });
-        }
+    function clickInfo1(e) {
+      // map.fitBounds(e.target.getBounds());
+      layer = e.target;
+      console.log(layer.feature.properties)
+      // info1.update(layer.feature.properties);
+    }
 
-        function clickInfo1(e) {
-          // map.fitBounds(e.target.getBounds());
-          layer = e.target;
-          console.log(layer.feature.properties)
-          // info1.update(layer.feature.properties);
-        }
-
-        function resetHighlight(e) {
-          // map01.resetStyle(e.target);
-          layer = e.target;
-          layer.setStyle({
-            weight: 1,
-            color: '#484C51 ',
-            fillOpacity: 1
-          });
-          // info1.update();
-          // info3.update();
-        }
-        // end mouseover functions
-      </script>
-  </body>
+    function resetHighlight(e) {
+      // map01.resetStyle(e.target);
+      layer = e.target;
+      layer.setStyle({
+        weight: 1,
+        color: '#484C51 ',
+        fillOpacity: 1
+      });
+      // info1.update();
+      // info3.update();
+    }
+    // end mouseover functions
+  </script>
+</body>
 
 </html>
