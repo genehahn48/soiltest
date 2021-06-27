@@ -227,8 +227,7 @@
             // if the county name and CSV name match
             // if (row.COUNTY == feature.properties.name) {
             if (row.COUNTY == feature.properties.name) {
-              // console.log(feature.properties.name)
-              // create a new property for the csv data in the json and assign the data
+            // create a new property for the csv data in the json and assign the data
               feature.properties[bindName[x]] = row;
             }
           })
@@ -237,11 +236,7 @@
       drawMaps(countiesJson, yearVal, yearVal3);
       addListeners(countiesJson, yearVal, yearVal3);
       addLegendP();
-      // console.log(countiesJson);
-      console.log(countYearTotal(countiesJson, yearVal) + ": Total yearly count for all crops and selected nutrient");
-      console.log(countSamples(countiesJson, yearVal) + ": single crop total for the year and selected nutrient");
-      console.log(totalCount(countiesJson) + ": total count all years and crops");
-    }; // END dataReady
+      }; // END dataReady
 
     function drawMaps(countyData, yearVal, yearVal3) {
       // function will be called once and create L.geoJson objects from data
@@ -357,11 +352,9 @@
       // function will be called multiple times, once within drawMaps
       // and then multiple times triggered by the UI changes
       styleYear = year;
-      console.log(countyData);
-      if (nutVal == "P") {
+       if (nutVal == "P") {
         countCrop = countSamples(countyData, styleYear);
         allCrop = countYearTotal(countyData, styleYear);
-        console.log(countCrop + ": total : " + allCrop);
         map.setStyle(styleP);
         map.eachLayer(function(layer) {
           layProp = layer.feature.properties
@@ -399,7 +392,6 @@
 
       map01LGeoJson.eachLayer(function(layer) {
         layer.on('click', function() {
-          console.log($('#selected_year1').val() + ': ' + $('#map01-dropdown').val())
           var layProp = layer.feature.properties,
             countyName = layer.feature.properties.co_name,
             farmland = layer.feature.properties.farm_ac,
@@ -409,7 +401,6 @@
             nutCount = layer.feature.properties[cropvalMap1],
             cropType = cropvalMap1.replace('MedData', ''),
             cropTypeUp = cropType.toUpperCase();
-          console.log(selNutyear);
           var vhc = selNutyear + '_VH',
             hc = selNutyear + '_H',
             mc = selNutyear + '_M',
@@ -443,7 +434,6 @@
 
       map03LGeoJson.eachLayer(function(layer) {
         layer.on('click', function() {
-          console.log($('#selected_year3').val() + ': ' + $('#map03-dropdown').val())
           var layProp = layer.feature.properties,
             countyName = layer.feature.properties.co_name,
             farmland = layer.feature.properties.farm_ac,
@@ -453,7 +443,6 @@
             nutCount = layer.feature.properties[cropvalMap3],
             cropType = cropvalMap3.replace('MedData', ''),
             cropTypeUp = cropType.toUpperCase();
-          console.log(selNutyear);
           var vhc = selNutyear + '_VH',
             hc = selNutyear + '_H',
             mc = selNutyear + '_M',
@@ -493,13 +482,11 @@
           legend.remove(map01);
           legend3.remove(map03);
           addLegendP();
-          console.log(countSamples(countiesJson, yearVal, countiesJson) + ": Map1 :croptype:" + cropval);
-        } else {
+          } else {
           legend.remove(map01);
           legend3.remove(map03);
           addLegendK()
-          console.log(countSamples(countiesJson, yearVal, countiesJson) + ": Map1 :croptype " + cropval);
-        }
+      }
 
         styleMaps(map01LGeoJson, nutVal, yearVal, countiesJson);
         styleMaps(map03LGeoJson, nutVal, yearVal3, countiesJson);
@@ -508,28 +495,26 @@
         cropval = (this.value) // crop types from Agr1
         // get value from dropdown crop type
         styleMaps(map01LGeoJson, nutVal, yearVal, countiesJson);
-        console.log(countSamples(countiesJson, yearVal) + ": Map1 : croptype: " + cropval);
       });
       $('#map03-dropdown').on('change', function(event, d) {
         cropval = (this.value) // crop types from Agr1
         // get value from dropdown crop type
         styleMaps(map03LGeoJson, nutVal, yearVal3, countiesJson);
-        console.log(countSamples(countiesJson, yearVal3) + ": Map3 : croptype:" + cropval);
       });
+
       $('#yearMap1').on('input', function(event, d) {
         yearVal = (this.value) // crop types from Agr1
 
         document.getElementById("selected_year1").innerHTML = yearVal; // display year for map1
         styleMaps(map01LGeoJson, nutVal, yearVal, countiesJson);
-        console.log(countSamples(countiesJson, yearVal) + ": Map1 :croptype" + cropval);
       });
+
       $('#yearMap3').on('input', function(event, d) {
         yearVal3 = (this.value) // crop types from Agr1
 
         document.getElementById("selected_year3").innerHTML = yearVal3; // display year on slider for map3
         styleMaps(map03LGeoJson, nutVal, yearVal3, countiesJson);
-        console.log(countSamples(countiesJson, yearVal3) + ": Map3 : croptype" + cropval);
-      });
+    });
     }
     // create colors for styling maps
     // color for Phosphorus
@@ -555,7 +540,6 @@
     // style color map for median data P and K Start
     function styleP(feature) {
       currentPropName = "P_med" + styleYear;
-      // console.log(feature.properties[cropval][currentPropName] + ": styleP getcolorP")
       return {
         fillColor: getColorP(feature.properties[cropval][currentPropName]),
         weight: 1,
@@ -568,7 +552,6 @@
 
     function styleK(feature) {
       currentPropName = "K_med" + styleYear;
-      // console.log(cropval + " :SYTLE K Function" + yearVal);
       return {
 
         fillColor: getColorK(feature.properties[cropval][currentPropName]),
@@ -595,19 +578,15 @@
       countCrop = 0;
       data.features.forEach(function(feature, x) {
         countCrop += parseInt(feature.properties[cropval][curPropName]);
-        //  y = x+1
-        // console.log(y)
-      })
+    })
       return countCrop
     }
 
     function countYearTotal(data, year) {
-      console.log(year);
       countTotalyear = 0;
       MedData.forEach(function(x) {
         curPropName = nutVal + "_count_" + year;
         data.features.forEach(function(feature) {
-          // console.log(parseInt(feature.properties[cropval][curPropName]));
           countTotalyear += parseInt(feature.properties[x][curPropName]);
         })
       })
@@ -617,20 +596,13 @@
     function totalCount(data) {
       totalCount = 0;
       nut = ["P"]
-      // console.log(data)
-      // console.log(selYear)
       nut.forEach(function(n) {
         selYear.forEach(function(y) {
           MedData.forEach(function(x) {
             curPropName = [n] + "_count_" + [y];
-            // console.log([x]+": "+curPropName)
             data.features.forEach(function(feature) {
-              // console.log(curPropName);
-              // console.log(parseInt(feature.properties[x][curPropName]));
-              totalCount += parseInt(feature.properties[x][curPropName]);
-              // console.log(totalCount);
+             totalCount += parseInt(feature.properties[x][curPropName]);
             })
-            // console.log(totalCount)
           })
         })
       })
@@ -639,7 +611,6 @@
     // end counting functions
     // start mouseover functions
     function highlightFeature(e) {
-      // console.log(e)
       layer = e.target;
       layer.setStyle({
         weight: 3,
@@ -650,36 +621,27 @@
       if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
         layer.bringToFront();
       }
-      // info1.update(layer.feature.properties);
-      // info3.update(layer.feature.properties);
-    }
+}
 
     function onEachFeature(feature, layer) {
       layer.on({
         mouseover: highlightFeature,
         mouseout: resetHighlight,
-        // click: clickInfo1
       });
     }
 
     function clickInfo1(e) {
-      // map.fitBounds(e.target.getBounds());
       layer = e.target;
-      console.log(layer.feature.properties)
-      // info1.update(layer.feature.properties);
     }
 
     function resetHighlight(e) {
-      // map01.resetStyle(e.target);
       layer = e.target;
       layer.setStyle({
         weight: 1,
         color: '#484C51 ',
         fillOpacity: 1
       });
-      // info1.update();
-      // info3.update();
-    }
+      }
     // end mouseover functions
   </script>
 </body>
